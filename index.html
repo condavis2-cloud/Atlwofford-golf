@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>2026 Wofford Golf Invitational | Georgia Alumni Endowed Scholarship Fund</title>
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Merriweather:ital,wght@0,400;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&amp;family=Merriweather:ital,wght@0,400;1,400&amp;family=DM+Sans:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
 <style>
 :root{
   --gold:#C9A84C;--gold-light:#F0D98A;--gold-dark:#8A6F28;--gold-pale:#FBF5E6;
@@ -438,34 +437,34 @@ section{padding:5rem 2rem;scroll-margin-top:58px;}
 .fade-in.visible{opacity:1;transform:none;}
 </style>
 </head>
-<body>
+<body class="admin-mode">
 
 <!-- ADMIN BANNER (only visible in admin mode) -->
-<div id="admin-banner" style="display:none;position:fixed;top:54px;left:0;right:0;z-index:200;background:rgba(59,130,246,0.92);color:#fff;text-align:center;font-size:0.72rem;font-weight:600;padding:0.28rem;letter-spacing:0.06em;backdrop-filter:blur(4px);">
+<div id="admin-banner" style="display: block; position: fixed; top: 54px; left: 0px; right: 0px; z-index: 200; background: rgba(59, 130, 246, 0.92); color: rgb(255, 255, 255); text-align: center; font-size: 0.72rem; font-weight: 600; padding: 0.28rem; letter-spacing: 0.06em; backdrop-filter: blur(4px);">
   🔐 ADMIN MODE — Editing enabled · <span onclick="exitAdmin()" style="cursor:pointer;text-decoration:underline;">Exit Admin</span> · <span onclick="downloadPage()" style="cursor:pointer;text-decoration:underline;">Download Saved File</span>
 </div>
 
 <!-- SETTINGS GEAR ICON (always visible, opens admin login) -->
 <div id="settings-gear" onclick="isAdmin?openDrawer():requestAdmin()" title="Admin Settings">
   <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-    <path d="M12 15.5A3.5 3.5 0 018.5 12 3.5 3.5 0 0112 8.5a3.5 3.5 0 013.5 3.5 3.5 3.5 0 01-3.5 3.5m7.43-2.92c.04-.34.07-.68.07-1.08s-.03-.74-.07-1.08l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64L4.57 10.92c-.04.34-.07.67-.07 1.08s.03.74.07 1.08l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.58 1.69-.98l2.49 1c.23.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65z"/>
+    <path d="M12 15.5A3.5 3.5 0 018.5 12 3.5 3.5 0 0112 8.5a3.5 3.5 0 013.5 3.5 3.5 3.5 0 01-3.5 3.5m7.43-2.92c.04-.34.07-.68.07-1.08s-.03-.74-.07-1.08l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64L4.57 10.92c-.04.34-.07.67-.07 1.08s.03.74.07 1.08l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.58 1.69-.98l2.49 1c.23.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65z"></path>
   </svg>
 </div>
 
 <!-- LOGIN -->
-<div id="login-overlay">
+<div id="login-overlay" class="">
   <div class="lbox">
     <div class="lbox-ttl">⛳ Admin Access</div>
     <div class="lbox-sub">Wofford Golf Invitational — Organizers Only</div>
     <input type="password" id="pw-input" placeholder="Enter password" onkeydown="if(event.key==='Enter')doLogin()">
-    <div class="lbox-err" id="login-err">Incorrect password. Try again.</div>
+    <div class="lbox-err" id="login-err" style="display: none;">Incorrect password. Try again.</div>
     <button class="lbox-btn" onclick="doLogin()">SIGN IN</button>
     <button class="lbox-cancel" onclick="closeLogin()">Cancel</button>
   </div>
 </div>
 
 <!-- ████ ADMIN DRAWER ████ -->
-<div id="admin-drawer">
+<div id="admin-drawer" class="open">
   <div class="drw-head">
     <span class="drw-title">🐾 Admin Panel</span>
     <div style="display:flex;align-items:center;gap:0.5rem;">
@@ -492,22 +491,44 @@ section{padding:5rem 2rem;scroll-margin-top:58px;}
       <div class="dcard" style="grid-column:1/-1"><div class="dlbl">2025 Net (Actual)</div><div class="dval">$73K</div><div class="dsub">2026 gross goal: $86,650</div></div>
     </div>
     <button class="drw-btn-ghost" onclick="exitAdmin()">← Exit Admin View</button>
-    <button class="drw-btn-ghost" onclick="downloadPage()" style="margin-top:0.4rem;">⬇ Download Saved File</button>
-    <div style="margin-top:0.8rem;background:rgba(201,168,76,0.09);border:1px solid rgba(201,168,76,0.2);border-radius:7px;padding:0.85rem;">
-      <div style="font-family:'Oswald',sans-serif;font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem;">🌐 Publish as a Live Website</div>
-      <div style="font-size:0.73rem;color:rgba(255,255,255,0.55);line-height:1.6;">
-        <strong style="color:rgba(255,255,255,0.8);">Option 1 — tiiny.host (easiest, free)</strong><br>
-        1. Download the file below<br>
-        2. Go to <strong style="color:var(--gold);">tiiny.host</strong> in your browser<br>
-        3. Upload the file → instant public URL<br><br>
-        <strong style="color:rgba(255,255,255,0.8);">Option 2 — Share the file directly</strong><br>
-        Email or text the HTML file to anyone — they open it in any browser, no internet needed.<br><br>
-        <strong style="color:rgba(255,255,255,0.8);">Option 3 — Send back to Claude</strong><br>
-        After downloading, drag the .html file into the Claude chat window just like a photo. Claude will read all your changes and pick up right where you left off.
+    <button class="drw-btn-ghost" onclick="downloadPage()" style="margin-top:0.4rem;">⬇ Download Saved File (backup)</button>
+
+    <!-- GITHUB AUTO-PUBLISH -->
+    <div style="margin-top:1rem;background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.25);border-radius:10px;padding:1rem;">
+      <div style="font-family:'Oswald',sans-serif;font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;color:#22C55E;margin-bottom:0.6rem;">🚀 Publish Live to GitHub</div>
+      <div id="gh-setup-view" style="display: none;">
+        <div style="font-size:0.72rem;color:rgba(255,255,255,0.45);line-height:1.55;margin-bottom:0.8rem;">
+          Enter your GitHub details once — then click <strong style="color:#fff;">Publish Live</strong> any time to push changes directly to your website. No GitHub visits needed.
+        </div>
+        <div class="sf"><label style="color:rgba(255,255,255,0.45);">GitHub Username</label>
+          <input type="text" id="gh-user" placeholder="e.g. condavis2-cloud" style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);border-radius:5px;color:#fff;font-size:0.83rem;padding:0.45rem 0.7rem;width:100%;font-family:'DM Sans',sans-serif;outline:none;">
+        </div>
+        <div class="sf"><label style="color:rgba(255,255,255,0.45);">Repository Name</label>
+          <input type="text" id="gh-repo" placeholder="e.g. Atlwofford-golf" style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);border-radius:5px;color:#fff;font-size:0.83rem;padding:0.45rem 0.7rem;width:100%;font-family:'DM Sans',sans-serif;outline:none;">
+        </div>
+        <div class="sf">
+          <label style="color:rgba(255,255,255,0.45);">GitHub Personal Access Token
+            <a href="https://github.com/settings/tokens/new?description=WoffordGolf&amp;scopes=repo" target="_blank" rel="noopener" style="color:#22C55E;margin-left:0.4rem;font-size:0.62rem;">(click to create one →)</a>
+          </label>
+          <input type="password" id="gh-token" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);border-radius:5px;color:#fff;font-size:0.83rem;padding:0.45rem 0.7rem;width:100%;font-family:'DM Sans',sans-serif;outline:none;">
+        </div>
+        <div style="font-size:0.67rem;color:rgba(255,255,255,0.28);margin-bottom:0.7rem;line-height:1.45;">
+          Your token is stored only in your browser session — never sent anywhere except directly to GitHub. Token needs "repo" permission scope.
+        </div>
+        <button onclick="saveGitHubConfig()" style="width:100%;background:#22C55E;color:#0A1628;border:none;border-radius:5px;padding:0.6rem;font-family:'Oswald',sans-serif;font-weight:700;font-size:0.88rem;letter-spacing:0.06em;cursor:pointer;margin-bottom:0.4rem;">Save GitHub Settings</button>
+      </div>
+      <div id="gh-publish-view" style="display: block;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.6rem;">
+          <div style="font-size:0.75rem;color:rgba(255,255,255,0.55);">Publishing to: <strong style="color:#22C55E;" id="gh-url-display">condavis2-cloud/Atlwofford-golf</strong></div>
+          <span onclick="resetGitHubConfig()" style="font-size:0.65rem;color:rgba(255,255,255,0.3);cursor:pointer;text-decoration:underline;">Change</span>
+        </div>
+        <button onclick="publishToGitHub()" id="gh-publish-btn" style="width: 100%; background: rgb(34, 197, 94); color: rgb(10, 22, 40); border-width: medium; border-style: none; border-color: currentcolor; border-image: initial; border-radius: 5px; padding: 0.75rem; font-family: Oswald, sans-serif; font-weight: 700; font-size: 0.95rem; letter-spacing: 0.06em; cursor: pointer; opacity: 0.7;" disabled="">⏳ Publishing...</button>
+        <div id="gh-status" style="margin-top:0.55rem;font-size:0.72rem;color:rgba(255,255,255,0.45);text-align:center;min-height:1rem;">Getting current file info...</div>
       </div>
     </div>
-    <div class="drw-note" style="margin-top:0.5rem;">
-      <strong style="color:rgba(201,168,76,0.65);">Security note:</strong> The admin password is stored only in this HTML file. Anyone who downloads the file can view the source and see the password. For a private event among trusted organizers this is fine — but do not store sensitive personal or financial data beyond names and amounts. The Wofford registration link is a standard public hyperlink; linking to it is completely appropriate and common practice for alumni events.
+
+    <div class="drw-note" style="margin-top:0.6rem;">
+      <strong style="color:rgba(201,168,76,0.65);">Security:</strong> Admin password lives in the HTML source. Fine for trusted organizers — don't store sensitive financial data beyond names and amounts.
     </div>
   </div>
 
@@ -564,7 +585,85 @@ section{padding:5rem 2rem;scroll-margin-top:58px;}
       <span>Status</span>
       <span></span>
     </div>
-    <div id="action-list"></div>
+    <div id="action-list"><div class="ai-row">
+      <div class="ai-row-top">
+        <input type="text" value="Confirm Anthony DiNardo lunch numbers/date/time" placeholder="Action / Task..." onchange="actionItems[0].action=this.value" style="font-weight:600;">
+        <select onchange="actionItems[0].status=this.value;renderActionItems();" style="font-size:0.72rem;">
+          <option value="open" selected="">⏳ Open</option>
+          <option value="done">✅ Done</option>
+          <option value="blocked">🚫 Blocked</option>
+        </select>
+        <button class="ai-del" onclick="actionItems.splice(0,1);renderActionItems()">✕</button>
+      </div>
+      <div class="ai-row-bottom">
+        <input type="text" value="Connect w/ Patrick" placeholder="Notes / details..." onchange="actionItems[0].notes=this.value" style="font-size:0.76rem;color:rgba(255,255,255,0.6);">
+        <input type="text" value="Connor" placeholder="Owner" onchange="actionItems[0].owner=this.value" style="font-size:0.76rem;">
+      </div></div><div class="ai-row">
+      <div class="ai-row-top">
+        <input type="text" value="Confirm max number of teams allowed" placeholder="Action / Task..." onchange="actionItems[1].action=this.value" style="font-weight:600;">
+        <select onchange="actionItems[1].status=this.value;renderActionItems();" style="font-size:0.72rem;">
+          <option value="open" selected="">⏳ Open</option>
+          <option value="done">✅ Done</option>
+          <option value="blocked">🚫 Blocked</option>
+        </select>
+        <button class="ai-del" onclick="actionItems.splice(1,1);renderActionItems()">✕</button>
+      </div>
+      <div class="ai-row-bottom">
+        <input type="text" value="Check with course" placeholder="Notes / details..." onchange="actionItems[1].notes=this.value" style="font-size:0.76rem;color:rgba(255,255,255,0.6);">
+        <input type="text" value="Connor" placeholder="Owner" onchange="actionItems[1].owner=this.value" style="font-size:0.76rem;">
+      </div></div><div class="ai-row">
+      <div class="ai-row-top">
+        <input type="text" value="Raffle prize status check" placeholder="Action / Task..." onchange="actionItems[2].action=this.value" style="font-weight:600;">
+        <select onchange="actionItems[2].status=this.value;renderActionItems();" style="font-size:0.72rem;">
+          <option value="open" selected="">⏳ Open</option>
+          <option value="done">✅ Done</option>
+          <option value="blocked">🚫 Blocked</option>
+        </select>
+        <button class="ai-del" onclick="actionItems.splice(2,1);renderActionItems()">✕</button>
+      </div>
+      <div class="ai-row-bottom">
+        <input type="text" value="Yeti coolers, PDC round, wedge" placeholder="Notes / details..." onchange="actionItems[2].notes=this.value" style="font-size:0.76rem;color:rgba(255,255,255,0.6);">
+        <input type="text" value="Merritt" placeholder="Owner" onchange="actionItems[2].owner=this.value" style="font-size:0.76rem;">
+      </div></div><div class="ai-row">
+      <div class="ai-row-top">
+        <input type="text" value="Chickfila breakfast order" placeholder="Action / Task..." onchange="actionItems[3].action=this.value" style="font-weight:600;">
+        <select onchange="actionItems[3].status=this.value;renderActionItems();" style="font-size:0.72rem;">
+          <option value="open" selected="">⏳ Open</option>
+          <option value="done">✅ Done</option>
+          <option value="blocked">🚫 Blocked</option>
+        </select>
+        <button class="ai-del" onclick="actionItems.splice(3,1);renderActionItems()">✕</button>
+      </div>
+      <div class="ai-row-bottom">
+        <input type="text" value="Pick up day of" placeholder="Notes / details..." onchange="actionItems[3].notes=this.value" style="font-size:0.76rem;color:rgba(255,255,255,0.6);">
+        <input type="text" value="Connor" placeholder="Owner" onchange="actionItems[3].owner=this.value" style="font-size:0.76rem;">
+      </div></div><div class="ai-row">
+      <div class="ai-row-top">
+        <input type="text" value="Hats ordered" placeholder="Action / Task..." onchange="actionItems[4].action=this.value" style="font-weight:600;">
+        <select onchange="actionItems[4].status=this.value;renderActionItems();" style="font-size:0.72rem;">
+          <option value="open" selected="">⏳ Open</option>
+          <option value="done">✅ Done</option>
+          <option value="blocked">🚫 Blocked</option>
+        </select>
+        <button class="ai-del" onclick="actionItems.splice(4,1);renderActionItems()">✕</button>
+      </div>
+      <div class="ai-row-bottom">
+        <input type="text" value="Connect with Patrick on style/qty" placeholder="Notes / details..." onchange="actionItems[4].notes=this.value" style="font-size:0.76rem;color:rgba(255,255,255,0.6);">
+        <input type="text" value="Merritt" placeholder="Owner" onchange="actionItems[4].owner=this.value" style="font-size:0.76rem;">
+      </div></div><div class="ai-row">
+      <div class="ai-row-top">
+        <input type="text" value="Divot tools" placeholder="Action / Task..." onchange="actionItems[5].action=this.value" style="font-weight:600;">
+        <select onchange="actionItems[5].status=this.value;renderActionItems();" style="font-size:0.72rem;">
+          <option value="open" selected="">⏳ Open</option>
+          <option value="done">✅ Done</option>
+          <option value="blocked">🚫 Blocked</option>
+        </select>
+        <button class="ai-del" onclick="actionItems.splice(5,1);renderActionItems()">✕</button>
+      </div>
+      <div class="ai-row-bottom">
+        <input type="text" value="Patrick coordinating" placeholder="Notes / details..." onchange="actionItems[5].notes=this.value" style="font-size:0.76rem;color:rgba(255,255,255,0.6);">
+        <input type="text" value="Connor" placeholder="Owner" onchange="actionItems[5].owner=this.value" style="font-size:0.76rem;">
+      </div></div></div>
     <button class="ai-add" onclick="addAction()">+ Add Action Item</button>
     <div style="margin-top:1.2rem;padding-top:0.8rem;border-top:1px solid rgba(255,255,255,0.07);">
       <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(201,168,76,0.5);margin-bottom:0.6rem;">Status Legend</div>
@@ -579,7 +678,7 @@ section{padding:5rem 2rem;scroll-margin-top:58px;}
   <!-- RAFFLE EDITOR -->
   <div class="drw-pane" id="tab-raffle">
     <div style="font-size:0.75rem;color:rgba(255,255,255,0.4);margin-bottom:0.9rem;">Edit raffle prizes below. Changes update the public page in real time.</div>
-    <div id="raffle-edit-list"></div>
+    <div id="raffle-edit-list"><div class="re-row"><input type="text" value="🎩" style="width:46px;" onchange="raffleItems[0].icon=this.value"><input type="text" value="Wofford Hats" onchange="raffleItems[0].name=this.value"><button class="ai-del" onclick="removeRaffleItem(0)">✕</button></div><div class="re-row"><input type="text" value="⛳" style="width:46px;" onchange="raffleItems[1].icon=this.value"><input type="text" value="Round at Piedmont Driving Club" onchange="raffleItems[1].name=this.value"><button class="ai-del" onclick="removeRaffleItem(1)">✕</button></div><div class="re-row"><input type="text" value="🏌️" style="width:46px;" onchange="raffleItems[2].icon=this.value"><input type="text" value="Round at Capital City Club" onchange="raffleItems[2].name=this.value"><button class="ai-del" onclick="removeRaffleItem(2)">✕</button></div><div class="re-row"><input type="text" value="❄️" style="width:46px;" onchange="raffleItems[3].icon=this.value"><input type="text" value="Yeti Cooler #1" onchange="raffleItems[3].name=this.value"><button class="ai-del" onclick="removeRaffleItem(3)">✕</button></div><div class="re-row"><input type="text" value="❄️" style="width:46px;" onchange="raffleItems[4].icon=this.value"><input type="text" value="Yeti Cooler #2" onchange="raffleItems[4].name=this.value"><button class="ai-del" onclick="removeRaffleItem(4)">✕</button></div><div class="re-row"><input type="text" value="🏒" style="width:46px;" onchange="raffleItems[5].icon=this.value"><input type="text" value="54° Wedge with Terrier Logo" onchange="raffleItems[5].name=this.value"><button class="ai-del" onclick="removeRaffleItem(5)">✕</button></div><div class="re-row"><input type="text" value="🎒" style="width:46px;" onchange="raffleItems[6].icon=this.value"><input type="text" value="Wofford Golf Bag" onchange="raffleItems[6].name=this.value"><button class="ai-del" onclick="removeRaffleItem(6)">✕</button></div><div class="re-row"><input type="text" value="🏆" style="width:46px;" onchange="raffleItems[7].icon=this.value"><input type="text" value="Round with a Coach" onchange="raffleItems[7].name=this.value"><button class="ai-del" onclick="removeRaffleItem(7)">✕</button></div><div class="re-row"><input type="text" value="⛳" style="width:46px;" onchange="raffleItems[8].icon=this.value"><input type="text" value="Bear's Best Round of Golf" onchange="raffleItems[8].name=this.value"><button class="ai-del" onclick="removeRaffleItem(8)">✕</button></div><div class="re-row"><input type="text" value="🪵" style="width:46px;" onchange="raffleItems[9].icon=this.value"><input type="text" value="Wooden Bats — Flight Prizes" onchange="raffleItems[9].name=this.value"><button class="ai-del" onclick="removeRaffleItem(9)">✕</button></div><div class="re-row"><input type="text" value="🎯" style="width:46px;" onchange="raffleItems[10].icon=this.value"><input type="text" value="Long Drive Contest Prize" onchange="raffleItems[10].name=this.value"><button class="ai-del" onclick="removeRaffleItem(10)">✕</button></div><div class="re-row"><input type="text" value="📍" style="width:46px;" onchange="raffleItems[11].icon=this.value"><input type="text" value="Closest to the Pin Prize" onchange="raffleItems[11].name=this.value"><button class="ai-del" onclick="removeRaffleItem(11)">✕</button></div><div class="re-row"><input type="text" value="🏓" style="width:46px;" onchange="raffleItems[12].icon=this.value"><input type="text" value="Putting Contest Prize" onchange="raffleItems[12].name=this.value"><button class="ai-del" onclick="removeRaffleItem(12)">✕</button></div><div class="re-row"><input type="text" value="🎁" style="width:46px;" onchange="raffleItems[13].icon=this.value"><input type="text" value="Entry Gift for All Players" onchange="raffleItems[13].name=this.value"><button class="ai-del" onclick="removeRaffleItem(13)">✕</button></div></div>
     <button class="ai-add" onclick="addRaffleItem()" style="margin-top:0.5rem;">+ Add Raffle Prize</button>
     <button class="drw-btn" onclick="applyRaffle()" style="margin-top:1rem;">✓ Update Raffle Prizes</button>
   </div>
@@ -588,7 +687,7 @@ section{padding:5rem 2rem;scroll-margin-top:58px;}
   <div class="drw-pane" id="tab-extras">
     <div class="ss-ttl">Tournament Photos</div>
     <div style="font-size:0.75rem;color:rgba(255,255,255,0.38);margin-bottom:0.7rem;">Upload photos from past tournaments. They appear in the Extras section on the public page.</div>
-    <input type="file" id="photo-upload" accept="image/*" multiple onchange="handlePhotoUpload(this)" style="font-size:0.76rem;padding:0.28rem 0;color:rgba(255,255,255,0.55);">
+    <input type="file" id="photo-upload" accept="image/*" multiple="" onchange="handlePhotoUpload(this)" style="font-size:0.76rem;padding:0.28rem 0;color:rgba(255,255,255,0.55);">
     <div class="ss-ttl" style="margin-top:1rem;">Scholarship Recipient Bio</div>
     <div class="sf"><label>Recipient Name</label><input type="text" id="s-scholar-name" placeholder="e.g. John Smith '22"></div>
     <div class="sf"><label>Year / Class</label><input type="text" id="s-scholar-year" placeholder="e.g. Class of 2022"></div>
@@ -676,9 +775,9 @@ section{padding:5rem 2rem;scroll-margin-top:58px;}
   <div class="hero-stripes"></div><div class="hero-glow"></div>
   <div class="hero-content">
     <img id="hero-logo-img" src="" alt="Tournament Logo">
-    <div class="hero-eyebrow" id="hero-eyebrow" data-edit contenteditable="false">September 2026 · Bear's Best · Suwanee, GA</div>
+    <div class="hero-eyebrow" id="hero-eyebrow" data-edit="" contenteditable="true">September 2026 · Bear's Best · Suwanee, GA</div>
     <h1 class="hero-title" id="hero-title">Wofford<br>Golf<span class="gold" id="hero-title-last">Invitational</span></h1>
-    <p class="hero-subtitle" id="hero-subtitle" data-edit contenteditable="false">Honoring Russell King &amp; Walt Sessoms</p>
+    <p class="hero-subtitle" id="hero-subtitle" data-edit="" contenteditable="true">Honoring Russell King &amp; Walt Sessoms</p>
     <div class="hero-bar"></div>
     <div class="hero-stats">
       <div class="hstat"><div class="hstat-num" id="stat1n">30+</div><div class="hstat-lbl" id="stat1l">Years of Play</div></div>
@@ -699,26 +798,26 @@ section{padding:5rem 2rem;scroll-margin-top:58px;}
     <div class="cause-grid">
       <div>
         <div class="sec-lbl">Our Story</div>
-        <h2 class="sec-ttl" data-edit contenteditable="false">30 YEARS OF <em>TERRIER SPIRIT</em></h2>
-        <p class="sec-body" data-edit contenteditable="false">Every swing, every birdie, every raffle ticket goes directly to the Georgia Alumni Endowed Scholarship Fund — giving Wofford students the opportunity of a lifetime. This tournament proudly honors two pillars of our community.</p>
+        <h2 class="sec-ttl" data-edit="" contenteditable="true">30 YEARS OF <em>TERRIER SPIRIT</em></h2>
+        <p class="sec-body" data-edit="" contenteditable="true">Every swing, every birdie, every raffle ticket goes directly to the Georgia Alumni Endowed Scholarship Fund — giving Wofford students the opportunity of a lifetime. This tournament proudly honors two pillars of our community.</p>
         <div class="honorees">
-          <div class="hon-card">
-            <div class="hon-init" data-edit contenteditable="false">RK</div>
-            <div class="hon-name" data-edit contenteditable="false">RUSSELL KING</div>
-            <div class="hon-role" data-edit contenteditable="false">Honored Wofford Alumnus</div>
+          <div class="hon-card fade-in">
+            <div class="hon-init" data-edit="" contenteditable="true">RK</div>
+            <div class="hon-name" data-edit="" contenteditable="true">RUSSELL KING</div>
+            <div class="hon-role" data-edit="" contenteditable="true">Honored Wofford Alumnus</div>
           </div>
-          <div class="hon-card">
-            <div class="hon-init" data-edit contenteditable="false">WS</div>
-            <div class="hon-name" data-edit contenteditable="false">WALT SESSOMS</div>
-            <div class="hon-role" data-edit contenteditable="false">Honored Wofford Alumnus</div>
+          <div class="hon-card fade-in">
+            <div class="hon-init" data-edit="" contenteditable="true">WS</div>
+            <div class="hon-name" data-edit="" contenteditable="true">WALT SESSOMS</div>
+            <div class="hon-role" data-edit="" contenteditable="true">Honored Wofford Alumnus</div>
           </div>
         </div>
       </div>
       <div class="impact-cards">
-        <div class="impact-card"><div class="impact-num" data-edit contenteditable="false">$1.88M</div><div class="impact-desc"><strong data-edit contenteditable="false">Total Raised to Date</strong><span data-edit contenteditable="false">1995–2025, incl. $250K Daniel Fund match</span></div></div>
-        <div class="impact-card"><div class="impact-num" data-edit contenteditable="false">$73.1K</div><div class="impact-desc"><strong data-edit contenteditable="false">Net Raised in 2025</strong><span data-edit contenteditable="false">$87,620 gross revenue last tournament</span></div></div>
-        <div class="impact-card"><div class="impact-num" data-edit contenteditable="false">$86.7K</div><div class="impact-desc"><strong data-edit contenteditable="false">2026 Gross Goal</strong><span data-edit contenteditable="false">Projected net ~$71K to the scholarship fund</span></div></div>
-        <div class="impact-card"><div class="impact-num" data-edit contenteditable="false">30+</div><div class="impact-desc"><strong data-edit contenteditable="false">Years of Tradition</strong><span data-edit contenteditable="false">A beloved annual Georgia Wofford alumni gathering</span></div></div>
+        <div class="impact-card fade-in"><div class="impact-num" data-edit="" contenteditable="true">$1.88M</div><div class="impact-desc"><strong data-edit="" contenteditable="true">Total Raised to Date</strong><span data-edit="" contenteditable="true">1995–2025, incl. $250K Daniel Fund match</span></div></div>
+        <div class="impact-card fade-in"><div class="impact-num" data-edit="" contenteditable="true">$73.1K</div><div class="impact-desc"><strong data-edit="" contenteditable="true">Net Raised in 2025</strong><span data-edit="" contenteditable="true">$87,620 gross revenue last tournament</span></div></div>
+        <div class="impact-card fade-in"><div class="impact-num" data-edit="" contenteditable="true">$86.7K</div><div class="impact-desc"><strong data-edit="" contenteditable="true">2026 Gross Goal</strong><span data-edit="" contenteditable="true">Projected net ~$71K to the scholarship fund</span></div></div>
+        <div class="impact-card fade-in"><div class="impact-num" data-edit="" contenteditable="true">30+</div><div class="impact-desc"><strong data-edit="" contenteditable="true">Years of Tradition</strong><span data-edit="" contenteditable="true">A beloved annual Georgia Wofford alumni gathering</span></div></div>
       </div>
     </div>
   </div>
@@ -730,26 +829,26 @@ section{padding:5rem 2rem;scroll-margin-top:58px;}
     <div class="sec-lbl">Tournament Info</div>
     <h2 class="sec-ttl">EVERYTHING YOU NEED <em>TO KNOW</em></h2>
     <div class="details-grid">
-      <div class="det-card">
+      <div class="det-card fade-in">
         <div class="det-ttl">📅 Day of Schedule</div>
         <ul class="sched-list">
-          <li class="sched-item"><span class="sched-time" data-edit contenteditable="false">8:30 AM</span><div class="sched-ev"><strong data-edit contenteditable="false">Arrival &amp; Warm-Up</strong><span data-edit contenteditable="false">Practice range · Registration · Light breakfast</span></div></li>
-          <li class="sched-item"><span class="sched-time" data-edit contenteditable="false">9:30 AM</span><div class="sched-ev"><strong data-edit contenteditable="false">Opening Program</strong><span data-edit contenteditable="false">Welcome · Sponsor recognition · Overview</span></div></li>
-          <li class="sched-item"><span class="sched-time" data-edit contenteditable="false">10:00 AM</span><div class="sched-ev"><strong data-edit contenteditable="false">Shotgun Start</strong><span data-edit contenteditable="false">4-player scramble · No mulligans · 5 flights</span></div></li>
-          <li class="sched-item"><span class="sched-time" data-edit contenteditable="false">Midday</span><div class="sched-ev"><strong data-edit contenteditable="false">Box Lunches on the Course</strong><span data-edit contenteditable="false">Sponsored by Henri's Bakery &amp; Anthony DiNardo</span></div></li>
-          <li class="sched-item"><span class="sched-time" data-edit contenteditable="false">2:30 PM</span><div class="sched-ev"><strong data-edit contenteditable="false">Social Hour &amp; Awards</strong><span data-edit contenteditable="false">Post-round reception · Flight winners announced</span></div></li>
+          <li class="sched-item"><span class="sched-time" data-edit="" contenteditable="true">8:30 AM</span><div class="sched-ev"><strong data-edit="" contenteditable="true">Arrival &amp; Warm-Up</strong><span data-edit="" contenteditable="true">Practice range · Registration · Light breakfast</span></div></li>
+          <li class="sched-item"><span class="sched-time" data-edit="" contenteditable="true">9:30 AM</span><div class="sched-ev"><strong data-edit="" contenteditable="true">Opening Program</strong><span data-edit="" contenteditable="true">Welcome · Sponsor recognition · Overview</span></div></li>
+          <li class="sched-item"><span class="sched-time" data-edit="" contenteditable="true">10:00 AM</span><div class="sched-ev"><strong data-edit="" contenteditable="true">Shotgun Start</strong><span data-edit="" contenteditable="true">4-player scramble · No mulligans · 5 flights</span></div></li>
+          <li class="sched-item"><span class="sched-time" data-edit="" contenteditable="true">Midday</span><div class="sched-ev"><strong data-edit="" contenteditable="true">Box Lunches on the Course</strong><span data-edit="" contenteditable="true">Sponsored by Henri's Bakery &amp; Anthony DiNardo</span></div></li>
+          <li class="sched-item"><span class="sched-time" data-edit="" contenteditable="true">2:30 PM</span><div class="sched-ev"><strong data-edit="" contenteditable="true">Social Hour &amp; Awards</strong><span data-edit="" contenteditable="true">Post-round reception · Flight winners announced</span></div></li>
         </ul>
       </div>
       <div>
-        <div class="det-card">
+        <div class="det-card fade-in">
           <div class="det-ttl">⛳ Event Details</div>
           <ul class="info-list">
-            <li class="info-item"><span class="info-k">Course</span><span class="info-v" data-edit contenteditable="false" id="detail-course">Bear's Best — 5342 Aldeburgh Dr, Suwanee GA 30024</span></li>
-            <li class="info-item"><span class="info-k">Format</span><span class="info-v" data-edit contenteditable="false">4-Player Scramble · No Mulligans</span></li>
-            <li class="info-item"><span class="info-k">Flights</span><span class="info-v" data-edit contenteditable="false">5 Flights · Prizes for each</span></li>
-            <li class="info-item"><span class="info-k">Contests</span><span class="info-v" data-edit contenteditable="false">Long Drive · Closest to the Pin · Putting Contest</span></li>
+            <li class="info-item"><span class="info-k">Course</span><span class="info-v" data-edit="" contenteditable="true" id="detail-course">Bear's Best — 5342 Aldeburgh Dr, Suwanee GA 30024</span></li>
+            <li class="info-item"><span class="info-k">Format</span><span class="info-v" data-edit="" contenteditable="true">4-Player Scramble · No Mulligans</span></li>
+            <li class="info-item"><span class="info-k">Flights</span><span class="info-v" data-edit="" contenteditable="true">5 Flights · Prizes for each</span></li>
+            <li class="info-item"><span class="info-k">Contests</span><span class="info-v" data-edit="" contenteditable="true">Long Drive · Closest to the Pin · Putting Contest</span></li>
             <li class="info-item"><span class="info-k">Capacity</span><span class="info-v">First <span id="max-teams-txt">25</span> Teams · Pre-pay Only</span></li>
-            <li class="info-item"><span class="info-k">Contact</span><span class="info-v" data-edit contenteditable="false" id="detail-contact">Patrick Wheeler · 919-801-7225</span></li>
+            <li class="info-item"><span class="info-k">Contact</span><span class="info-v" data-edit="" contenteditable="true" id="detail-contact">Patrick Wheeler · 919-801-7225</span></li>
           </ul>
         </div>
       </div>
@@ -762,18 +861,18 @@ section{padding:5rem 2rem;scroll-margin-top:58px;}
   <div class="container">
     <div class="sec-lbl">Sponsorship</div>
     <h2 class="sec-ttl">JOIN OUR TERRIER <em>FAMILY</em></h2>
-    <p class="sec-body" data-edit contenteditable="false">Every sponsorship level directly supports the Georgia Alumni Endowed Scholarship Fund and includes full tournament participation.</p>
+    <p class="sec-body" data-edit="" contenteditable="true">Every sponsorship level directly supports the Georgia Alumni Endowed Scholarship Fund and includes full tournament participation.</p>
     <div class="tiers-grid">
-      <div class="tier-card t-gold"><div class="tier-hd"><div class="tier-badge">Gold</div><div class="tier-name">GOLD TERRIER</div><div class="tier-price">$5,000+</div></div><div class="tier-bd"><ul class="tier-perks"><li class="tier-perk">VIP Sponsor Recognition</li><li class="tier-perk">1 Foursome in tournament</li><li class="tier-perk">Food &amp; Beverage sponsorship</li><li class="tier-perk">Terrier Club Collegiate Circle</li><li class="tier-perk">Hole &amp; program recognition</li><li class="tier-perk">Awards Presentation recognition</li></ul></div></div>
-      <div class="tier-card t-silver"><div class="tier-hd"><div class="tier-badge">Silver</div><div class="tier-name">SILVER TERRIER</div><div class="tier-price">$2,500</div></div><div class="tier-bd"><ul class="tier-perks"><li class="tier-perk">Silver Sponsor Recognition</li><li class="tier-perk">1 Foursome in tournament</li><li class="tier-perk">Terrier Club President's Circle</li><li class="tier-perk">Hole &amp; program recognition</li><li class="tier-perk">Awards Presentation recognition</li></ul></div></div>
-      <div class="tier-card t-bronze"><div class="tier-hd"><div class="tier-badge">Bronze</div><div class="tier-name">BRONZE TERRIER</div><div class="tier-price">$1,500</div></div><div class="tier-bd"><ul class="tier-perks"><li class="tier-perk">Bronze Sponsor Recognition</li><li class="tier-perk">1 Foursome in tournament</li><li class="tier-perk">Terrier Club Steward membership</li><li class="tier-perk">Awards Presentation recognition</li></ul></div></div>
-      <div class="tier-card t-young"><div class="tier-hd"><div class="tier-badge">Young Alumni</div><div class="tier-name">YOUNG ALUMNI</div><div class="tier-price">$1,000 · Ages 30 &amp; under</div></div><div class="tier-bd"><ul class="tier-perks"><li class="tier-perk">Limited to 4 teams</li><li class="tier-perk">Sponsor recognition</li><li class="tier-perk">Terrier Club Patron membership</li><li class="tier-perk">Awards Presentation recognition</li></ul></div></div>
-      <div class="tier-card t-hole"><div class="tier-hd"><div class="tier-badge">Hole</div><div class="tier-name">HOLE SPONSOR</div><div class="tier-price">$500</div></div><div class="tier-bd"><ul class="tier-perks"><li class="tier-perk">Company name on hole signage</li><li class="tier-perk">Hole sponsorship recognition</li><li class="tier-perk">Program recognition</li></ul></div></div>
+      <div class="tier-card t-gold fade-in"><div class="tier-hd"><div class="tier-badge">Gold</div><div class="tier-name">GOLD TERRIER</div><div class="tier-price">$5,000+</div></div><div class="tier-bd"><ul class="tier-perks"><li class="tier-perk">VIP Sponsor Recognition</li><li class="tier-perk">1 Foursome in tournament</li><li class="tier-perk">Food &amp; Beverage sponsorship</li><li class="tier-perk">Terrier Club Collegiate Circle</li><li class="tier-perk">Hole &amp; program recognition</li><li class="tier-perk">Awards Presentation recognition</li></ul></div></div>
+      <div class="tier-card t-silver fade-in"><div class="tier-hd"><div class="tier-badge">Silver</div><div class="tier-name">SILVER TERRIER</div><div class="tier-price">$2,500</div></div><div class="tier-bd"><ul class="tier-perks"><li class="tier-perk">Silver Sponsor Recognition</li><li class="tier-perk">1 Foursome in tournament</li><li class="tier-perk">Terrier Club President's Circle</li><li class="tier-perk">Hole &amp; program recognition</li><li class="tier-perk">Awards Presentation recognition</li></ul></div></div>
+      <div class="tier-card t-bronze fade-in"><div class="tier-hd"><div class="tier-badge">Bronze</div><div class="tier-name">BRONZE TERRIER</div><div class="tier-price">$1,500</div></div><div class="tier-bd"><ul class="tier-perks"><li class="tier-perk">Bronze Sponsor Recognition</li><li class="tier-perk">1 Foursome in tournament</li><li class="tier-perk">Terrier Club Steward membership</li><li class="tier-perk">Awards Presentation recognition</li></ul></div></div>
+      <div class="tier-card t-young fade-in"><div class="tier-hd"><div class="tier-badge">Young Alumni</div><div class="tier-name">YOUNG ALUMNI</div><div class="tier-price">$1,000 · Ages 30 &amp; under</div></div><div class="tier-bd"><ul class="tier-perks"><li class="tier-perk">Limited to 4 teams</li><li class="tier-perk">Sponsor recognition</li><li class="tier-perk">Terrier Club Patron membership</li><li class="tier-perk">Awards Presentation recognition</li></ul></div></div>
+      <div class="tier-card t-hole fade-in"><div class="tier-hd"><div class="tier-badge">Hole</div><div class="tier-name">HOLE SPONSOR</div><div class="tier-price">$500</div></div><div class="tier-bd"><ul class="tier-perks"><li class="tier-perk">Company name on hole signage</li><li class="tier-perk">Hole sponsorship recognition</li><li class="tier-perk">Program recognition</li></ul></div></div>
     </div>
 
     <!-- 2026 LIVE (open by default) -->
     <div style="margin-top:3rem;">
-      <div class="coll-wrap">
+      <div class="coll-wrap fade-in">
         <div class="coll-hdr open" onclick="toggleColl('sp2026')">
           <div class="coll-ttl"><span class="yr-badge yr-badge-new">2026</span>2026 Sponsor Commitments</div>
           <div class="coll-meta"><span id="sp-total-label">$0 committed</span><div class="coll-chev">▼</div></div>
@@ -784,7 +883,7 @@ section{padding:5rem 2rem;scroll-margin-top:58px;}
           <div class="sp-group"><div class="sp-group-ttl"><span class="sdot" style="background:#CD7F32;"></span>Bronze Terrier — $1,500</div><div class="chips" id="chips-bronze"><button class="add-chip-btn" onclick="addSponsor('bronze')">+ Add Bronze Sponsor</button></div></div>
           <div class="sp-group"><div class="sp-group-ttl"><span class="sdot" style="background:#5AB87A;"></span>Young Alumni — $1,000</div><div class="chips" id="chips-young"><button class="add-chip-btn" onclick="addSponsor('young')">+ Add Young Alumni Sponsor</button></div></div>
           <div class="sp-group"><div class="sp-group-ttl"><span class="sdot" style="background:#B0A898;"></span>Hole Sponsors</div><div class="chips" id="chips-hole"><button class="add-chip-btn" onclick="addSponsor('hole')">+ Add Hole Sponsor</button></div></div>
-          <div id="pending-block" style="display:none;margin-top:1rem;">
+          <div id="pending-block" style="display: block; margin-top: 1rem;">
             <div class="sp-group-ttl" style="color:#F59E0B;border-bottom-color:rgba(245,158,11,0.25);">⏳ Not Yet Committed — click to confirm</div>
             <div class="chips" id="chips-pending">
               <span class="chip chip-pending" onclick="promotePending(this,'gold','Ed Wile','$10,000')">Ed Wile (Gold '25) →</span>
@@ -801,7 +900,7 @@ section{padding:5rem 2rem;scroll-margin-top:58px;}
       </div>
 
       <!-- 2025 HISTORICAL (collapsed) -->
-      <div class="coll-wrap">
+      <div class="coll-wrap fade-in">
         <div class="coll-hdr" onclick="toggleColl('sp2025')">
           <div class="coll-ttl"><span class="yr-badge">2025</span>2025 Sponsors — Reference</div>
           <div class="coll-meta"><span>$83,500 raised</span><div class="coll-chev">▼</div></div>
@@ -823,8 +922,8 @@ section{padding:5rem 2rem;scroll-margin-top:58px;}
   <div class="container">
     <div class="sec-lbl">Raffle &amp; Prizes</div>
     <h2 class="sec-ttl">WIN BIG, <em>GIVE BACK</em></h2>
-    <p class="sec-body" data-edit contenteditable="false">All raffle proceeds benefit the Georgia Alumni Endowed Scholarship Fund. Prizes are drawn throughout the day — tickets sold on site.</p>
-    <div class="raffle-grid" id="raffle-public-grid"></div>
+    <p class="sec-body" data-edit="" contenteditable="true">All raffle proceeds benefit the Georgia Alumni Endowed Scholarship Fund. Prizes are drawn throughout the day — tickets sold on site.</p>
+    <div class="raffle-grid" id="raffle-public-grid"><div class="raffle-item fade-in"><div class="raffle-icon">🎩</div><div class="raffle-name">Wofford Hats</div><div class="raffle-status-badge">Ordered</div></div><div class="raffle-item fade-in"><div class="raffle-icon">⛳</div><div class="raffle-name">Round at Piedmont Driving Club</div></div><div class="raffle-item fade-in"><div class="raffle-icon">🏌️</div><div class="raffle-name">Round at Capital City Club</div></div><div class="raffle-item fade-in"><div class="raffle-icon">❄️</div><div class="raffle-name">Yeti Cooler #1</div></div><div class="raffle-item fade-in"><div class="raffle-icon">❄️</div><div class="raffle-name">Yeti Cooler #2</div></div><div class="raffle-item fade-in"><div class="raffle-icon">🏒</div><div class="raffle-name">54° Wedge with Terrier Logo</div></div><div class="raffle-item fade-in"><div class="raffle-icon">🎒</div><div class="raffle-name">Wofford Golf Bag</div></div><div class="raffle-item fade-in"><div class="raffle-icon">🏆</div><div class="raffle-name">Round with a Coach</div></div><div class="raffle-item fade-in"><div class="raffle-icon">⛳</div><div class="raffle-name">Bear's Best Round of Golf</div></div><div class="raffle-item fade-in"><div class="raffle-icon">🪵</div><div class="raffle-name">Wooden Bats — Flight Prizes</div></div><div class="raffle-item fade-in"><div class="raffle-icon">🎯</div><div class="raffle-name">Long Drive Contest Prize</div></div><div class="raffle-item fade-in"><div class="raffle-icon">📍</div><div class="raffle-name">Closest to the Pin Prize</div></div><div class="raffle-item fade-in"><div class="raffle-icon">🏓</div><div class="raffle-name">Putting Contest Prize</div></div><div class="raffle-item fade-in"><div class="raffle-icon">🎁</div><div class="raffle-name">Entry Gift for All Players</div></div></div>
   </div>
 </section>
 
@@ -845,11 +944,11 @@ section{padding:5rem 2rem;scroll-margin-top:58px;}
       <span style="width:20px;height:2px;background:var(--gold);display:inline-block;"></span>
       2026 Teams — <span id="team-count-lbl">0</span> of <span id="team-max-lbl">25</span> Confirmed
     </div>
-    <div class="teams-grid" id="teams-2026"></div>
+    <div class="teams-grid" id="teams-2026"><div class="team-card team-empty"><div class="team-num">Team 1 — Open Slot</div><div class="team-captain">Not yet filled</div><ul class="team-plist"><li>—</li></ul><div class="team-adm"><button class="team-btn" onclick="openTeamEdit(1)">+ Fill Slot</button></div></div><div class="team-card team-empty"><div class="team-num">Team 2 — Open Slot</div><div class="team-captain">Not yet filled</div><ul class="team-plist"><li>—</li></ul><div class="team-adm"><button class="team-btn" onclick="openTeamEdit(2)">+ Fill Slot</button></div></div><div class="team-card team-empty"><div class="team-num">Team 3 — Open Slot</div><div class="team-captain">Not yet filled</div><ul class="team-plist"><li>—</li></ul><div class="team-adm"><button class="team-btn" onclick="openTeamEdit(3)">+ Fill Slot</button></div></div><div class="team-card team-empty"><div class="team-num">Team 4 — Open Slot</div><div class="team-captain">Not yet filled</div><ul class="team-plist"><li>—</li></ul><div class="team-adm"><button class="team-btn" onclick="openTeamEdit(4)">+ Fill Slot</button></div></div><div class="team-card team-empty"><div class="team-num">Team 5 — Open Slot</div><div class="team-captain">Not yet filled</div><ul class="team-plist"><li>—</li></ul><div class="team-adm"><button class="team-btn" onclick="openTeamEdit(5)">+ Fill Slot</button></div></div><div class="team-card team-empty"><div class="team-num">Team 6 — Open Slot</div><div class="team-captain">Not yet filled</div><ul class="team-plist"><li>—</li></ul><div class="team-adm"><button class="team-btn" onclick="openTeamEdit(6)">+ Fill Slot</button></div></div><div class="team-card team-empty"><div class="team-num">Team 7 — Open Slot</div><div class="team-captain">Not yet filled</div><ul class="team-plist"><li>—</li></ul><div class="team-adm"><button class="team-btn" onclick="openTeamEdit(7)">+ Fill Slot</button></div></div><div class="team-card team-empty"><div class="team-num">Team 8 — Open Slot</div><div class="team-captain">Not yet filled</div><ul class="team-plist"><li>—</li></ul><div class="team-adm"><button class="team-btn" onclick="openTeamEdit(8)">+ Fill Slot</button></div></div><div class="team-card team-empty"><div class="team-num">Team 9 — Open Slot</div><div class="team-captain">Not yet filled</div><ul class="team-plist"><li>—</li></ul><div class="team-adm"><button class="team-btn" onclick="openTeamEdit(9)">+ Fill Slot</button></div></div><div class="team-card team-empty"><div class="team-num">Team 10 — Open Slot</div><div class="team-captain">Not yet filled</div><ul class="team-plist"><li>—</li></ul><div class="team-adm"><button class="team-btn" onclick="openTeamEdit(10)">+ Fill Slot</button></div></div><div class="team-card team-empty"><div class="team-num">Team 11 — Open Slot</div><div class="team-captain">Not yet filled</div><ul class="team-plist"><li>—</li></ul><div class="team-adm"><button class="team-btn" onclick="openTeamEdit(11)">+ Fill Slot</button></div></div><div class="team-card team-empty"><div class="team-num">Team 12 — Open Slot</div><div class="team-captain">Not yet filled</div><ul class="team-plist"><li>—</li></ul><div class="team-adm"><button class="team-btn" onclick="openTeamEdit(12)">+ Fill Slot</button></div></div><div class="team-card team-empty"><div class="team-num">Team 13 — Open Slot</div><div class="team-captain">Not yet filled</div><ul class="team-plist"><li>—</li></ul><div class="team-adm"><button class="team-btn" onclick="openTeamEdit(13)">+ Fill Slot</button></div></div><div class="team-card team-empty"><div class="team-num">Team 14 — Open Slot</div><div class="team-captain">Not yet filled</div><ul class="team-plist"><li>—</li></ul><div class="team-adm"><button class="team-btn" onclick="openTeamEdit(14)">+ Fill Slot</button></div></div><div class="team-card team-empty"><div class="team-num">Team 15 — Open Slot</div><div class="team-captain">Not yet filled</div><ul class="team-plist"><li>—</li></ul><div class="team-adm"><button class="team-btn" onclick="openTeamEdit(15)">+ Fill Slot</button></div></div><div class="team-card team-empty"><div class="team-num">Team 16 — Open Slot</div><div class="team-captain">Not yet filled</div><ul class="team-plist"><li>—</li></ul><div class="team-adm"><button class="team-btn" onclick="openTeamEdit(16)">+ Fill Slot</button></div></div><div class="team-card team-empty"><div class="team-num">Team 17 — Open Slot</div><div class="team-captain">Not yet filled</div><ul class="team-plist"><li>—</li></ul><div class="team-adm"><button class="team-btn" onclick="openTeamEdit(17)">+ Fill Slot</button></div></div><div class="team-card team-empty"><div class="team-num">Team 18 — Open Slot</div><div class="team-captain">Not yet filled</div><ul class="team-plist"><li>—</li></ul><div class="team-adm"><button class="team-btn" onclick="openTeamEdit(18)">+ Fill Slot</button></div></div><div class="team-card team-empty"><div class="team-num">Team 19 — Open Slot</div><div class="team-captain">Not yet filled</div><ul class="team-plist"><li>—</li></ul><div class="team-adm"><button class="team-btn" onclick="openTeamEdit(19)">+ Fill Slot</button></div></div><div class="team-card team-empty"><div class="team-num">Team 20 — Open Slot</div><div class="team-captain">Not yet filled</div><ul class="team-plist"><li>—</li></ul><div class="team-adm"><button class="team-btn" onclick="openTeamEdit(20)">+ Fill Slot</button></div></div><div class="team-card team-empty"><div class="team-num">Team 21 — Open Slot</div><div class="team-captain">Not yet filled</div><ul class="team-plist"><li>—</li></ul><div class="team-adm"><button class="team-btn" onclick="openTeamEdit(21)">+ Fill Slot</button></div></div><div class="team-card team-empty"><div class="team-num">Team 22 — Open Slot</div><div class="team-captain">Not yet filled</div><ul class="team-plist"><li>—</li></ul><div class="team-adm"><button class="team-btn" onclick="openTeamEdit(22)">+ Fill Slot</button></div></div><div class="team-card team-empty"><div class="team-num">Team 23 — Open Slot</div><div class="team-captain">Not yet filled</div><ul class="team-plist"><li>—</li></ul><div class="team-adm"><button class="team-btn" onclick="openTeamEdit(23)">+ Fill Slot</button></div></div><div class="team-card team-empty"><div class="team-num">Team 24 — Open Slot</div><div class="team-captain">Not yet filled</div><ul class="team-plist"><li>—</li></ul><div class="team-adm"><button class="team-btn" onclick="openTeamEdit(24)">+ Fill Slot</button></div></div><div class="team-card team-empty"><div class="team-num">Team 25 — Open Slot</div><div class="team-captain">Not yet filled</div><ul class="team-plist"><li>—</li></ul><div class="team-adm"><button class="team-btn" onclick="openTeamEdit(25)">+ Fill Slot</button></div></div></div>
 
     <!-- 2025 reference (collapsed) -->
     <div style="margin-top:2.5rem;">
-      <div class="coll-wrap dark-coll">
+      <div class="coll-wrap dark-coll fade-in">
         <div class="coll-hdr" onclick="toggleColl('tm2025')">
           <div class="coll-ttl"><span class="yr-badge">2025</span>2025 Teams — For Reference</div>
           <div class="coll-meta"><span>25 teams · 100 players</span><div class="coll-chev">▼</div></div>
@@ -887,63 +986,63 @@ section{padding:5rem 2rem;scroll-margin-top:58px;}
   <div class="container">
     <div class="sec-lbl">Financial Impact</div>
     <h2 class="sec-ttl">A LEGACY OF <em>GIVING</em></h2>
-    <p class="sec-body" data-edit contenteditable="false">Three decades of Wofford alumni coming together — on the course and off — to invest in the next generation of Terriers.</p>
+    <p class="sec-body" data-edit="" contenteditable="true">Three decades of Wofford alumni coming together — on the course and off — to invest in the next generation of Terriers.</p>
 
     <!-- 2026 collapsible (open) -->
     <div style="margin-top:2.5rem;">
-      <div class="coll-wrap">
+      <div class="coll-wrap fade-in">
         <div class="coll-hdr open" onclick="toggleColl('fin2026')">
           <div class="coll-ttl"><span class="yr-badge yr-badge-new">2026</span>2026 Tournament Summary</div>
           <div class="coll-meta"><span>Live tracking</span><div class="coll-chev">▼</div></div>
         </div>
         <div class="coll-body open" id="fin2026">
           <div class="fin-grid" style="margin-top:0;">
-            <div class="fin-card">
+            <div class="fin-card fade-in">
               <div class="fin-ttl">2026 At-a-Glance</div>
               <div class="fin-row"><span class="fin-k">Teams</span><span class="fin-v" id="fin-teams-count">25 max</span></div>
               <div class="fin-row"><span class="fin-k">Players</span><span class="fin-v" id="fin-players-count">~100</span></div>
               <div class="fin-row"><span class="fin-k">Sponsors Committed</span><span class="fin-v" id="fin-sponsors-count">0</span></div>
               <div class="fin-row"><span class="fin-k">Dollars Committed</span><span class="fin-v" id="fin-dollars-count">$0</span></div>
-              <div class="fin-total"><span>Gross Goal</span><span data-edit contenteditable="false">$86,650</span></div>
+              <div class="fin-total"><span>Gross Goal</span><span data-edit="" contenteditable="true">$86,650</span></div>
             </div>
-            <div class="fin-card">
+            <div class="fin-card fade-in">
               <div class="fin-ttl">2025 Results (Last Year)</div>
-              <div class="fin-row"><span class="fin-k">Teams</span><span class="fin-v" data-edit contenteditable="false">25</span></div>
-              <div class="fin-row"><span class="fin-k">Players</span><span class="fin-v" data-edit contenteditable="false">100</span></div>
-              <div class="fin-row"><span class="fin-k">Gross Revenue</span><span class="fin-v" data-edit contenteditable="false">$87,620</span></div>
-              <div class="fin-row"><span class="fin-k">Tournament Costs</span><span class="fin-v" data-edit contenteditable="false" style="color:#EF4444;">($14,548)</span></div>
-              <div class="fin-total"><span>Net to Scholarship</span><span style="color:var(--green-mid);" data-edit contenteditable="false">$73,072</span></div>
+              <div class="fin-row"><span class="fin-k">Teams</span><span class="fin-v" data-edit="" contenteditable="true">25</span></div>
+              <div class="fin-row"><span class="fin-k">Players</span><span class="fin-v" data-edit="" contenteditable="true">100</span></div>
+              <div class="fin-row"><span class="fin-k">Gross Revenue</span><span class="fin-v" data-edit="" contenteditable="true">$87,620</span></div>
+              <div class="fin-row"><span class="fin-k">Tournament Costs</span><span class="fin-v" data-edit="" contenteditable="true" style="color:#EF4444;">($14,548)</span></div>
+              <div class="fin-total"><span>Net to Scholarship</span><span style="color:var(--green-mid);" data-edit="" contenteditable="true">$73,072</span></div>
             </div>
             <div class="total-banner">
               <div class="total-lbl">Cumulative Total Raised for Wofford (1995–2025)</div>
-              <div class="total-num" data-edit contenteditable="false">$1,876,020</div>
-              <div class="total-sub" data-edit contenteditable="false">Including $250,000 Daniel Fund match · Goal: $1.95M+ all-time</div>
+              <div class="total-num" data-edit="" contenteditable="true">$1,876,020</div>
+              <div class="total-sub" data-edit="" contenteditable="true">Including $250,000 Daniel Fund match · Goal: $1.95M+ all-time</div>
             </div>
           </div>
         </div>
       </div>
 
       <!-- 2025 historical (collapsed) -->
-      <div class="coll-wrap">
+      <div class="coll-wrap fade-in">
         <div class="coll-hdr" onclick="toggleColl('fin2025')">
           <div class="coll-ttl"><span class="yr-badge">2025</span>Annual History — Net Contributions</div>
           <div class="coll-meta"><span>30 years of giving</span><div class="coll-chev">▼</div></div>
         </div>
         <div class="coll-body" id="fin2025">
-          <div class="fin-card" style="overflow-x:auto;">
+          <div class="fin-card fade-in" style="overflow-x:auto;">
             <table class="hist-table">
               <thead><tr><th>Year</th><th>Net to Wofford</th><th>Notes</th></tr></thead>
               <tbody>
-                <tr><td>1995–96</td><td data-edit contenteditable="false">$8,500</td><td>Founding years</td></tr>
-                <tr><td>1997</td><td data-edit contenteditable="false">$16,835</td><td></td></tr>
-                <tr><td>2000</td><td data-edit contenteditable="false">$35,890</td><td></td></tr>
-                <tr class="gaesf"><td>2011</td><td data-edit contenteditable="false">$60,000</td><td>GAESF established · +$250K Daniel Fund match</td></tr>
-                <tr class="gaesf"><td>2020</td><td data-edit contenteditable="false">$90,240</td><td>Record year</td></tr>
-                <tr class="gaesf"><td>2022</td><td data-edit contenteditable="false">$83,365</td><td></td></tr>
-                <tr class="gaesf"><td>2023</td><td data-edit contenteditable="false">$79,874</td><td></td></tr>
-                <tr class="gaesf"><td>2024</td><td data-edit contenteditable="false">$73,072</td><td>Actual</td></tr>
-                <tr class="gaesf"><td>2025</td><td data-edit contenteditable="false">$73,072</td><td>Actual — $87,620 gross</td></tr>
-                <tr><td><strong>All-Time</strong></td><td><strong data-edit contenteditable="false">$1,876,020+</strong></td><td>Incl. $250K match</td></tr>
+                <tr><td>1995–96</td><td data-edit="" contenteditable="true">$8,500</td><td>Founding years</td></tr>
+                <tr><td>1997</td><td data-edit="" contenteditable="true">$16,835</td><td></td></tr>
+                <tr><td>2000</td><td data-edit="" contenteditable="true">$35,890</td><td></td></tr>
+                <tr class="gaesf"><td>2011</td><td data-edit="" contenteditable="true">$60,000</td><td>GAESF established · +$250K Daniel Fund match</td></tr>
+                <tr class="gaesf"><td>2020</td><td data-edit="" contenteditable="true">$90,240</td><td>Record year</td></tr>
+                <tr class="gaesf"><td>2022</td><td data-edit="" contenteditable="true">$83,365</td><td></td></tr>
+                <tr class="gaesf"><td>2023</td><td data-edit="" contenteditable="true">$79,874</td><td></td></tr>
+                <tr class="gaesf"><td>2024</td><td data-edit="" contenteditable="true">$73,072</td><td>Actual</td></tr>
+                <tr class="gaesf"><td>2025</td><td data-edit="" contenteditable="true">$73,072</td><td>Actual — $87,620 gross</td></tr>
+                <tr><td><strong>All-Time</strong></td><td><strong data-edit="" contenteditable="true">$1,876,020+</strong></td><td>Incl. $250K match</td></tr>
               </tbody>
             </table>
           </div>
@@ -964,12 +1063,12 @@ section{padding:5rem 2rem;scroll-margin-top:58px;}
       <h3 style="font-family:'Oswald',sans-serif;font-size:1.1rem;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--wofford-black);margin-bottom:0.3rem;">Photos from the Course</h3>
       <p style="font-size:0.85rem;color:var(--gray-400);margin-bottom:0.5rem;">Upload photos in the Admin panel → Extras tab</p>
       <div class="photo-grid" id="photo-gallery">
-        <div class="photo-slot" onclick="isAdmin&&document.getElementById('photo-upload-inline').click()">
+        <div class="photo-slot" onclick="isAdmin&amp;&amp;document.getElementById('photo-upload-inline').click()">
           <div class="photo-slot-icon">📷</div>
           <div class="photo-slot-label">Add tournament photos<br><span style="color:var(--gray-200);">(Admin mode)</span></div>
         </div>
       </div>
-      <input type="file" id="photo-upload-inline" accept="image/*" multiple onchange="handlePhotoUpload(this)" style="display:none;">
+      <input type="file" id="photo-upload-inline" accept="image/*" multiple="" onchange="handlePhotoUpload(this)" style="display:none;">
     </div>
 
     <!-- Scholarship recipient -->
@@ -981,9 +1080,9 @@ section{padding:5rem 2rem;scroll-margin-top:58px;}
           <img id="scholar-photo-img" style="display:none;width:160px;height:200px;object-fit:cover;border-radius:7px;" alt="Scholar photo">
         </div>
         <div>
-          <div class="scholar-name" id="scholar-name" data-edit contenteditable="false">Your Scholar's Name</div>
-          <div class="scholar-year" id="scholar-year" data-edit contenteditable="false">Class of 20XX · Scholarship Recipient</div>
-          <div class="scholar-bio" id="scholar-bio" data-edit contenteditable="false">Add the scholarship recipient's bio here — their story, major, hometown, and what this scholarship meant to their Wofford journey. Use the Admin panel → Extras tab, or click this text in Admin mode to edit directly.</div>
+          <div class="scholar-name" id="scholar-name" data-edit="" contenteditable="true">Your Scholar's Name</div>
+          <div class="scholar-year" id="scholar-year" data-edit="" contenteditable="true">Class of 20XX · Scholarship Recipient</div>
+          <div class="scholar-bio" id="scholar-bio" data-edit="" contenteditable="true">Add the scholarship recipient's bio here — their story, major, hometown, and what this scholarship meant to their Wofford journey. Use the Admin panel → Extras tab, or click this text in Admin mode to edit directly.</div>
         </div>
       </div>
     </div>
@@ -997,20 +1096,20 @@ section{padding:5rem 2rem;scroll-margin-top:58px;}
     <h2 class="sec-ttl">TERRIER BASEBALL — <em>2025 SEASON</em></h2>
     <p class="sec-body">Supporting the program we love. Coach JJ Edwards and the Terriers keep building year after year.</p>
     <div class="bb-grid" style="margin-top:2rem;">
-      <div class="det-card">
+      <div class="det-card fade-in">
         <div class="det-ttl">📊 2025 Season Stats</div>
-        <div class="bb-stat-row"><div class="bb-stat-num" data-edit contenteditable="false">33-27</div><div class="bb-stat-lbl">Overall Record — 7th consecutive 30-win season</div></div>
-        <div class="bb-stat-row"><div class="bb-stat-num" data-edit contenteditable="false">8-13</div><div class="bb-stat-lbl">Southern Conference Record</div></div>
-        <div class="bb-stat-row"><div class="bb-stat-num" data-edit contenteditable="false">#117</div><div class="bb-stat-lbl">RPI Ranking</div></div>
-        <div class="bb-stat-row"><div class="bb-stat-num" data-edit contenteditable="false">158</div><div class="bb-stat-lbl">Stolen bases — 7th in the nation</div></div>
-        <div class="bb-stat-row"><div class="bb-stat-num" data-edit contenteditable="false">2</div><div class="bb-stat-lbl">Ranked wins — first time ever beating 2 ranked opponents in same season</div></div>
+        <div class="bb-stat-row"><div class="bb-stat-num" data-edit="" contenteditable="true">33-27</div><div class="bb-stat-lbl">Overall Record — 7th consecutive 30-win season</div></div>
+        <div class="bb-stat-row"><div class="bb-stat-num" data-edit="" contenteditable="true">8-13</div><div class="bb-stat-lbl">Southern Conference Record</div></div>
+        <div class="bb-stat-row"><div class="bb-stat-num" data-edit="" contenteditable="true">#117</div><div class="bb-stat-lbl">RPI Ranking</div></div>
+        <div class="bb-stat-row"><div class="bb-stat-num" data-edit="" contenteditable="true">158</div><div class="bb-stat-lbl">Stolen bases — 7th in the nation</div></div>
+        <div class="bb-stat-row"><div class="bb-stat-num" data-edit="" contenteditable="true">2</div><div class="bb-stat-lbl">Ranked wins — first time ever beating 2 ranked opponents in same season</div></div>
       </div>
-      <div class="det-card">
+      <div class="det-card fade-in">
         <div class="det-ttl">📰 Program Highlights</div>
-        <div class="bb-news-item"><div class="bb-news-ttl" data-edit contenteditable="false">Historic Ranked Wins</div><div class="bb-news-meta">First time in program history topping two ranked foes in one season — #23 Kentucky (12-5) and #17 Troy (14-3)</div></div>
-        <div class="bb-news-item"><div class="bb-news-ttl" data-edit contenteditable="false">Carter Rasmussen — 2nd Team All-SoCon</div><div class="bb-news-meta">Rasmussen earned Second-Team All-SoCon honors; Condon &amp; Hardin named to All-Freshman Team</div></div>
-        <div class="bb-news-item"><div class="bb-news-ttl" data-edit contenteditable="false">Program Record Hit by Pitch</div><div class="bb-news-meta">113 HBP set a new program record, ranking 22nd nationally</div></div>
-        <div class="bb-news-item"><div class="bb-news-ttl" data-edit contenteditable="false">Russell C. King Field</div><div class="bb-news-meta">Home games at Russell C. King Field, Spartanburg, SC · Coach JJ Edwards</div></div>
+        <div class="bb-news-item fade-in"><div class="bb-news-ttl" data-edit="" contenteditable="true">Historic Ranked Wins</div><div class="bb-news-meta">First time in program history topping two ranked foes in one season — #23 Kentucky (12-5) and #17 Troy (14-3)</div></div>
+        <div class="bb-news-item fade-in"><div class="bb-news-ttl" data-edit="" contenteditable="true">Carter Rasmussen — 2nd Team All-SoCon</div><div class="bb-news-meta">Rasmussen earned Second-Team All-SoCon honors; Condon &amp; Hardin named to All-Freshman Team</div></div>
+        <div class="bb-news-item fade-in"><div class="bb-news-ttl" data-edit="" contenteditable="true">Program Record Hit by Pitch</div><div class="bb-news-meta">113 HBP set a new program record, ranking 22nd nationally</div></div>
+        <div class="bb-news-item fade-in"><div class="bb-news-ttl" data-edit="" contenteditable="true">Russell C. King Field</div><div class="bb-news-meta">Home games at Russell C. King Field, Spartanburg, SC · Coach JJ Edwards</div></div>
         <div style="margin-top:1rem;"><a href="https://woffordterriers.com/sports/baseball" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:0.4rem;font-size:0.82rem;color:var(--gold-dark);font-weight:600;text-decoration:none;border-bottom:1px solid var(--gold);">View full schedule &amp; roster on WoffordTerriers.com →</a></div>
       </div>
     </div>
@@ -1022,16 +1121,16 @@ section{padding:5rem 2rem;scroll-margin-top:58px;}
   <div class="container">
     <div class="sec-lbl" style="justify-content:center;">Get Involved</div>
     <h2 class="sec-ttl" style="text-align:center;">READY TO <em>PLAY?</em></h2>
-    <p class="reg-body" data-edit contenteditable="false">Registration is now open for the 2026 Wofford Golf Invitational. Limited to 25 teams — first come, first served. Pre-payment required. Proceeds benefit the Georgia Alumni Endowed Scholarship Fund.</p>
+    <p class="reg-body" data-edit="" contenteditable="true">Registration is now open for the 2026 Wofford Golf Invitational. Limited to 25 teams — first come, first served. Pre-payment required. Proceeds benefit the Georgia Alumni Endowed Scholarship Fund.</p>
     <div style="text-align:center;margin-bottom:2rem;">
       <a href="https://advance.wofford.edu/register/?id=9a2f9729-9cf3-4a8d-ae3b-445ccb8981c1" target="_blank" rel="noopener" class="btn-gold" style="font-size:1rem;padding:1rem 2.5rem;">Register at Wofford.edu →</a>
     </div>
     <div style="display:flex;justify-content:center;">
       <div class="contact-block">
         <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(201,168,76,0.52);margin-bottom:0.6rem;">Questions? Contact Us</div>
-        <div class="contact-row"><strong>Contact</strong><span data-edit contenteditable="false" id="reg-contact">Patrick Wheeler · 919-801-7225</span></div>
-        <div class="contact-row"><strong>Address</strong><span data-edit contenteditable="false" id="reg-address">429 N Church St, Spartanburg, SC 29303</span></div>
-        <div class="contact-row"><strong>Email Teams To</strong><span data-edit contenteditable="false" id="reg-email">jmhuber@carolinalumber.com</span></div>
+        <div class="contact-row"><strong>Contact</strong><span data-edit="" contenteditable="true" id="reg-contact">Patrick Wheeler · 919-801-7225</span></div>
+        <div class="contact-row"><strong>Address</strong><span data-edit="" contenteditable="true" id="reg-address">429 N Church St, Spartanburg, SC 29303</span></div>
+        <div class="contact-row"><strong>Email Teams To</strong><span data-edit="" contenteditable="true" id="reg-email">jmhuber@carolinalumber.com</span></div>
       </div>
     </div>
   </div>
@@ -1042,20 +1141,20 @@ section{padding:5rem 2rem;scroll-margin-top:58px;}
   <div class="sponsors-strip-ttl">Proud Sponsors of the Wofford Golf Invitational</div>
   <div class="sponsor-logos">
     <div class="sponsor-logo-item">
-      <div class="sponsor-logo-name" data-edit contenteditable="false">Henri's Bakery</div>
-      <div class="sponsor-logo-sub" data-edit contenteditable="false">Official Lunch Sponsor</div>
+      <div class="sponsor-logo-name" data-edit="" contenteditable="true">Henri's Bakery</div>
+      <div class="sponsor-logo-sub" data-edit="" contenteditable="true">Official Lunch Sponsor</div>
     </div>
     <div class="sponsor-logo-item">
-      <div class="sponsor-logo-name" data-edit contenteditable="false">Carolina Lumber</div>
-      <div class="sponsor-logo-sub" data-edit contenteditable="false">Gold Terrier Sponsor</div>
+      <div class="sponsor-logo-name" data-edit="" contenteditable="true">Carolina Lumber</div>
+      <div class="sponsor-logo-sub" data-edit="" contenteditable="true">Gold Terrier Sponsor</div>
     </div>
   </div>
 </div>
 
 <!-- FOOTER -->
 <footer style="background:#0A0806;padding:1.6rem;text-align:center;border-top:2px solid var(--gold);">
-  <div class="footer-wofford" style="font-family:'Oswald',sans-serif;font-size:0.9rem;color:var(--gold);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.3rem;" data-edit contenteditable="false">🐾 Wofford Golf Invitational 2026</div>
-  <div style="font-size:0.7rem;color:rgba(255,255,255,0.2);" data-edit contenteditable="false">Benefiting the Georgia Alumni Endowed Scholarship Fund · Honoring Russell King &amp; Walt Sessoms · Bear's Best, Suwanee GA</div>
+  <div class="footer-wofford" style="font-family:'Oswald',sans-serif;font-size:0.9rem;color:var(--gold);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.3rem;" data-edit="" contenteditable="true">🐾 Wofford Golf Invitational 2026</div>
+  <div style="font-size:0.7rem;color:rgba(255,255,255,0.2);" data-edit="" contenteditable="true">Benefiting the Georgia Alumni Endowed Scholarship Fund · Honoring Russell King &amp; Walt Sessoms · Bear's Best, Suwanee GA</div>
 </footer>
 
 <!-- EDIT MODAL (sponsor/team) -->
@@ -1076,7 +1175,7 @@ section{padding:5rem 2rem;scroll-margin-top:58px;}
   </div>
 </div>
 
-<div id="toast"></div>
+<div id="toast" class="">GitHub connected! Hit Publish Live to update the site.</div>
 
 <script>
 // =========================================================
@@ -1551,8 +1650,116 @@ function downloadPage(){
 }
 
 // =========================================================
-// UTILS
+// GITHUB AUTO-PUBLISH
 // =========================================================
+let _ghUser='',_ghRepo='',_ghToken='';
+
+function saveGitHubConfig(){
+  const u=document.getElementById('gh-user').value.trim();
+  const r=document.getElementById('gh-repo').value.trim();
+  const t=document.getElementById('gh-token').value.trim();
+  if(!u||!r||!t){toast('Please fill in all three GitHub fields');return;}
+  _ghUser=u;_ghRepo=r;_ghToken=t;
+  // Try to save to sessionStorage for convenience
+  try{sessionStorage.setItem('gh_user',u);sessionStorage.setItem('gh_repo',r);}catch(e){}
+  document.getElementById('gh-setup-view').style.display='none';
+  document.getElementById('gh-publish-view').style.display='block';
+  document.getElementById('gh-url-display').textContent=u+'/'+r;
+  toast('GitHub connected! Hit Publish Live to update the site.');
+}
+
+function resetGitHubConfig(){
+  _ghToken='';
+  document.getElementById('gh-setup-view').style.display='block';
+  document.getElementById('gh-publish-view').style.display='none';
+  document.getElementById('gh-status').textContent='';
+}
+
+// Load saved username/repo on init
+(function loadGhConfig(){
+  try{
+    const u=sessionStorage.getItem('gh_user');
+    const r=sessionStorage.getItem('gh_repo');
+    if(u)document.getElementById('gh-user').value=u;
+    if(r)document.getElementById('gh-repo').value=r;
+  }catch(e){}
+})();
+
+async function publishToGitHub(){
+  if(!_ghUser||!_ghRepo||!_ghToken){
+    toast('Please save your GitHub settings first');return;
+  }
+  const btn=document.getElementById('gh-publish-btn');
+  const status=document.getElementById('gh-status');
+  btn.textContent='⏳ Publishing...';
+  btn.style.opacity='0.7';
+  btn.disabled=true;
+  status.textContent='Getting current file info...';
+  status.style.color='rgba(255,255,255,0.45)';
+
+  try{
+    const html='<!DOCTYPE html>\n'+document.documentElement.outerHTML;
+    const encoded=btoa(unescape(encodeURIComponent(html)));
+
+    // Step 1: Get current file SHA (needed to update existing file)
+    const apiBase=`https://api.github.com/repos/${_ghUser}/${_ghRepo}/contents/index.html`;
+    const headers={
+      'Authorization':'token '+_ghToken,
+      'Accept':'application/vnd.github.v3+json',
+      'Content-Type':'application/json'
+    };
+
+    status.textContent='Connecting to GitHub...';
+    let sha='';
+    const getRes=await fetch(apiBase,{headers});
+    if(getRes.ok){
+      const data=await getRes.json();
+      sha=data.sha;
+    } else if(getRes.status===404){
+      status.textContent='Creating new file...';
+    } else if(getRes.status===401){
+      throw new Error('Invalid token — check your GitHub Personal Access Token');
+    } else {
+      throw new Error('GitHub error: '+getRes.status);
+    }
+
+    // Step 2: Push the updated file
+    status.textContent='Uploading your changes...';
+    const body={
+      message:'Update Wofford Golf Invitational site — '+new Date().toLocaleString(),
+      content:encoded
+    };
+    if(sha) body.sha=sha;
+
+    const putRes=await fetch(apiBase,{method:'PUT',headers,body:JSON.stringify(body)});
+    if(!putRes.ok){
+      const err=await putRes.json();
+      throw new Error(err.message||'Upload failed ('+putRes.status+')');
+    }
+
+    // Success!
+    btn.textContent='✅ Published Live!';
+    btn.style.background='#16A34A';
+    btn.style.opacity='1';
+    btn.disabled=false;
+    status.innerHTML='Live at: <a href="https://'+_ghUser+'.github.io/'+_ghRepo+'/" target="_blank" rel="noopener" style="color:#22C55E;">'+_ghUser+'.github.io/'+_ghRepo+'/</a> — changes visible in ~30 seconds';
+    status.style.color='#22C55E';
+    setTimeout(()=>{
+      btn.textContent='🚀 Publish Live Now';
+      btn.style.background='#22C55E';
+    },4000);
+
+  } catch(err){
+    btn.textContent='🚀 Publish Live Now';
+    btn.style.opacity='1';
+    btn.disabled=false;
+    status.textContent='❌ '+err.message;
+    status.style.color='#EF4444';
+    console.error('GitHub publish error:',err);
+  }
+}
+
+
 function esc(str){return(str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 function toggleMobileMenu(){const m=document.getElementById('mobile-menu');m.classList.toggle('open');}
 function closeMobileMenu(){document.getElementById('mobile-menu').classList.remove('open');}
@@ -1568,5 +1775,6 @@ function setupFadeIns(){
   document.querySelectorAll('.tier-card,.raffle-item,.det-card,.fin-card,.impact-card,.hon-card,.coll-wrap,.bb-news-item,.raffle-item').forEach(el=>{el.classList.add('fade-in');io.observe(el);});
 }
 </script>
-</body>
-</html>
+
+
+</body></html>
