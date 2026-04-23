@@ -1,0 +1,1572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026 Wofford Golf Invitational | Georgia Alumni Endowed Scholarship Fund</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Merriweather:ital,wght@0,400;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --gold:#C9A84C;--gold-light:#F0D98A;--gold-dark:#8A6F28;--gold-pale:#FBF5E6;
+  --wofford-black:#1A1614;--green-mid:#3A6B3A;--green-pale:#EBF4EC;
+  --white:#FFFFFF;--cream:#FAF8F3;--gray-100:#F5F3EE;--gray-200:#E8E4DC;
+  --gray-400:#B0A898;--gray-600:#6A6258;--admin-bg:#0A1628;--admin-accent:#3B82F6;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--wofford-black);line-height:1.6;}
+
+/* ── TOGGLE (hidden - admin via Ctrl+Shift+A or 3x logo click) ── */
+
+/* ── LOGIN ── */
+#login-overlay{display:none;position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,0.8);backdrop-filter:blur(6px);align-items:center;justify-content:center;}
+#login-overlay.show{display:flex;}
+.lbox{background:var(--admin-bg);border:1px solid rgba(255,255,255,0.1);border-top:3px solid var(--gold);border-radius:14px;padding:2.5rem;width:330px;text-align:center;}
+.lbox-ttl{font-family:'Oswald',sans-serif;font-size:1.15rem;font-weight:700;color:var(--gold);letter-spacing:0.08em;margin-bottom:0.25rem;}
+.lbox-sub{color:rgba(255,255,255,0.35);font-size:0.76rem;margin-bottom:1.6rem;}
+.lbox input{width:100%;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:7px;color:#fff;font-size:0.9rem;padding:0.68rem 1rem;font-family:'DM Sans',sans-serif;margin-bottom:0.6rem;outline:none;transition:border-color 0.2s;}
+.lbox input:focus{border-color:var(--gold);}
+.lbox-btn{width:100%;background:var(--gold);color:var(--wofford-black);border:none;border-radius:7px;padding:0.78rem;font-family:'Oswald',sans-serif;font-size:0.95rem;font-weight:600;letter-spacing:0.06em;cursor:pointer;}
+.lbox-btn:hover{background:var(--gold-light);}
+.lbox-err{color:#EF4444;font-size:0.76rem;margin-top:0.35rem;display:none;}
+.lbox-cancel{margin-top:0.8rem;color:rgba(255,255,255,0.3);font-size:0.76rem;cursor:pointer;text-decoration:underline;background:none;border:none;font-family:'DM Sans',sans-serif;}
+
+/* ── ADMIN DRAWER ── */
+#admin-drawer{position:fixed;top:0;right:0;bottom:0;z-index:500;width:560px;max-width:100vw;background:var(--admin-bg);border-left:2px solid var(--gold);transform:translateX(100%);transition:transform 0.3s cubic-bezier(0.4,0,0.2,1);overflow-y:auto;display:flex;flex-direction:column;}
+#admin-drawer.open{transform:translateX(0);}
+.drw-head{position:sticky;top:0;z-index:10;background:var(--admin-bg);border-bottom:1px solid rgba(255,255,255,0.07);padding:0.9rem 1.1rem;display:flex;align-items:center;justify-content:space-between;}
+#admin-drawer.expanded{width:100vw!important;max-width:100vw!important;}
+.drw-expand{background:none;border:1px solid rgba(255,255,255,0.14);border-radius:5px;width:26px;height:26px;color:rgba(255,255,255,0.45);font-size:0.75rem;cursor:pointer;display:flex;align-items:center;justify-content:center;margin-right:0.5rem;}
+.drw-expand:hover{background:rgba(255,255,255,0.08);color:#fff;}
+.drw-title{font-family:'Oswald',sans-serif;font-size:0.82rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);}
+.drw-close{background:none;border:1px solid rgba(255,255,255,0.14);border-radius:50%;width:26px;height:26px;color:rgba(255,255,255,0.45);font-size:0.95rem;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.drw-close:hover{background:rgba(255,255,255,0.08);color:#fff;}
+.drw-tabs{display:flex;border-bottom:1px solid rgba(255,255,255,0.07);flex-wrap:wrap;}
+.drw-tab{flex:1;min-width:80px;padding:0.55rem 0.3rem;text-align:center;font-family:'Oswald',sans-serif;font-size:0.65rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.35);cursor:pointer;border-bottom:2px solid transparent;transition:all 0.2s;}
+.drw-tab:hover{color:rgba(255,255,255,0.65);}
+.drw-tab.active{color:var(--gold);border-bottom-color:var(--gold);}
+.drw-pane{display:none;padding:1.1rem;}
+.drw-pane.active{display:block;}
+/* dashboard */
+.dgrid{display:grid;grid-template-columns:1fr 1fr;gap:0.65rem;margin-bottom:1rem;}
+.dcard{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:0.8rem 1rem;}
+.dlbl{font-size:0.6rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.32);margin-bottom:0.22rem;}
+.dval{font-family:'Oswald',sans-serif;font-size:1.45rem;font-weight:700;color:var(--gold);line-height:1;}
+.dsub{font-size:0.62rem;color:rgba(255,255,255,0.25);margin-top:0.15rem;}
+/* settings fields */
+.sf{margin-bottom:0.65rem;}
+.sf label{display:block;font-size:0.62rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.32);margin-bottom:0.25rem;}
+.sf input,.sf select,.sf textarea{width:100%;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:5px;color:#fff;font-size:0.83rem;padding:0.48rem 0.72rem;font-family:'DM Sans',sans-serif;outline:none;transition:border-color 0.2s;}
+.sf input:focus,.sf select:focus,.sf textarea:focus{border-color:var(--gold);}
+.sf select option{background:#0A1628;color:#fff;}
+.sf textarea{resize:vertical;min-height:56px;}
+.ss-ttl{font-family:'Oswald',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(201,168,76,0.55);margin:1rem 0 0.55rem;padding-bottom:0.35rem;border-bottom:1px solid rgba(255,255,255,0.06);}
+.drw-btn{width:100%;background:var(--gold);color:var(--wofford-black);border:none;border-radius:5px;padding:0.6rem;font-family:'Oswald',sans-serif;font-weight:700;font-size:0.85rem;letter-spacing:0.06em;cursor:pointer;margin-top:0.3rem;}
+.drw-btn:hover{background:var(--gold-light);}
+.drw-btn-ghost{width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);border-radius:5px;padding:0.55rem;font-family:'DM Sans',sans-serif;font-size:0.8rem;color:rgba(255,255,255,0.55);cursor:pointer;margin-top:0.45rem;}
+.drw-btn-ghost:hover{background:rgba(255,255,255,0.1);color:#fff;}
+.drw-note{font-size:0.65rem;color:rgba(255,255,255,0.22);font-style:italic;margin-top:0.45rem;line-height:1.45;}
+#logo-preview{width:100%;height:48px;object-fit:contain;border-radius:5px;margin-top:0.25rem;display:none;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);}
+
+/* ── ACTION ITEMS TABLE ── */
+.ai-head{display:none;}
+.ai-row{display:flex;flex-direction:column;gap:0.3rem;padding:0.7rem 0.5rem;border-bottom:1px solid rgba(255,255,255,0.08);position:relative;}.ai-row-top{display:grid;grid-template-columns:1fr 80px 28px;gap:0.35rem;align-items:center;}.ai-row-bottom{display:grid;grid-template-columns:1.5fr 1fr;gap:0.35rem;}
+.ai-row input,.ai-row select{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:4px;color:#fff;font-size:0.73rem;padding:0.28rem 0.42rem;font-family:'DM Sans',sans-serif;width:100%;outline:none;}
+.ai-row input:focus,.ai-row select:focus{border-color:var(--gold);}
+.ai-del{background:none;border:none;color:rgba(239,68,68,0.5);cursor:pointer;font-size:1rem;padding:0 4px;}
+.ai-del:hover{color:#EF4444;}
+.ai-add{background:rgba(201,168,76,0.1);border:1.5px dashed var(--gold);border-radius:5px;color:var(--gold);font-size:0.76rem;font-weight:600;width:100%;padding:0.5rem;cursor:pointer;font-family:'DM Sans',sans-serif;margin-top:0.5rem;}
+.ai-add:hover{background:rgba(201,168,76,0.18);}
+.ai-status-open{color:#F59E0B;}
+.ai-status-done{color:#22C55E;}
+.ai-status-blocked{color:#EF4444;}
+/* raffle editable list */
+.re-row{display:flex;gap:0.4rem;align-items:center;margin-bottom:0.4rem;}
+.re-row input{flex:1;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:4px;color:#fff;font-size:0.8rem;padding:0.32rem 0.5rem;font-family:'DM Sans',sans-serif;outline:none;}
+.re-row input:focus{border-color:var(--gold);}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:300;background:rgba(26,22,20,0.97);backdrop-filter:blur(8px);padding:0 60px 0 1.5rem;display:flex;align-items:center;gap:0.8rem;height:54px;border-bottom:2px solid var(--gold);}
+.nav-logo{display:flex;align-items:center;gap:0.55rem;flex-shrink:0;}
+.nav-logo-text{font-family:'Oswald',sans-serif;color:var(--gold);font-size:0.95rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:700;}
+.nav-links{display:flex;gap:1rem;list-style:none;margin:0 auto;}
+.nav-links a{color:rgba(255,255,255,0.7);text-decoration:none;font-size:0.72rem;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;transition:color 0.2s;padding-bottom:2px;border-bottom:2px solid transparent;}
+.nav-links a:hover{color:var(--gold);border-bottom-color:var(--gold);}
+/* ── SETTINGS GEAR (always visible top-right) ── */
+#settings-gear{
+  position:fixed;top:12px;right:14px;z-index:400;
+  width:34px;height:34px;border-radius:50%;
+  background:rgba(26,22,20,0.88);
+  border:1px solid rgba(201,168,76,0.35);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:all 0.2s;
+  backdrop-filter:blur(8px);
+}
+#settings-gear:hover{background:rgba(201,168,76,0.15);border-color:var(--gold);transform:rotate(30deg);}
+#settings-gear svg{width:16px;height:16px;fill:var(--gold);}
+/* admin panel link (inside nav, admin mode only) */
+#admin-nav-link{display:none;align-items:center;gap:0.3rem;color:var(--gold);font-size:0.68rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;cursor:pointer;border:1px solid rgba(201,168,76,0.3);border-radius:100px;padding:0.24rem 0.75rem;transition:all 0.2s;background:rgba(201,168,76,0.07);flex-shrink:0;white-space:nowrap;}
+#admin-nav-link:hover{background:rgba(201,168,76,0.15);}
+.admin-mode #admin-nav-link{display:flex;}
+/* hamburger for mobile */
+#hamburger{display:none;flex-direction:column;gap:4px;cursor:pointer;padding:4px;flex-shrink:0;}
+#hamburger span{display:block;width:20px;height:2px;background:rgba(255,255,255,0.7);border-radius:2px;transition:all 0.2s;}
+#mobile-menu{display:none;position:fixed;top:54px;left:0;right:0;z-index:250;background:rgba(26,22,20,0.98);border-bottom:1px solid var(--gold);padding:1rem 1.5rem;flex-direction:column;gap:0;}
+#mobile-menu a{color:rgba(255,255,255,0.75);text-decoration:none;font-size:0.85rem;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;padding:0.75rem 0;border-bottom:1px solid rgba(255,255,255,0.07);display:block;}
+#mobile-menu a:last-child{border-bottom:none;}
+#mobile-menu.open{display:flex;}
+
+/* ── INLINE EDIT ── */
+/* Gear pulsing indicator when in admin mode */
+.admin-mode #settings-gear{
+  background:rgba(59,130,246,0.25);
+  border-color:var(--admin-accent);
+  box-shadow:0 0 0 3px rgba(59,130,246,0.2);
+}
+.admin-mode #settings-gear svg{fill:#60A5FA;}
+.admin-mode #settings-gear:hover{transform:rotate(30deg);background:rgba(59,130,246,0.35);}
+.admin-mode [data-edit]{outline:none;border-bottom:1.5px dashed rgba(201,168,76,0.45);border-radius:2px;cursor:text;transition:background 0.15s;}
+.admin-mode [data-edit]:hover{border-bottom-color:var(--gold);background:rgba(201,168,76,0.07);}
+.admin-mode [data-edit]:focus{border-bottom-color:var(--gold);background:rgba(201,168,76,0.1);outline:none;}
+
+/* ── HERO ── */
+.hero{min-height:100vh;background:var(--wofford-black);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:100px 2rem 4rem;}
+.hero-stripes{position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(-55deg,transparent,transparent 120px,rgba(201,168,76,0.03) 120px,rgba(201,168,76,0.03) 122px);}
+.hero-glow{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 60% 50% at 50% 30%,rgba(201,168,76,0.09),transparent);}
+.hero-content{text-align:center;position:relative;z-index:2;max-width:900px;width:100%;}
+#hero-logo-img{display:none;max-height:120px;margin:0 auto 1.2rem;object-fit:contain;}
+#hero-logo-img.show{display:block;}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:0.8rem;font-family:'Oswald',sans-serif;font-size:0.78rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:1.3rem;}
+.hero-eyebrow::before,.hero-eyebrow::after{content:'';width:26px;height:1px;background:var(--gold);opacity:0.5;}
+.hero-title{font-family:'Oswald',sans-serif;font-size:clamp(3.2rem,8vw,6.5rem);line-height:0.95;font-weight:700;color:var(--white);letter-spacing:0.02em;text-transform:uppercase;margin-bottom:0.7rem;}
+.hero-title .gold{color:var(--gold);display:block;}
+.hero-subtitle{font-family:'Merriweather',serif;font-style:italic;font-size:clamp(0.95rem,2vw,1.2rem);color:rgba(255,255,255,0.48);margin:0.8rem 0 2.2rem;}
+.hero-bar{width:55px;height:3px;background:var(--gold);margin:0 auto 2.2rem;}
+.hero-stats{display:flex;justify-content:center;flex-wrap:wrap;border:1px solid rgba(201,168,76,0.16);border-radius:9px;overflow:hidden;background:rgba(255,255,255,0.03);margin-bottom:2.5rem;}
+.hstat{padding:1.2rem 1.8rem;border-right:1px solid rgba(201,168,76,0.12);flex:1;min-width:110px;text-align:center;}
+.hstat:last-child{border-right:none;}
+.hstat-num{font-family:'Oswald',sans-serif;font-size:1.9rem;font-weight:700;color:var(--gold);line-height:1;margin-bottom:0.2rem;}
+.hstat-lbl{font-size:0.63rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.35);}
+.hero-ctas{display:flex;gap:0.9rem;justify-content:center;flex-wrap:wrap;}
+.btn-gold{display:inline-flex;align-items:center;gap:0.5rem;background:var(--gold);color:var(--wofford-black);font-family:'Oswald',sans-serif;font-weight:600;font-size:0.85rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.82rem 1.9rem;border-radius:5px;text-decoration:none;transition:all 0.2s;border:none;cursor:pointer;}
+.btn-gold:hover{background:var(--gold-light);transform:translateY(-2px);box-shadow:0 6px 18px rgba(201,168,76,0.28);}
+.btn-ghost{display:inline-flex;align-items:center;gap:0.5rem;border:1.5px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.72);font-family:'Oswald',sans-serif;font-weight:500;font-size:0.85rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.82rem 1.9rem;border-radius:5px;text-decoration:none;transition:all 0.2s;}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold);}
+
+/* ── SECTIONS ── */
+section{padding:5rem 2rem;scroll-margin-top:58px;}
+.container{max-width:1160px;margin:0 auto;}
+.sec-lbl{display:inline-flex;align-items:center;gap:0.55rem;font-family:'Oswald',sans-serif;font-size:0.72rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold-dark);margin-bottom:0.8rem;}
+.sec-lbl::before{content:'';width:20px;height:2px;background:var(--gold);}
+.sec-ttl{font-family:'Oswald',sans-serif;font-size:clamp(1.8rem,4vw,2.7rem);font-weight:700;color:var(--wofford-black);letter-spacing:0.02em;text-transform:uppercase;line-height:1.1;margin-bottom:0.8rem;}
+.sec-ttl em{font-style:normal;color:var(--gold-dark);}
+.sec-body{font-size:0.97rem;color:var(--gray-600);max-width:580px;line-height:1.75;}
+.dark-sec{background:var(--wofford-black);}
+.dark-sec .sec-lbl{color:var(--gold);}
+.dark-sec .sec-lbl::before{background:var(--gold);}
+.dark-sec .sec-ttl{color:var(--white);}
+.dark-sec .sec-body{color:rgba(255,255,255,0.55);}
+
+/* ── CAUSE ── */
+.cause-grid{display:grid;grid-template-columns:1fr 1fr;gap:3.5rem;align-items:center;}
+.honorees{display:flex;gap:1rem;margin-top:1.6rem;}
+.hon-card{flex:1;background:rgba(255,255,255,0.05);border:1px solid rgba(201,168,76,0.18);border-top:3px solid var(--gold);border-radius:9px;padding:1.3rem;text-align:center;}
+.hon-init{width:48px;height:48px;border-radius:50%;background:var(--gold);color:var(--wofford-black);display:flex;align-items:center;justify-content:center;font-family:'Oswald',sans-serif;font-size:1.1rem;font-weight:700;margin:0 auto 0.55rem;}
+.hon-name{font-family:'Oswald',sans-serif;color:var(--white);font-size:0.92rem;font-weight:600;letter-spacing:0.04em;}
+.hon-role{font-size:0.73rem;color:rgba(255,255,255,0.36);margin-top:0.12rem;font-style:italic;}
+.impact-cards{display:flex;flex-direction:column;gap:0.65rem;}
+.impact-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-left:3px solid var(--gold);border-radius:0 7px 7px 0;padding:0.9rem 1.1rem;display:flex;align-items:center;gap:0.9rem;}
+.impact-num{font-family:'Oswald',sans-serif;font-size:1.5rem;font-weight:700;color:var(--gold);white-space:nowrap;min-width:68px;}
+.impact-desc strong{color:rgba(255,255,255,0.86);font-weight:600;display:block;font-size:0.86rem;}
+.impact-desc span{font-size:0.77rem;color:rgba(255,255,255,0.42);}
+
+/* ── DETAILS ── */
+.details-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.6rem;margin-top:2.2rem;}
+.det-card{background:var(--white);border:1px solid var(--gray-200);border-top:3px solid var(--gold);border-radius:9px;padding:1.7rem;}
+.det-ttl{font-family:'Oswald',sans-serif;font-size:0.95rem;font-weight:600;color:var(--wofford-black);letter-spacing:0.05em;text-transform:uppercase;margin-bottom:1rem;padding-bottom:0.65rem;border-bottom:1px solid var(--gray-200);}
+.sched-list{list-style:none;}
+.sched-item{display:flex;gap:0.65rem;padding:0.6rem 0;border-bottom:1px solid var(--gray-100);}
+.sched-item:last-child{border-bottom:none;}
+.sched-time{font-family:'Oswald',sans-serif;font-size:0.8rem;font-weight:600;color:var(--gold-dark);min-width:62px;padding-top:2px;}
+.sched-ev{font-size:0.83rem;color:var(--gray-600);line-height:1.4;}
+.sched-ev strong{color:var(--wofford-black);font-weight:600;display:block;}
+.info-list{list-style:none;}
+.info-item{display:flex;justify-content:space-between;align-items:flex-start;padding:0.55rem 0;border-bottom:1px solid var(--gray-100);gap:0.7rem;}
+.info-item:last-child{border-bottom:none;}
+.info-k{font-size:0.7rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--gray-400);flex-shrink:0;}
+.info-v{font-size:0.84rem;color:var(--wofford-black);text-align:right;line-height:1.4;}
+
+/* ── COLLAPSIBLE ── */
+.coll-wrap{margin-bottom:1.1rem;}
+.coll-hdr{display:flex;align-items:center;justify-content:space-between;padding:0.82rem 1.2rem;background:var(--white);border:1px solid var(--gray-200);border-left:4px solid var(--gold);border-radius:7px;cursor:pointer;transition:all 0.2s;user-select:none;}
+.coll-hdr:hover,.coll-hdr.open{background:var(--gold-pale);}
+.coll-hdr.open{border-radius:7px 7px 0 0;border-bottom-color:transparent;}
+.coll-ttl{font-family:'Oswald',sans-serif;font-size:0.9rem;font-weight:600;text-transform:uppercase;letter-spacing:0.07em;color:var(--wofford-black);display:flex;align-items:center;gap:0.65rem;flex-wrap:wrap;}
+.yr-badge{font-size:0.65rem;padding:0.16rem 0.52rem;border-radius:100px;background:var(--gold);color:var(--wofford-black);font-weight:700;}
+.yr-badge-new{background:var(--wofford-black);color:var(--gold);}
+.coll-meta{font-size:0.78rem;color:var(--gray-600);display:flex;align-items:center;gap:0.8rem;}
+.coll-chev{width:19px;height:19px;border-radius:50%;border:1.5px solid var(--gold);color:var(--gold-dark);display:flex;align-items:center;justify-content:center;font-size:0.62rem;transition:transform 0.25s;flex-shrink:0;}
+.coll-hdr.open .coll-chev{transform:rotate(180deg);}
+.coll-body{display:none;background:var(--white);border:1px solid var(--gold);border-top:none;border-radius:0 0 7px 7px;padding:1.3rem;}
+.coll-body.open{display:block;}
+/* dark collapsible */
+.dark-coll .coll-hdr{background:rgba(255,255,255,0.04);border-color:rgba(201,168,76,0.22);}
+.dark-coll .coll-hdr:hover,.dark-coll .coll-hdr.open{background:rgba(255,255,255,0.07);}
+.dark-coll .coll-ttl{color:rgba(255,255,255,0.82);}
+.dark-coll .coll-meta{color:rgba(255,255,255,0.32);}
+.dark-coll .coll-body{background:rgba(255,255,255,0.02);border-color:rgba(201,168,76,0.18);}
+
+/* ── TIERS ── */
+.tiers-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:1rem;margin-top:2rem;}
+.tier-card{background:var(--white);border:1px solid var(--gray-200);border-radius:9px;overflow:hidden;transition:transform 0.2s,box-shadow 0.2s;}
+.tier-card:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(0,0,0,0.1);}
+.tier-hd{padding:1.3rem 1.3rem 1rem;}
+.tier-badge{display:inline-block;font-family:'Oswald',sans-serif;font-size:0.63rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:0.2rem 0.6rem;border-radius:4px;margin-bottom:0.65rem;}
+.tier-name{font-family:'Oswald',sans-serif;font-size:1.1rem;font-weight:700;line-height:1.2;margin-bottom:0.12rem;}
+.tier-price{font-size:0.78rem;font-weight:500;}
+.tier-bd{padding:1rem 1.3rem;}
+.tier-perks{list-style:none;}
+.tier-perk{display:flex;gap:0.42rem;align-items:flex-start;padding:0.3rem 0;font-size:0.8rem;color:var(--gray-600);border-bottom:1px dashed rgba(0,0,0,0.06);}
+.tier-perk:last-child{border-bottom:none;}
+.tier-perk::before{content:'✦';color:var(--gold);font-size:0.5rem;padding-top:5px;flex-shrink:0;}
+.t-gold .tier-hd{background:linear-gradient(135deg,#2A1E00,#4A3600);}
+.t-gold .tier-badge{background:var(--gold);color:#2A1E00;}
+.t-gold .tier-name{color:var(--gold);}
+.t-gold .tier-price{color:rgba(255,255,255,0.62);}
+.t-silver .tier-hd{background:linear-gradient(135deg,#1C2535,#2A3D52);}
+.t-silver .tier-badge{background:#B8C8DC;color:#1C2535;}
+.t-silver .tier-name{color:#B8C8DC;}
+.t-silver .tier-price{color:rgba(255,255,255,0.58);}
+.t-bronze .tier-hd{background:linear-gradient(135deg,#2E1000,#4A2000);}
+.t-bronze .tier-badge{background:#CD7F32;color:#2E1000;}
+.t-bronze .tier-name{color:#E8A472;}
+.t-bronze .tier-price{color:rgba(255,255,255,0.58);}
+.t-young .tier-hd{background:linear-gradient(135deg,#1A3020,#2D5038);}
+.t-young .tier-badge{background:#5AB87A;color:#1A3020;}
+.t-young .tier-name{color:#A8DDB8;}
+.t-young .tier-price{color:rgba(255,255,255,0.58);}
+.t-hole .tier-hd{background:linear-gradient(135deg,#222,#333);}
+.t-hole .tier-badge{background:var(--gray-200);color:#333;}
+.t-hole .tier-name{color:#ddd;}
+.t-hole .tier-price{color:rgba(255,255,255,0.42);}
+
+/* ── CHIPS ── */
+.sp-group{margin-bottom:1.2rem;}
+.sp-group-ttl{font-family:'Oswald',sans-serif;font-size:0.69rem;font-weight:600;letter-spacing:0.13em;text-transform:uppercase;color:var(--gray-600);margin-bottom:0.65rem;padding-bottom:0.4rem;border-bottom:1.5px solid var(--gray-200);display:flex;align-items:center;gap:0.42rem;}
+.sdot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+.chips{display:flex;flex-wrap:wrap;gap:0.42rem;align-items:center;}
+.chip{display:inline-flex;align-items:center;gap:0.32rem;padding:0.28rem 0.75rem;border-radius:5px;font-size:0.8rem;font-weight:500;border:1px solid;transition:all 0.15s;}
+.chip-gold{background:#FDF8EB;border-color:#C9A84C;color:#6A4E10;}
+.chip-silver{background:#EFF3F8;border-color:#9AACC0;color:#1C2535;}
+.chip-bronze{background:#FEF0E8;border-color:#CD7F32;color:#4A2000;}
+.chip-young{background:#EBF8F0;border-color:#5AB87A;color:#1A3020;}
+.chip-hole{background:var(--gray-100);border-color:var(--gray-200);color:var(--gray-600);}
+.chip-pending{background:#FFFBEB;border-color:#F59E0B;color:#92400E;border-style:dashed;}
+.admin-mode .chip{cursor:pointer;}
+.admin-mode .chip:hover{opacity:0.78;}
+.add-chip-btn{display:none;align-items:center;gap:0.28rem;padding:0.25rem 0.7rem;border-radius:5px;background:rgba(201,168,76,0.08);border:1.5px dashed var(--gold);color:var(--gold-dark);font-size:0.74rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s;}
+.add-chip-btn:hover{background:rgba(201,168,76,0.16);}
+.admin-mode .add-chip-btn{display:inline-flex;}
+
+/* ── TEAMS ── */
+.teams-section{background:var(--wofford-black);}
+.teams-section .sec-lbl{color:var(--gold);}
+.teams-section .sec-ttl{color:var(--white);}
+.teams-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(225px,1fr));gap:0.85rem;margin-top:1.6rem;}
+.team-card{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-top:2px solid var(--gold);border-radius:9px;padding:1rem;transition:background 0.2s;}
+.team-card:hover{background:rgba(255,255,255,0.08);}
+.team-num{font-family:'Oswald',sans-serif;font-size:0.66rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);margin-bottom:0.4rem;}
+.team-captain{font-weight:600;color:var(--white);font-size:0.9rem;margin-bottom:0.3rem;}
+.team-plist{list-style:none;}
+.team-plist li{font-size:0.76rem;color:rgba(255,255,255,0.4);padding:0.07rem 0;}
+.team-empty{background:rgba(239,68,68,0.05);border:1px dashed rgba(239,68,68,0.22);border-top:2px solid rgba(239,68,68,0.32);}
+.team-empty .team-num{color:rgba(239,68,68,0.5);}
+.team-empty .team-captain{color:rgba(255,255,255,0.2);font-style:italic;}
+.team-adm{display:none;margin-top:0.65rem;padding-top:0.65rem;border-top:1px solid rgba(255,255,255,0.07);}
+.admin-mode .team-adm{display:block;}
+.team-btn{font-size:0.68rem;padding:0.2rem 0.52rem;border-radius:4px;background:rgba(201,168,76,0.12);border:1px solid rgba(201,168,76,0.26);color:var(--gold);cursor:pointer;font-family:'DM Sans',sans-serif;margin-right:0.32rem;transition:all 0.15s;}
+.team-btn:hover{background:rgba(201,168,76,0.22);}
+.team-btn.red{background:rgba(239,68,68,0.1);border-color:rgba(239,68,68,0.25);color:#EF4444;}
+.teams-settings{display:none;align-items:center;gap:0.7rem;flex-wrap:wrap;margin-bottom:1.2rem;padding:0.85rem 1.1rem;background:rgba(255,255,255,0.04);border:1px solid rgba(201,168,76,0.16);border-radius:8px;}
+.admin-mode .teams-settings{display:flex;}
+.set-lbl{font-size:0.73rem;color:rgba(255,255,255,0.42);font-weight:500;}
+.set-inp{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.13);border-radius:5px;color:#fff;font-size:0.82rem;padding:0.36rem 0.72rem;font-family:'DM Sans',sans-serif;width:62px;outline:none;}
+.set-inp:focus{border-color:var(--gold);}
+.set-btn{background:var(--gold);color:var(--wofford-black);border:none;border-radius:5px;padding:0.36rem 0.85rem;font-family:'Oswald',sans-serif;font-size:0.76rem;font-weight:600;letter-spacing:0.05em;cursor:pointer;}
+.set-btn.green{background:rgba(34,197,94,0.17);border:1px solid rgba(34,197,94,0.28);color:#22C55E;}
+
+/* ── FLIGHTS ── */
+.flights-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:0.75rem;margin-top:1.6rem;}
+.flight-card{background:rgba(255,255,255,0.04);border:1px solid rgba(201,168,76,0.13);border-radius:9px;padding:0.95rem;}
+.flight-name{font-family:'Oswald',sans-serif;font-size:0.68rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);margin-bottom:0.45rem;}
+.flight-teams{font-size:0.76rem;color:rgba(255,255,255,0.48);line-height:1.7;}
+
+/* ── RAFFLE ── */
+.raffle-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:0.85rem;margin-top:2rem;}
+.raffle-item{background:var(--white);border:1px solid var(--gray-200);border-radius:9px;padding:1.2rem;transition:transform 0.2s;}
+.raffle-item:hover{transform:translateY(-2px);}
+.raffle-icon{font-size:1.5rem;margin-bottom:0.5rem;}
+.raffle-name{font-weight:600;font-size:0.88rem;color:var(--wofford-black);line-height:1.38;}
+.raffle-status-badge{display:inline-block;margin-top:0.32rem;font-size:0.65rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;padding:0.16rem 0.45rem;border-radius:4px;background:var(--green-pale);color:var(--green-mid);}
+
+/* ── FINANCIALS ── */
+.fin-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.6rem;margin-top:2.5rem;}
+.fin-card{background:var(--white);border-radius:9px;padding:1.7rem;border:1px solid var(--gray-200);border-top:3px solid var(--gold);}
+.fin-ttl{font-family:'Oswald',sans-serif;font-size:0.92rem;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--wofford-black);margin-bottom:1rem;padding-bottom:0.55rem;border-bottom:2px solid var(--green-pale);}
+.fin-row{display:flex;justify-content:space-between;align-items:center;padding:0.5rem 0;border-bottom:1px dashed rgba(0,0,0,0.06);font-size:0.85rem;}
+.fin-row:last-of-type{border-bottom:none;}
+.fin-k{color:var(--gray-600);}
+.fin-v{font-weight:600;color:var(--wofford-black);}
+.fin-total{margin-top:0.85rem;padding-top:0.85rem;border-top:2px solid var(--wofford-black);display:flex;justify-content:space-between;font-weight:700;font-size:0.9rem;color:var(--wofford-black);}
+.total-banner{background:linear-gradient(135deg,var(--wofford-black),#2E2820);border-radius:11px;padding:2.1rem;text-align:center;grid-column:1/-1;border-top:3px solid var(--gold);}
+.total-lbl{font-size:0.7rem;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.42);margin-bottom:0.38rem;}
+.total-num{font-family:'Oswald',sans-serif;font-size:3rem;font-weight:700;color:var(--gold);line-height:1;margin-bottom:0.32rem;}
+.total-sub{font-size:0.83rem;color:rgba(255,255,255,0.42);}
+.hist-table{width:100%;border-collapse:collapse;font-size:0.82rem;}
+.hist-table th{text-align:left;padding:0.5rem 0.62rem;font-size:0.65rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--gray-400);border-bottom:2px solid var(--gray-200);}
+.hist-table td{padding:0.42rem 0.62rem;border-bottom:1px solid var(--gray-100);color:var(--wofford-black);}
+.hist-table tr:last-child td{border-bottom:none;font-weight:700;color:var(--gold-dark);}
+.gaesf td:first-child{color:var(--green-mid);font-weight:500;}
+
+/* ── REGISTER ── */
+.reg-section{background:var(--wofford-black);text-align:center;padding:6rem 2rem;}
+.reg-section .sec-lbl{color:var(--gold);justify-content:center;}
+.reg-section .sec-lbl::before{background:var(--gold);}
+.reg-section .sec-ttl{color:var(--white);text-align:center;}
+.reg-body{color:rgba(255,255,255,0.48);max-width:460px;margin:0.85rem auto 2rem;font-size:0.96rem;}
+.contact-block{display:inline-flex;flex-direction:column;gap:0.45rem;background:rgba(255,255,255,0.04);border:1px solid rgba(201,168,76,0.13);border-radius:9px;padding:1.5rem 2rem;text-align:left;margin:0 auto;}
+.contact-row{display:flex;align-items:flex-start;gap:0.65rem;font-size:0.84rem;color:rgba(255,255,255,0.62);}
+.contact-row strong{color:var(--gold);font-size:0.67rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;min-width:54px;margin-top:2px;}
+
+/* ── BASEBALL ── */
+.baseball-section{background:var(--gray-100);padding:4.5rem 2rem;}
+.bb-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:2.5rem;}
+.bb-stat-row{display:flex;align-items:center;gap:1rem;padding:0.7rem 0;border-bottom:1px solid var(--gray-200);}
+.bb-stat-row:last-child{border-bottom:none;}
+.bb-stat-num{font-family:'Oswald',sans-serif;font-size:1.6rem;font-weight:700;color:var(--gold-dark);min-width:70px;}
+.bb-stat-lbl{font-size:0.85rem;color:var(--gray-600);}
+.bb-news-item{padding:0.7rem 0;border-bottom:1px solid var(--gray-200);}
+.bb-news-item:last-child{border-bottom:none;}
+.bb-news-ttl{font-weight:600;color:var(--wofford-black);font-size:0.9rem;margin-bottom:0.2rem;}
+.bb-news-meta{font-size:0.75rem;color:var(--gray-400);}
+
+/* ── SPONSORS FOOTER STRIP ── */
+.sponsors-strip{background:var(--wofford-black);padding:3rem 2rem;text-align:center;border-top:1px solid rgba(201,168,76,0.18);}
+.sponsors-strip-ttl{font-family:'Oswald',sans-serif;font-size:0.7rem;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.28);margin-bottom:1.5rem;}
+.sponsor-logos{display:flex;justify-content:center;align-items:center;gap:3rem;flex-wrap:wrap;}
+.sponsor-logo-item{text-align:center;}
+.sponsor-logo-name{font-family:'Oswald',sans-serif;font-size:1.2rem;font-weight:700;color:rgba(255,255,255,0.55);letter-spacing:0.06em;transition:color 0.2s;}
+.sponsor-logo-name:hover{color:var(--gold);}
+.sponsor-logo-sub{font-size:0.7rem;color:rgba(255,255,255,0.25);margin-top:0.2rem;}
+
+/* ── EXTRAS (photos, scholarship) ── */
+.extras-section{background:var(--cream);padding:5rem 2rem;}
+.photo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem;margin-top:2rem;}
+.photo-slot{background:var(--white);border:2px dashed var(--gray-200);border-radius:9px;aspect-ratio:4/3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.5rem;cursor:pointer;transition:border-color 0.2s;position:relative;overflow:hidden;}
+.photo-slot:hover{border-color:var(--gold);}
+.photo-slot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:7px;}
+.photo-slot-label{font-size:0.75rem;color:var(--gray-400);font-weight:500;text-align:center;padding:0.5rem;}
+.photo-slot-icon{font-size:1.8rem;color:var(--gray-200);}
+.admin-mode .photo-slot{cursor:pointer;}
+.scholar-card{background:var(--white);border:1px solid var(--gray-200);border-top:3px solid var(--gold);border-radius:9px;padding:2rem;display:grid;grid-template-columns:160px 1fr;gap:2rem;align-items:start;margin-top:2rem;}
+.scholar-photo{width:160px;height:200px;object-fit:cover;border-radius:7px;background:var(--gray-100);display:flex;align-items:center;justify-content:center;font-size:3rem;}
+.scholar-name{font-family:'Oswald',sans-serif;font-size:1.4rem;font-weight:700;color:var(--wofford-black);margin-bottom:0.3rem;}
+.scholar-year{font-size:0.8rem;color:var(--gold-dark);font-weight:600;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:0.8rem;}
+.scholar-bio{font-size:0.9rem;color:var(--gray-600);line-height:1.7;}
+
+/* ── SECURITY NOTE ── */
+.sec-notice{background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.22);border-radius:8px;padding:1rem 1.2rem;font-size:0.8rem;color:rgba(255,255,255,0.6);line-height:1.55;}
+.sec-notice strong{color:rgba(59,130,246,0.9);display:block;margin-bottom:0.3rem;}
+
+/* ── EDIT MODAL ── */
+#edit-modal{display:none;position:fixed;inset:0;z-index:3000;background:rgba(0,0,0,0.72);backdrop-filter:blur(4px);align-items:center;justify-content:center;}
+#edit-modal.show{display:flex;}
+.edit-box{background:var(--admin-bg);border:1px solid rgba(255,255,255,0.1);border-top:3px solid var(--gold);border-radius:11px;padding:1.8rem;width:400px;max-width:92vw;}
+.edit-box h3{font-family:'Oswald',sans-serif;color:var(--gold);font-size:1rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:1.3rem;}
+.edit-field{margin-bottom:0.8rem;}
+.edit-field label{display:block;font-size:0.67rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.36);margin-bottom:0.3rem;}
+.edit-field input,.edit-field select,.edit-field textarea{width:100%;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:5px;color:#fff;font-size:0.84rem;padding:0.58rem 0.82rem;font-family:'DM Sans',sans-serif;outline:none;transition:border-color 0.2s;}
+.edit-field input:focus,.edit-field select:focus,.edit-field textarea:focus{border-color:var(--gold);}
+.edit-field select option{background:#0A1628;color:#fff;}
+.edit-field textarea{resize:vertical;min-height:70px;}
+.edit-actions{display:flex;gap:0.65rem;justify-content:flex-end;margin-top:1.3rem;}
+.edit-save{background:var(--gold);color:var(--wofford-black);border:none;border-radius:5px;padding:0.55rem 1.3rem;font-family:'Oswald',sans-serif;font-weight:600;font-size:0.85rem;letter-spacing:0.06em;cursor:pointer;}
+.edit-cancel{background:transparent;border:1px solid rgba(255,255,255,0.13);color:rgba(255,255,255,0.52);border-radius:5px;padding:0.55rem 1rem;font-family:'DM Sans',sans-serif;font-size:0.83rem;cursor:pointer;}
+.edit-delete{background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.26);color:#EF4444;border-radius:5px;padding:0.55rem 0.9rem;font-family:'DM Sans',sans-serif;font-size:0.83rem;cursor:pointer;margin-right:auto;}
+
+/* ── TOAST ── */
+#toast{position:fixed;bottom:1.8rem;left:50%;transform:translateX(-50%) translateY(80px);z-index:5000;background:#22C55E;color:#fff;font-size:0.82rem;font-weight:600;padding:0.65rem 1.3rem;border-radius:7px;opacity:0;transition:all 0.3s;pointer-events:none;white-space:nowrap;}
+#toast.show{transform:translateX(-50%) translateY(0);opacity:1;}
+
+
+
+/* ── MOBILE ── */
+@media(max-width:768px){
+  #hamburger{display:flex;}
+  .cause-grid,.details-grid,.fin-grid,.bb-grid,.scholar-card{grid-template-columns:1fr;gap:1.4rem;}
+  .flights-grid{grid-template-columns:1fr 1fr;}
+  .nav-links{display:none;}
+  .honorees{flex-direction:column;}
+  .scholar-photo{width:100%;height:200px;margin:0 auto;}
+  .hero-title{font-size:3rem;}
+  .hero{padding:80px 1.2rem 3rem;}
+  section{padding:3.5rem 1.2rem;}
+  .reg-section{padding:4rem 1.2rem;}
+  .tiers-grid{grid-template-columns:1fr 1fr;}
+  .raffle-grid{grid-template-columns:1fr 1fr;}
+  .hero-stats .hstat{padding:0.9rem 1rem;}
+  .hstat-num{font-size:1.5rem;}
+  .contact-block{padding:1.2rem 1.4rem;}
+  #admin-drawer{width:100vw;}
+  
+  nav{padding:0 0.8rem 0 1rem;}
+  .nav-logo-text{font-size:0.8rem;}
+  .toggle-btn{padding:0.2rem 0.6rem;font-size:0.62rem;}
+  #mode-toggle{gap:0.3rem;}
+  .sponsor-logos{gap:2rem;}
+}
+@media(max-width:480px){
+  .tiers-grid{grid-template-columns:1fr;}
+  .raffle-grid{grid-template-columns:1fr;}
+  .flights-grid{grid-template-columns:1fr;}
+  .photo-grid{grid-template-columns:1fr 1fr;}
+  .hero-title{font-size:2.5rem;}
+  .sec-ttl{font-size:1.6rem;}
+}
+
+.fade-in{opacity:0;transform:translateY(14px);transition:opacity 0.48s ease,transform 0.48s ease;}
+.fade-in.visible{opacity:1;transform:none;}
+</style>
+</head>
+<body>
+
+<!-- ADMIN BANNER (only visible in admin mode) -->
+<div id="admin-banner" style="display:none;position:fixed;top:54px;left:0;right:0;z-index:200;background:rgba(59,130,246,0.92);color:#fff;text-align:center;font-size:0.72rem;font-weight:600;padding:0.28rem;letter-spacing:0.06em;backdrop-filter:blur(4px);">
+  🔐 ADMIN MODE — Editing enabled · <span onclick="exitAdmin()" style="cursor:pointer;text-decoration:underline;">Exit Admin</span> · <span onclick="downloadPage()" style="cursor:pointer;text-decoration:underline;">Download Saved File</span>
+</div>
+
+<!-- SETTINGS GEAR ICON (always visible, opens admin login) -->
+<div id="settings-gear" onclick="isAdmin?openDrawer():requestAdmin()" title="Admin Settings">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 15.5A3.5 3.5 0 018.5 12 3.5 3.5 0 0112 8.5a3.5 3.5 0 013.5 3.5 3.5 3.5 0 01-3.5 3.5m7.43-2.92c.04-.34.07-.68.07-1.08s-.03-.74-.07-1.08l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64L4.57 10.92c-.04.34-.07.67-.07 1.08s.03.74.07 1.08l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.58 1.69-.98l2.49 1c.23.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65z"/>
+  </svg>
+</div>
+
+<!-- LOGIN -->
+<div id="login-overlay">
+  <div class="lbox">
+    <div class="lbox-ttl">⛳ Admin Access</div>
+    <div class="lbox-sub">Wofford Golf Invitational — Organizers Only</div>
+    <input type="password" id="pw-input" placeholder="Enter password" onkeydown="if(event.key==='Enter')doLogin()">
+    <div class="lbox-err" id="login-err">Incorrect password. Try again.</div>
+    <button class="lbox-btn" onclick="doLogin()">SIGN IN</button>
+    <button class="lbox-cancel" onclick="closeLogin()">Cancel</button>
+  </div>
+</div>
+
+<!-- ████ ADMIN DRAWER ████ -->
+<div id="admin-drawer">
+  <div class="drw-head">
+    <span class="drw-title">🐾 Admin Panel</span>
+    <div style="display:flex;align-items:center;gap:0.5rem;">
+      <button class="drw-expand" id="drw-expand-btn" onclick="toggleExpandDrawer()" title="Expand to full screen">⛶</button>
+      <button class="drw-close" onclick="exitAdmin()" title="Exit Admin">✕</button>
+    </div>
+  </div>
+  <div class="drw-tabs">
+    <div class="drw-tab active" onclick="switchTab('dash')">Dashboard</div>
+    <div class="drw-tab" onclick="switchTab('settings')">Settings</div>
+    <div class="drw-tab" onclick="switchTab('actions')">Actions</div>
+    <div class="drw-tab" onclick="switchTab('raffle')">Raffle</div>
+    <div class="drw-tab" onclick="switchTab('extras')">Extras</div>
+    <div class="drw-tab" onclick="switchTab('guide')">Guide</div>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div class="drw-pane active" id="tab-dash">
+    <div style="margin-top:0.4rem;" class="dgrid">
+      <div class="dcard"><div class="dlbl">Sponsors '26</div><div class="dval" id="dash-sp">0</div><div class="dsub">confirmed</div></div>
+      <div class="dcard"><div class="dlbl">Committed $</div><div class="dval" id="dash-tot">$0</div><div class="dsub">2026 season</div></div>
+      <div class="dcard"><div class="dlbl">Teams</div><div class="dval" id="dash-tm">0</div><div class="dsub">of <span id="dash-mx">25</span> slots</div></div>
+      <div class="dcard"><div class="dlbl">Est. Players</div><div class="dval" id="dash-pl">0</div><div class="dsub">4 per team</div></div>
+      <div class="dcard" style="grid-column:1/-1"><div class="dlbl">2025 Net (Actual)</div><div class="dval">$73K</div><div class="dsub">2026 gross goal: $86,650</div></div>
+    </div>
+    <button class="drw-btn-ghost" onclick="exitAdmin()">← Exit Admin View</button>
+    <button class="drw-btn-ghost" onclick="downloadPage()" style="margin-top:0.4rem;">⬇ Download Saved File</button>
+    <div style="margin-top:0.8rem;background:rgba(201,168,76,0.09);border:1px solid rgba(201,168,76,0.2);border-radius:7px;padding:0.85rem;">
+      <div style="font-family:'Oswald',sans-serif;font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem;">🌐 Publish as a Live Website</div>
+      <div style="font-size:0.73rem;color:rgba(255,255,255,0.55);line-height:1.6;">
+        <strong style="color:rgba(255,255,255,0.8);">Option 1 — tiiny.host (easiest, free)</strong><br>
+        1. Download the file below<br>
+        2. Go to <strong style="color:var(--gold);">tiiny.host</strong> in your browser<br>
+        3. Upload the file → instant public URL<br><br>
+        <strong style="color:rgba(255,255,255,0.8);">Option 2 — Share the file directly</strong><br>
+        Email or text the HTML file to anyone — they open it in any browser, no internet needed.<br><br>
+        <strong style="color:rgba(255,255,255,0.8);">Option 3 — Send back to Claude</strong><br>
+        After downloading, drag the .html file into the Claude chat window just like a photo. Claude will read all your changes and pick up right where you left off.
+      </div>
+    </div>
+    <div class="drw-note" style="margin-top:0.5rem;">
+      <strong style="color:rgba(201,168,76,0.65);">Security note:</strong> The admin password is stored only in this HTML file. Anyone who downloads the file can view the source and see the password. For a private event among trusted organizers this is fine — but do not store sensitive personal or financial data beyond names and amounts. The Wofford registration link is a standard public hyperlink; linking to it is completely appropriate and common practice for alumni events.
+    </div>
+  </div>
+
+  <!-- SETTINGS -->
+  <div class="drw-pane" id="tab-settings">
+    <div class="ss-ttl">Tournament Identity</div>
+    <div class="sf"><label>Tournament Name</label><input type="text" id="s-name" value="Wofford Golf Invitational"></div>
+    <div class="sf"><label>Year</label><input type="text" id="s-year" value="2026"></div>
+    <div class="sf"><label>Date / Month</label><input type="text" id="s-date" value="September 2026"></div>
+    <div class="sf"><label>Subtitle / Tagline</label><input type="text" id="s-subtitle" value="Honoring Russell King &amp; Walt Sessoms"></div>
+    <div class="ss-ttl">Stats Bar (Hero)</div>
+    <div class="sf"><label>Stat 1 — Number</label><input type="text" id="s-stat1n" value="30+"></div>
+    <div class="sf"><label>Stat 1 — Label</label><input type="text" id="s-stat1l" value="Years of Play"></div>
+    <div class="sf"><label>Stat 2 — Number</label><input type="text" id="s-stat2n" value="25"></div>
+    <div class="sf"><label>Stat 2 — Label</label><input type="text" id="s-stat2l" value="Teams"></div>
+    <div class="sf"><label>Stat 3 — Number</label><input type="text" id="s-stat3n" value="$1.88M"></div>
+    <div class="sf"><label>Stat 3 — Label</label><input type="text" id="s-stat3l" value="Total Raised"></div>
+    <div class="sf"><label>Stat 4 — Number</label><input type="text" id="s-stat4n" value="100"></div>
+    <div class="sf"><label>Stat 4 — Label</label><input type="text" id="s-stat4l" value="Players"></div>
+    <div class="ss-ttl">Venue</div>
+    <div class="sf"><label>Course Name</label><input type="text" id="s-course" value="Bear's Best"></div>
+    <div class="sf"><label>Course City, State</label><input type="text" id="s-city" value="Suwanee, GA"></div>
+    <div class="sf"><label>Course Address</label><input type="text" id="s-address" value="5342 Aldeburgh Dr, Suwanee GA 30024"></div>
+    <div class="ss-ttl">Contact</div>
+    <div class="sf"><label>Contact Name &amp; Phone</label><input type="text" id="s-contact" value="Patrick Wheeler · 919-801-7225"></div>
+    <div class="sf"><label>Teams Email</label><input type="text" id="s-email" value="jmhuber@carolinalumber.com"></div>
+    <div class="sf"><label>Mailing Address</label><input type="text" id="s-address2" value="429 N Church St, Spartanburg, SC 29303"></div>
+    <div class="ss-ttl">Appearance</div>
+    <div class="sf"><label>Hero Background</label>
+      <select id="s-hero-bg">
+        <option value="dark">Dark / Black (default)</option>
+        <option value="green">Deep Green</option>
+        <option value="navy">Navy Blue</option>
+      </select>
+    </div>
+    <div class="sf"><label>Logo / Graphic (shows large in hero)</label>
+      <input type="file" id="s-logo" accept="image/*" onchange="handleLogoUpload(this)" style="font-size:0.76rem;padding:0.28rem 0;">
+      <img id="logo-preview" alt="Logo preview">
+    </div>
+    <div class="ss-ttl">Security</div>
+    <div class="sf"><label>Change Admin Password</label><input type="text" id="s-newpass" placeholder="Leave blank to keep current"></div>
+    <button class="drw-btn" onclick="applySettings()">✓ Apply All Changes</button>
+    <button class="drw-btn-ghost" onclick="downloadPage()">⬇ Download Saved File</button>
+    <p class="drw-note">Download bakes all changes into the file permanently.</p>
+  </div>
+
+  <!-- ACTIONS / OPEN ITEMS -->
+  <div class="drw-pane" id="tab-actions">
+    <div style="margin-bottom:0.8rem;font-size:0.75rem;color:rgba(255,255,255,0.42);">Track open tasks, owners, and status. Changes auto-save while the page is open.</div>
+    <div class="ai-head">
+      <span>Action / Task</span>
+      <span>Notes</span>
+      <span>Owner</span>
+      <span>Status</span>
+      <span></span>
+    </div>
+    <div id="action-list"></div>
+    <button class="ai-add" onclick="addAction()">+ Add Action Item</button>
+    <div style="margin-top:1.2rem;padding-top:0.8rem;border-top:1px solid rgba(255,255,255,0.07);">
+      <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(201,168,76,0.5);margin-bottom:0.6rem;">Status Legend</div>
+      <div style="font-size:0.75rem;display:flex;flex-direction:column;gap:0.25rem;">
+        <span class="ai-status-open">⏳ Open — in progress or not started</span>
+        <span class="ai-status-done">✅ Done — completed</span>
+        <span class="ai-status-blocked">🚫 Blocked — needs follow-up</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- RAFFLE EDITOR -->
+  <div class="drw-pane" id="tab-raffle">
+    <div style="font-size:0.75rem;color:rgba(255,255,255,0.4);margin-bottom:0.9rem;">Edit raffle prizes below. Changes update the public page in real time.</div>
+    <div id="raffle-edit-list"></div>
+    <button class="ai-add" onclick="addRaffleItem()" style="margin-top:0.5rem;">+ Add Raffle Prize</button>
+    <button class="drw-btn" onclick="applyRaffle()" style="margin-top:1rem;">✓ Update Raffle Prizes</button>
+  </div>
+
+  <!-- EXTRAS -->
+  <div class="drw-pane" id="tab-extras">
+    <div class="ss-ttl">Tournament Photos</div>
+    <div style="font-size:0.75rem;color:rgba(255,255,255,0.38);margin-bottom:0.7rem;">Upload photos from past tournaments. They appear in the Extras section on the public page.</div>
+    <input type="file" id="photo-upload" accept="image/*" multiple onchange="handlePhotoUpload(this)" style="font-size:0.76rem;padding:0.28rem 0;color:rgba(255,255,255,0.55);">
+    <div class="ss-ttl" style="margin-top:1rem;">Scholarship Recipient Bio</div>
+    <div class="sf"><label>Recipient Name</label><input type="text" id="s-scholar-name" placeholder="e.g. John Smith '22"></div>
+    <div class="sf"><label>Year / Class</label><input type="text" id="s-scholar-year" placeholder="e.g. Class of 2022"></div>
+    <div class="sf"><label>Bio</label><textarea id="s-scholar-bio" placeholder="Brief bio about the scholarship recipient..."></textarea></div>
+    <div class="sf"><label>Recipient Photo</label><input type="file" id="s-scholar-photo" accept="image/*" onchange="handleScholarPhoto(this)" style="font-size:0.76rem;padding:0.28rem 0;"></div>
+    <button class="drw-btn" onclick="applyExtras()">✓ Update Extras Section</button>
+  </div>
+
+  <!-- GUIDE -->
+  <div class="drw-pane" id="tab-guide">
+    <div style="font-size:0.82rem;color:rgba(255,255,255,0.6);line-height:1.7;">
+      <div class="ss-ttl" style="margin-top:0;">How to Edit</div>
+      <div style="background:rgba(255,255,255,0.04);border-radius:7px;padding:0.9rem;margin-bottom:0.9rem;">
+        <div style="color:var(--gold);font-family:'Oswald',sans-serif;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.45rem;">Click-to-Edit (inline)</div>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:0.3rem;font-size:0.78rem;">
+          <li>✦ Hero title, eyebrow, subtitle</li>
+          <li>✦ Section headings &amp; body text</li>
+          <li>✦ Schedule times &amp; event names</li>
+          <li>✦ Event details, course info</li>
+          <li>✦ Impact numbers &amp; descriptions</li>
+          <li>✦ Honoree names &amp; roles</li>
+          <li>✦ Financial figures in tables</li>
+          <li>✦ Raffle item names on the page</li>
+          <li>✦ Footer text</li>
+        </ul>
+      </div>
+      <div style="background:rgba(255,255,255,0.04);border-radius:7px;padding:0.9rem;margin-bottom:0.9rem;">
+        <div style="color:var(--gold);font-family:'Oswald',sans-serif;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.45rem;">Use Tabs For</div>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:0.3rem;font-size:0.78rem;">
+          <li>✦ Tournament name (updates everywhere)</li>
+          <li>✦ Hero stats bar numbers</li>
+          <li>✦ Logos &amp; graphics</li>
+          <li>✦ Sponsors — add/edit/remove</li>
+          <li>✦ Teams — fill/edit/clear slots</li>
+          <li>✦ Action items tracking</li>
+          <li>✦ Raffle prize list</li>
+          <li>✦ Photos &amp; scholarship bio</li>
+        </ul>
+      </div>
+      <div style="background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.18);border-radius:7px;padding:0.9rem;">
+        <div style="color:var(--gold);font-weight:700;margin-bottom:0.28rem;font-size:0.8rem;">💾 Saving</div>
+        <div style="font-size:0.78rem;">Hit <strong style="color:var(--gold);">Download Saved File</strong> after changes. Open that file next session to keep everything.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- NAV (toggle lives here, never overlaps content) -->
+<nav>
+  <div class="nav-logo" id="nav-logo-wrap" onclick="handleLogoClick()" title="Click 3x for admin">
+    <span style="font-size:1.25rem;" id="nav-logo-icon">🐾</span>
+    <span class="nav-logo-text" id="nav-logo-text">Wofford Golf Invitational '26</span>
+  </div>
+  <div id="hamburger" onclick="toggleMobileMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#cause">Our Cause</a></li>
+    <li><a href="#details">Details</a></li>
+    <li><a href="#sponsors">Sponsors</a></li>
+    <li><a href="#raffle">Raffle</a></li>
+    <li><a href="#teams">Teams</a></li>
+    <li><a href="#financials">Impact</a></li>
+    <li><a href="#extras">Extras</a></li>
+    <li><a href="#register">Register</a></li>
+  </ul>
+  <button id="btn-public" style="display:none;" onclick="setMode('public')"></button>
+  <button id="btn-admin" style="display:none;" onclick="requestAdmin()"></button>
+</nav>
+
+<!-- MOBILE MENU -->
+<div id="mobile-menu">
+  <a href="#cause" onclick="closeMobileMenu()">Our Cause</a>
+  <a href="#details" onclick="closeMobileMenu()">Details</a>
+  <a href="#sponsors" onclick="closeMobileMenu()">Sponsors</a>
+  <a href="#raffle" onclick="closeMobileMenu()">Raffle</a>
+  <a href="#teams" onclick="closeMobileMenu()">Teams</a>
+  <a href="#financials" onclick="closeMobileMenu()">Impact</a>
+  <a href="#extras" onclick="closeMobileMenu()">Extras</a>
+  <a href="#register" onclick="closeMobileMenu()">Register</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="top" style="scroll-margin-top:58px;">
+  <div class="hero-stripes"></div><div class="hero-glow"></div>
+  <div class="hero-content">
+    <img id="hero-logo-img" src="" alt="Tournament Logo">
+    <div class="hero-eyebrow" id="hero-eyebrow" data-edit contenteditable="false">September 2026 · Bear's Best · Suwanee, GA</div>
+    <h1 class="hero-title" id="hero-title">Wofford<br>Golf<span class="gold" id="hero-title-last">Invitational</span></h1>
+    <p class="hero-subtitle" id="hero-subtitle" data-edit contenteditable="false">Honoring Russell King &amp; Walt Sessoms</p>
+    <div class="hero-bar"></div>
+    <div class="hero-stats">
+      <div class="hstat"><div class="hstat-num" id="stat1n">30+</div><div class="hstat-lbl" id="stat1l">Years of Play</div></div>
+      <div class="hstat"><div class="hstat-num" id="stat2n">25</div><div class="hstat-lbl" id="stat2l">Teams</div></div>
+      <div class="hstat"><div class="hstat-num" id="stat3n">$1.88M</div><div class="hstat-lbl" id="stat3l">Total Raised</div></div>
+      <div class="hstat"><div class="hstat-num" id="stat4n">100</div><div class="hstat-lbl" id="stat4l">Players</div></div>
+    </div>
+    <div class="hero-ctas">
+      <a href="https://advance.wofford.edu/register/?id=9a2f9729-9cf3-4a8d-ae3b-445ccb8981c1" target="_blank" rel="noopener" class="btn-gold">Register Your Team →</a>
+      <a href="#cause" class="btn-ghost">Our Mission</a>
+    </div>
+  </div>
+</section>
+
+<!-- CAUSE -->
+<section class="dark-sec" id="cause" style="padding:5rem 2rem;">
+  <div class="container">
+    <div class="cause-grid">
+      <div>
+        <div class="sec-lbl">Our Story</div>
+        <h2 class="sec-ttl" data-edit contenteditable="false">30 YEARS OF <em>TERRIER SPIRIT</em></h2>
+        <p class="sec-body" data-edit contenteditable="false">Every swing, every birdie, every raffle ticket goes directly to the Georgia Alumni Endowed Scholarship Fund — giving Wofford students the opportunity of a lifetime. This tournament proudly honors two pillars of our community.</p>
+        <div class="honorees">
+          <div class="hon-card">
+            <div class="hon-init" data-edit contenteditable="false">RK</div>
+            <div class="hon-name" data-edit contenteditable="false">RUSSELL KING</div>
+            <div class="hon-role" data-edit contenteditable="false">Honored Wofford Alumnus</div>
+          </div>
+          <div class="hon-card">
+            <div class="hon-init" data-edit contenteditable="false">WS</div>
+            <div class="hon-name" data-edit contenteditable="false">WALT SESSOMS</div>
+            <div class="hon-role" data-edit contenteditable="false">Honored Wofford Alumnus</div>
+          </div>
+        </div>
+      </div>
+      <div class="impact-cards">
+        <div class="impact-card"><div class="impact-num" data-edit contenteditable="false">$1.88M</div><div class="impact-desc"><strong data-edit contenteditable="false">Total Raised to Date</strong><span data-edit contenteditable="false">1995–2025, incl. $250K Daniel Fund match</span></div></div>
+        <div class="impact-card"><div class="impact-num" data-edit contenteditable="false">$73.1K</div><div class="impact-desc"><strong data-edit contenteditable="false">Net Raised in 2025</strong><span data-edit contenteditable="false">$87,620 gross revenue last tournament</span></div></div>
+        <div class="impact-card"><div class="impact-num" data-edit contenteditable="false">$86.7K</div><div class="impact-desc"><strong data-edit contenteditable="false">2026 Gross Goal</strong><span data-edit contenteditable="false">Projected net ~$71K to the scholarship fund</span></div></div>
+        <div class="impact-card"><div class="impact-num" data-edit contenteditable="false">30+</div><div class="impact-desc"><strong data-edit contenteditable="false">Years of Tradition</strong><span data-edit contenteditable="false">A beloved annual Georgia Wofford alumni gathering</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DETAILS -->
+<section style="background:var(--cream);" id="details">
+  <div class="container">
+    <div class="sec-lbl">Tournament Info</div>
+    <h2 class="sec-ttl">EVERYTHING YOU NEED <em>TO KNOW</em></h2>
+    <div class="details-grid">
+      <div class="det-card">
+        <div class="det-ttl">📅 Day of Schedule</div>
+        <ul class="sched-list">
+          <li class="sched-item"><span class="sched-time" data-edit contenteditable="false">8:30 AM</span><div class="sched-ev"><strong data-edit contenteditable="false">Arrival &amp; Warm-Up</strong><span data-edit contenteditable="false">Practice range · Registration · Light breakfast</span></div></li>
+          <li class="sched-item"><span class="sched-time" data-edit contenteditable="false">9:30 AM</span><div class="sched-ev"><strong data-edit contenteditable="false">Opening Program</strong><span data-edit contenteditable="false">Welcome · Sponsor recognition · Overview</span></div></li>
+          <li class="sched-item"><span class="sched-time" data-edit contenteditable="false">10:00 AM</span><div class="sched-ev"><strong data-edit contenteditable="false">Shotgun Start</strong><span data-edit contenteditable="false">4-player scramble · No mulligans · 5 flights</span></div></li>
+          <li class="sched-item"><span class="sched-time" data-edit contenteditable="false">Midday</span><div class="sched-ev"><strong data-edit contenteditable="false">Box Lunches on the Course</strong><span data-edit contenteditable="false">Sponsored by Henri's Bakery &amp; Anthony DiNardo</span></div></li>
+          <li class="sched-item"><span class="sched-time" data-edit contenteditable="false">2:30 PM</span><div class="sched-ev"><strong data-edit contenteditable="false">Social Hour &amp; Awards</strong><span data-edit contenteditable="false">Post-round reception · Flight winners announced</span></div></li>
+        </ul>
+      </div>
+      <div>
+        <div class="det-card">
+          <div class="det-ttl">⛳ Event Details</div>
+          <ul class="info-list">
+            <li class="info-item"><span class="info-k">Course</span><span class="info-v" data-edit contenteditable="false" id="detail-course">Bear's Best — 5342 Aldeburgh Dr, Suwanee GA 30024</span></li>
+            <li class="info-item"><span class="info-k">Format</span><span class="info-v" data-edit contenteditable="false">4-Player Scramble · No Mulligans</span></li>
+            <li class="info-item"><span class="info-k">Flights</span><span class="info-v" data-edit contenteditable="false">5 Flights · Prizes for each</span></li>
+            <li class="info-item"><span class="info-k">Contests</span><span class="info-v" data-edit contenteditable="false">Long Drive · Closest to the Pin · Putting Contest</span></li>
+            <li class="info-item"><span class="info-k">Capacity</span><span class="info-v">First <span id="max-teams-txt">25</span> Teams · Pre-pay Only</span></li>
+            <li class="info-item"><span class="info-k">Contact</span><span class="info-v" data-edit contenteditable="false" id="detail-contact">Patrick Wheeler · 919-801-7225</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SPONSORS -->
+<section style="background:var(--white);" id="sponsors">
+  <div class="container">
+    <div class="sec-lbl">Sponsorship</div>
+    <h2 class="sec-ttl">JOIN OUR TERRIER <em>FAMILY</em></h2>
+    <p class="sec-body" data-edit contenteditable="false">Every sponsorship level directly supports the Georgia Alumni Endowed Scholarship Fund and includes full tournament participation.</p>
+    <div class="tiers-grid">
+      <div class="tier-card t-gold"><div class="tier-hd"><div class="tier-badge">Gold</div><div class="tier-name">GOLD TERRIER</div><div class="tier-price">$5,000+</div></div><div class="tier-bd"><ul class="tier-perks"><li class="tier-perk">VIP Sponsor Recognition</li><li class="tier-perk">1 Foursome in tournament</li><li class="tier-perk">Food &amp; Beverage sponsorship</li><li class="tier-perk">Terrier Club Collegiate Circle</li><li class="tier-perk">Hole &amp; program recognition</li><li class="tier-perk">Awards Presentation recognition</li></ul></div></div>
+      <div class="tier-card t-silver"><div class="tier-hd"><div class="tier-badge">Silver</div><div class="tier-name">SILVER TERRIER</div><div class="tier-price">$2,500</div></div><div class="tier-bd"><ul class="tier-perks"><li class="tier-perk">Silver Sponsor Recognition</li><li class="tier-perk">1 Foursome in tournament</li><li class="tier-perk">Terrier Club President's Circle</li><li class="tier-perk">Hole &amp; program recognition</li><li class="tier-perk">Awards Presentation recognition</li></ul></div></div>
+      <div class="tier-card t-bronze"><div class="tier-hd"><div class="tier-badge">Bronze</div><div class="tier-name">BRONZE TERRIER</div><div class="tier-price">$1,500</div></div><div class="tier-bd"><ul class="tier-perks"><li class="tier-perk">Bronze Sponsor Recognition</li><li class="tier-perk">1 Foursome in tournament</li><li class="tier-perk">Terrier Club Steward membership</li><li class="tier-perk">Awards Presentation recognition</li></ul></div></div>
+      <div class="tier-card t-young"><div class="tier-hd"><div class="tier-badge">Young Alumni</div><div class="tier-name">YOUNG ALUMNI</div><div class="tier-price">$1,000 · Ages 30 &amp; under</div></div><div class="tier-bd"><ul class="tier-perks"><li class="tier-perk">Limited to 4 teams</li><li class="tier-perk">Sponsor recognition</li><li class="tier-perk">Terrier Club Patron membership</li><li class="tier-perk">Awards Presentation recognition</li></ul></div></div>
+      <div class="tier-card t-hole"><div class="tier-hd"><div class="tier-badge">Hole</div><div class="tier-name">HOLE SPONSOR</div><div class="tier-price">$500</div></div><div class="tier-bd"><ul class="tier-perks"><li class="tier-perk">Company name on hole signage</li><li class="tier-perk">Hole sponsorship recognition</li><li class="tier-perk">Program recognition</li></ul></div></div>
+    </div>
+
+    <!-- 2026 LIVE (open by default) -->
+    <div style="margin-top:3rem;">
+      <div class="coll-wrap">
+        <div class="coll-hdr open" onclick="toggleColl('sp2026')">
+          <div class="coll-ttl"><span class="yr-badge yr-badge-new">2026</span>2026 Sponsor Commitments</div>
+          <div class="coll-meta"><span id="sp-total-label">$0 committed</span><div class="coll-chev">▼</div></div>
+        </div>
+        <div class="coll-body open" id="sp2026">
+          <div class="sp-group"><div class="sp-group-ttl"><span class="sdot" style="background:#C9A84C;"></span>Gold Terrier — $5,000+</div><div class="chips" id="chips-gold"><button class="add-chip-btn" onclick="addSponsor('gold')">+ Add Gold Sponsor</button></div></div>
+          <div class="sp-group"><div class="sp-group-ttl"><span class="sdot" style="background:#9AACC0;"></span>Silver Terrier — $2,500</div><div class="chips" id="chips-silver"><button class="add-chip-btn" onclick="addSponsor('silver')">+ Add Silver Sponsor</button></div></div>
+          <div class="sp-group"><div class="sp-group-ttl"><span class="sdot" style="background:#CD7F32;"></span>Bronze Terrier — $1,500</div><div class="chips" id="chips-bronze"><button class="add-chip-btn" onclick="addSponsor('bronze')">+ Add Bronze Sponsor</button></div></div>
+          <div class="sp-group"><div class="sp-group-ttl"><span class="sdot" style="background:#5AB87A;"></span>Young Alumni — $1,000</div><div class="chips" id="chips-young"><button class="add-chip-btn" onclick="addSponsor('young')">+ Add Young Alumni Sponsor</button></div></div>
+          <div class="sp-group"><div class="sp-group-ttl"><span class="sdot" style="background:#B0A898;"></span>Hole Sponsors</div><div class="chips" id="chips-hole"><button class="add-chip-btn" onclick="addSponsor('hole')">+ Add Hole Sponsor</button></div></div>
+          <div id="pending-block" style="display:none;margin-top:1rem;">
+            <div class="sp-group-ttl" style="color:#F59E0B;border-bottom-color:rgba(245,158,11,0.25);">⏳ Not Yet Committed — click to confirm</div>
+            <div class="chips" id="chips-pending">
+              <span class="chip chip-pending" onclick="promotePending(this,'gold','Ed Wile','$10,000')">Ed Wile (Gold '25) →</span>
+              <span class="chip chip-pending" onclick="promotePending(this,'gold','Chris Carpenter','$10,000')">Chris Carpenter (Gold '25) →</span>
+              <span class="chip chip-pending" onclick="promotePending(this,'gold','Nathan Madigan','$10,000')">Nathan Madigan (Gold '25) →</span>
+              <span class="chip chip-pending" onclick="promotePending(this,'gold','Billy Greer','$5,000')">Billy Greer (Gold '25) →</span>
+              <span class="chip chip-pending" onclick="promotePending(this,'gold','Kurt Niemeyer','$5,000')">Kurt Niemeyer (Gold '25) →</span>
+              <span class="chip chip-pending" onclick="promotePending(this,'silver','Harriet Sessoms','$2,500')">Harriet Sessoms (Silver '25) →</span>
+              <span class="chip chip-pending" onclick="promotePending(this,'silver','Tom Bower','$2,500')">Tom Bower (Silver '25) →</span>
+              <span class="chip chip-pending" onclick="promotePending(this,'silver','Briley Brisendine','$2,500')">Briley Brisendine (Silver '25) →</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2025 HISTORICAL (collapsed) -->
+      <div class="coll-wrap">
+        <div class="coll-hdr" onclick="toggleColl('sp2025')">
+          <div class="coll-ttl"><span class="yr-badge">2025</span>2025 Sponsors — Reference</div>
+          <div class="coll-meta"><span>$83,500 raised</span><div class="coll-chev">▼</div></div>
+        </div>
+        <div class="coll-body" id="sp2025">
+          <div class="sp-group"><div class="sp-group-ttl"><span class="sdot" style="background:#C9A84C;"></span>Gold — $5,000+</div><div class="chips"><span class="chip chip-gold">Ed Wile — $10K</span><span class="chip chip-gold">Chris Carpenter — $10K</span><span class="chip chip-gold">Nathan Madigan — $10K</span><span class="chip chip-gold">Billy Greer — $5K</span><span class="chip chip-gold">Merritt Huber / Carolina Lumber — $5K</span><span class="chip chip-gold">Kurt Niemeyer — $5K</span></div></div>
+          <div class="sp-group"><div class="sp-group-ttl"><span class="sdot" style="background:#9AACC0;"></span>Silver — $2,500</div><div class="chips"><span class="chip chip-silver">Bie Sunderland</span><span class="chip chip-silver">Kathy King &amp; Family</span><span class="chip chip-silver">Harriet Sessoms</span><span class="chip chip-silver">Tom Willingham</span><span class="chip chip-silver">Briley Brisendine</span><span class="chip chip-silver">Eric Toole</span><span class="chip chip-silver">Tom Bower</span></div></div>
+          <div class="sp-group"><div class="sp-group-ttl"><span class="sdot" style="background:#CD7F32;"></span>Bronze — $1,500</div><div class="chips"><span class="chip chip-bronze">Fred Pearson</span><span class="chip chip-bronze">Kirk Whitehead</span><span class="chip chip-bronze">John Drake</span><span class="chip chip-bronze">Frank Herndon</span><span class="chip chip-bronze">Connor Davis</span><span class="chip chip-bronze">CeCe Coleman</span><span class="chip chip-bronze">Anthony DiNardo</span><span class="chip chip-bronze">Pat Watson</span><span class="chip chip-bronze">Taiwanna Billups</span><span class="chip chip-bronze">Carson Waln</span><span class="chip chip-bronze">Kathleen Bazaz</span><span class="chip chip-bronze">Travis Alston</span><span class="chip chip-bronze">Angelo Crowe</span></div></div>
+          <div class="sp-group"><div class="sp-group-ttl"><span class="sdot" style="background:#5AB87A;"></span>Young Alumni</div><div class="chips"><span class="chip chip-young">Kathy King — $1K</span><span class="chip chip-young">Shane Lussier — $1K</span></div></div>
+          <div class="sp-group"><div class="sp-group-ttl"><span class="sdot" style="background:#B0A898;"></span>Hole Sponsors</div><div class="chips"><span class="chip chip-hole">John Corella — $500</span><span class="chip chip-hole">Hole Sponsor #2 — $500</span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RAFFLE -->
+<section style="background:var(--cream);" id="raffle">
+  <div class="container">
+    <div class="sec-lbl">Raffle &amp; Prizes</div>
+    <h2 class="sec-ttl">WIN BIG, <em>GIVE BACK</em></h2>
+    <p class="sec-body" data-edit contenteditable="false">All raffle proceeds benefit the Georgia Alumni Endowed Scholarship Fund. Prizes are drawn throughout the day — tickets sold on site.</p>
+    <div class="raffle-grid" id="raffle-public-grid"></div>
+  </div>
+</section>
+
+<!-- TEAMS -->
+<section class="teams-section dark-sec" id="teams" style="padding:5rem 2rem;">
+  <div class="container">
+    <div class="sec-lbl">2026 Field</div>
+    <h2 class="sec-ttl">CONFIRMED <em>TEAMS</em></h2>
+    <div class="teams-settings">
+      <span class="set-lbl">Max teams:</span>
+      <input type="number" class="set-inp" id="max-teams-inp" value="25" min="10" max="60" onchange="updateMaxTeams(this.value)">
+      <button class="set-btn" onclick="updateMaxTeams(document.getElementById('max-teams-inp').value)">Update</button>
+      <button class="set-btn green" onclick="addTeamSlot()">+ Add Slot</button>
+    </div>
+
+    <!-- 2026 teams -->
+    <div style="font-family:'Oswald',sans-serif;font-size:0.7rem;font-weight:600;letter-spacing:0.13em;text-transform:uppercase;color:var(--gold);margin-bottom:0.85rem;display:flex;align-items:center;gap:0.65rem;">
+      <span style="width:20px;height:2px;background:var(--gold);display:inline-block;"></span>
+      2026 Teams — <span id="team-count-lbl">0</span> of <span id="team-max-lbl">25</span> Confirmed
+    </div>
+    <div class="teams-grid" id="teams-2026"></div>
+
+    <!-- 2025 reference (collapsed) -->
+    <div style="margin-top:2.5rem;">
+      <div class="coll-wrap dark-coll">
+        <div class="coll-hdr" onclick="toggleColl('tm2025')">
+          <div class="coll-ttl"><span class="yr-badge">2025</span>2025 Teams — For Reference</div>
+          <div class="coll-meta"><span>25 teams · 100 players</span><div class="coll-chev">▼</div></div>
+        </div>
+        <div class="coll-body" id="tm2025">
+          <div class="teams-grid" style="margin-top:0;opacity:0.65;">
+            <div class="team-card"><div class="team-num">Team 1 · 2025</div><div class="team-captain">Frank Herndon</div><ul class="team-plist"><li>Richard Krapfel</li><li>Davis Herndon</li><li>Bailey Means</li></ul></div>
+            <div class="team-card"><div class="team-num">Team 2 · 2025</div><div class="team-captain">Ed Wile</div><ul class="team-plist"><li>Mack Horton</li><li>Bill Blalock</li><li>John Mansfield</li></ul></div>
+            <div class="team-card"><div class="team-num">Team 3 · 2025</div><div class="team-captain">Rusty King</div><ul class="team-plist"><li>Scott King</li><li>Ryan King</li><li>Bobby Taylor</li></ul></div>
+            <div class="team-card"><div class="team-num">Team 4 · 2025</div><div class="team-captain">Bie Sunderland</div><ul class="team-plist"><li>Dara Sunderland</li><li>+2 players</li></ul></div>
+            <div class="team-card"><div class="team-num">Team 8 · 2025</div><div class="team-captain">Taiwanna Billups</div><ul class="team-plist"><li>Takeo Spikes</li><li>Nate Clements</li><li>Deon Grant</li></ul></div>
+            <div class="team-card"><div class="team-num">Team 19 · 2025</div><div class="team-captain">Merritt Huber</div><ul class="team-plist"><li>Merritt Huber Sr.</li><li>Allen Hanahan</li><li>Blake Huber</li></ul></div>
+          </div>
+          <div style="text-align:center;margin-top:0.7rem;font-size:0.76rem;color:rgba(255,255,255,0.25);">Showing 6 of 25 teams — full 2025 data available in the spreadsheet</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Flights (2025) -->
+    <div style="margin-top:3rem;">
+      <div style="font-family:'Oswald',sans-serif;font-size:0.7rem;font-weight:600;letter-spacing:0.13em;text-transform:uppercase;color:var(--gold);margin-bottom:0.85rem;display:flex;align-items:center;gap:0.65rem;"><span style="width:20px;height:2px;background:var(--gold);display:inline-block;"></span>2025 Flight Assignments</div>
+      <div class="flights-grid">
+        <div class="flight-card"><div class="flight-name">King Flight</div><div class="flight-teams">King · Sapp · Drake · Davis · McPhail · Whitehead</div></div>
+        <div class="flight-card"><div class="flight-name">Sessoms Flight</div><div class="flight-teams">Pearson · Watson · Willingham · Kennedy · Sunderland</div></div>
+        <div class="flight-card"><div class="flight-name">Wile Flight</div><div class="flight-teams">Wile · Reid · Bower · Waln · Huber</div></div>
+        <div class="flight-card"><div class="flight-name">Herndon Flight</div><div class="flight-teams">Herndon · Billups · Holiday · Dennis</div></div>
+        <div class="flight-card"><div class="flight-name">Edwards Flight</div><div class="flight-teams">Edwards · Alston · Lussier · Toole · Huber</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINANCIALS -->
+<section style="background:var(--gray-100);" id="financials">
+  <div class="container">
+    <div class="sec-lbl">Financial Impact</div>
+    <h2 class="sec-ttl">A LEGACY OF <em>GIVING</em></h2>
+    <p class="sec-body" data-edit contenteditable="false">Three decades of Wofford alumni coming together — on the course and off — to invest in the next generation of Terriers.</p>
+
+    <!-- 2026 collapsible (open) -->
+    <div style="margin-top:2.5rem;">
+      <div class="coll-wrap">
+        <div class="coll-hdr open" onclick="toggleColl('fin2026')">
+          <div class="coll-ttl"><span class="yr-badge yr-badge-new">2026</span>2026 Tournament Summary</div>
+          <div class="coll-meta"><span>Live tracking</span><div class="coll-chev">▼</div></div>
+        </div>
+        <div class="coll-body open" id="fin2026">
+          <div class="fin-grid" style="margin-top:0;">
+            <div class="fin-card">
+              <div class="fin-ttl">2026 At-a-Glance</div>
+              <div class="fin-row"><span class="fin-k">Teams</span><span class="fin-v" id="fin-teams-count">25 max</span></div>
+              <div class="fin-row"><span class="fin-k">Players</span><span class="fin-v" id="fin-players-count">~100</span></div>
+              <div class="fin-row"><span class="fin-k">Sponsors Committed</span><span class="fin-v" id="fin-sponsors-count">0</span></div>
+              <div class="fin-row"><span class="fin-k">Dollars Committed</span><span class="fin-v" id="fin-dollars-count">$0</span></div>
+              <div class="fin-total"><span>Gross Goal</span><span data-edit contenteditable="false">$86,650</span></div>
+            </div>
+            <div class="fin-card">
+              <div class="fin-ttl">2025 Results (Last Year)</div>
+              <div class="fin-row"><span class="fin-k">Teams</span><span class="fin-v" data-edit contenteditable="false">25</span></div>
+              <div class="fin-row"><span class="fin-k">Players</span><span class="fin-v" data-edit contenteditable="false">100</span></div>
+              <div class="fin-row"><span class="fin-k">Gross Revenue</span><span class="fin-v" data-edit contenteditable="false">$87,620</span></div>
+              <div class="fin-row"><span class="fin-k">Tournament Costs</span><span class="fin-v" data-edit contenteditable="false" style="color:#EF4444;">($14,548)</span></div>
+              <div class="fin-total"><span>Net to Scholarship</span><span style="color:var(--green-mid);" data-edit contenteditable="false">$73,072</span></div>
+            </div>
+            <div class="total-banner">
+              <div class="total-lbl">Cumulative Total Raised for Wofford (1995–2025)</div>
+              <div class="total-num" data-edit contenteditable="false">$1,876,020</div>
+              <div class="total-sub" data-edit contenteditable="false">Including $250,000 Daniel Fund match · Goal: $1.95M+ all-time</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2025 historical (collapsed) -->
+      <div class="coll-wrap">
+        <div class="coll-hdr" onclick="toggleColl('fin2025')">
+          <div class="coll-ttl"><span class="yr-badge">2025</span>Annual History — Net Contributions</div>
+          <div class="coll-meta"><span>30 years of giving</span><div class="coll-chev">▼</div></div>
+        </div>
+        <div class="coll-body" id="fin2025">
+          <div class="fin-card" style="overflow-x:auto;">
+            <table class="hist-table">
+              <thead><tr><th>Year</th><th>Net to Wofford</th><th>Notes</th></tr></thead>
+              <tbody>
+                <tr><td>1995–96</td><td data-edit contenteditable="false">$8,500</td><td>Founding years</td></tr>
+                <tr><td>1997</td><td data-edit contenteditable="false">$16,835</td><td></td></tr>
+                <tr><td>2000</td><td data-edit contenteditable="false">$35,890</td><td></td></tr>
+                <tr class="gaesf"><td>2011</td><td data-edit contenteditable="false">$60,000</td><td>GAESF established · +$250K Daniel Fund match</td></tr>
+                <tr class="gaesf"><td>2020</td><td data-edit contenteditable="false">$90,240</td><td>Record year</td></tr>
+                <tr class="gaesf"><td>2022</td><td data-edit contenteditable="false">$83,365</td><td></td></tr>
+                <tr class="gaesf"><td>2023</td><td data-edit contenteditable="false">$79,874</td><td></td></tr>
+                <tr class="gaesf"><td>2024</td><td data-edit contenteditable="false">$73,072</td><td>Actual</td></tr>
+                <tr class="gaesf"><td>2025</td><td data-edit contenteditable="false">$73,072</td><td>Actual — $87,620 gross</td></tr>
+                <tr><td><strong>All-Time</strong></td><td><strong data-edit contenteditable="false">$1,876,020+</strong></td><td>Incl. $250K match</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXTRAS (Photos + Scholarship) -->
+<section class="extras-section" id="extras">
+  <div class="container">
+    <div class="sec-lbl">Tournament Legacy</div>
+    <h2 class="sec-ttl">MEMORIES &amp; <em>MILESTONES</em></h2>
+
+    <!-- Photo gallery -->
+    <div style="margin-top:0.5rem;">
+      <h3 style="font-family:'Oswald',sans-serif;font-size:1.1rem;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--wofford-black);margin-bottom:0.3rem;">Photos from the Course</h3>
+      <p style="font-size:0.85rem;color:var(--gray-400);margin-bottom:0.5rem;">Upload photos in the Admin panel → Extras tab</p>
+      <div class="photo-grid" id="photo-gallery">
+        <div class="photo-slot" onclick="isAdmin&&document.getElementById('photo-upload-inline').click()">
+          <div class="photo-slot-icon">📷</div>
+          <div class="photo-slot-label">Add tournament photos<br><span style="color:var(--gray-200);">(Admin mode)</span></div>
+        </div>
+      </div>
+      <input type="file" id="photo-upload-inline" accept="image/*" multiple onchange="handlePhotoUpload(this)" style="display:none;">
+    </div>
+
+    <!-- Scholarship recipient -->
+    <div style="margin-top:3.5rem;">
+      <h3 style="font-family:'Oswald',sans-serif;font-size:1.1rem;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--wofford-black);margin-bottom:1rem;">Scholarship Recipient Spotlight</h3>
+      <div class="scholar-card" id="scholar-card">
+        <div id="scholar-photo-wrap">
+          <div class="scholar-photo" id="scholar-photo-placeholder">🎓</div>
+          <img id="scholar-photo-img" style="display:none;width:160px;height:200px;object-fit:cover;border-radius:7px;" alt="Scholar photo">
+        </div>
+        <div>
+          <div class="scholar-name" id="scholar-name" data-edit contenteditable="false">Your Scholar's Name</div>
+          <div class="scholar-year" id="scholar-year" data-edit contenteditable="false">Class of 20XX · Scholarship Recipient</div>
+          <div class="scholar-bio" id="scholar-bio" data-edit contenteditable="false">Add the scholarship recipient's bio here — their story, major, hometown, and what this scholarship meant to their Wofford journey. Use the Admin panel → Extras tab, or click this text in Admin mode to edit directly.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BASEBALL -->
+<section class="baseball-section" id="baseball">
+  <div class="container">
+    <div class="sec-lbl">Wofford Baseball</div>
+    <h2 class="sec-ttl">TERRIER BASEBALL — <em>2025 SEASON</em></h2>
+    <p class="sec-body">Supporting the program we love. Coach JJ Edwards and the Terriers keep building year after year.</p>
+    <div class="bb-grid" style="margin-top:2rem;">
+      <div class="det-card">
+        <div class="det-ttl">📊 2025 Season Stats</div>
+        <div class="bb-stat-row"><div class="bb-stat-num" data-edit contenteditable="false">33-27</div><div class="bb-stat-lbl">Overall Record — 7th consecutive 30-win season</div></div>
+        <div class="bb-stat-row"><div class="bb-stat-num" data-edit contenteditable="false">8-13</div><div class="bb-stat-lbl">Southern Conference Record</div></div>
+        <div class="bb-stat-row"><div class="bb-stat-num" data-edit contenteditable="false">#117</div><div class="bb-stat-lbl">RPI Ranking</div></div>
+        <div class="bb-stat-row"><div class="bb-stat-num" data-edit contenteditable="false">158</div><div class="bb-stat-lbl">Stolen bases — 7th in the nation</div></div>
+        <div class="bb-stat-row"><div class="bb-stat-num" data-edit contenteditable="false">2</div><div class="bb-stat-lbl">Ranked wins — first time ever beating 2 ranked opponents in same season</div></div>
+      </div>
+      <div class="det-card">
+        <div class="det-ttl">📰 Program Highlights</div>
+        <div class="bb-news-item"><div class="bb-news-ttl" data-edit contenteditable="false">Historic Ranked Wins</div><div class="bb-news-meta">First time in program history topping two ranked foes in one season — #23 Kentucky (12-5) and #17 Troy (14-3)</div></div>
+        <div class="bb-news-item"><div class="bb-news-ttl" data-edit contenteditable="false">Carter Rasmussen — 2nd Team All-SoCon</div><div class="bb-news-meta">Rasmussen earned Second-Team All-SoCon honors; Condon &amp; Hardin named to All-Freshman Team</div></div>
+        <div class="bb-news-item"><div class="bb-news-ttl" data-edit contenteditable="false">Program Record Hit by Pitch</div><div class="bb-news-meta">113 HBP set a new program record, ranking 22nd nationally</div></div>
+        <div class="bb-news-item"><div class="bb-news-ttl" data-edit contenteditable="false">Russell C. King Field</div><div class="bb-news-meta">Home games at Russell C. King Field, Spartanburg, SC · Coach JJ Edwards</div></div>
+        <div style="margin-top:1rem;"><a href="https://woffordterriers.com/sports/baseball" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:0.4rem;font-size:0.82rem;color:var(--gold-dark);font-weight:600;text-decoration:none;border-bottom:1px solid var(--gold);">View full schedule &amp; roster on WoffordTerriers.com →</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REGISTER -->
+<section class="reg-section" id="register">
+  <div class="container">
+    <div class="sec-lbl" style="justify-content:center;">Get Involved</div>
+    <h2 class="sec-ttl" style="text-align:center;">READY TO <em>PLAY?</em></h2>
+    <p class="reg-body" data-edit contenteditable="false">Registration is now open for the 2026 Wofford Golf Invitational. Limited to 25 teams — first come, first served. Pre-payment required. Proceeds benefit the Georgia Alumni Endowed Scholarship Fund.</p>
+    <div style="text-align:center;margin-bottom:2rem;">
+      <a href="https://advance.wofford.edu/register/?id=9a2f9729-9cf3-4a8d-ae3b-445ccb8981c1" target="_blank" rel="noopener" class="btn-gold" style="font-size:1rem;padding:1rem 2.5rem;">Register at Wofford.edu →</a>
+    </div>
+    <div style="display:flex;justify-content:center;">
+      <div class="contact-block">
+        <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(201,168,76,0.52);margin-bottom:0.6rem;">Questions? Contact Us</div>
+        <div class="contact-row"><strong>Contact</strong><span data-edit contenteditable="false" id="reg-contact">Patrick Wheeler · 919-801-7225</span></div>
+        <div class="contact-row"><strong>Address</strong><span data-edit contenteditable="false" id="reg-address">429 N Church St, Spartanburg, SC 29303</span></div>
+        <div class="contact-row"><strong>Email Teams To</strong><span data-edit contenteditable="false" id="reg-email">jmhuber@carolinalumber.com</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SPONSOR STRIP -->
+<div class="sponsors-strip">
+  <div class="sponsors-strip-ttl">Proud Sponsors of the Wofford Golf Invitational</div>
+  <div class="sponsor-logos">
+    <div class="sponsor-logo-item">
+      <div class="sponsor-logo-name" data-edit contenteditable="false">Henri's Bakery</div>
+      <div class="sponsor-logo-sub" data-edit contenteditable="false">Official Lunch Sponsor</div>
+    </div>
+    <div class="sponsor-logo-item">
+      <div class="sponsor-logo-name" data-edit contenteditable="false">Carolina Lumber</div>
+      <div class="sponsor-logo-sub" data-edit contenteditable="false">Gold Terrier Sponsor</div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer style="background:#0A0806;padding:1.6rem;text-align:center;border-top:2px solid var(--gold);">
+  <div class="footer-wofford" style="font-family:'Oswald',sans-serif;font-size:0.9rem;color:var(--gold);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.3rem;" data-edit contenteditable="false">🐾 Wofford Golf Invitational 2026</div>
+  <div style="font-size:0.7rem;color:rgba(255,255,255,0.2);" data-edit contenteditable="false">Benefiting the Georgia Alumni Endowed Scholarship Fund · Honoring Russell King &amp; Walt Sessoms · Bear's Best, Suwanee GA</div>
+</footer>
+
+<!-- EDIT MODAL (sponsor/team) -->
+<div id="edit-modal">
+  <div class="edit-box">
+    <h3 id="modal-ttl">Edit</h3>
+    <div class="edit-field"><label>Name</label><input type="text" id="m-name"></div>
+    <div class="edit-field" id="m-amt-wrap"><label>Amount / Notes</label><input type="text" id="m-amount"></div>
+    <div class="edit-field" id="m-status-wrap"><label>Status</label>
+      <select id="m-status"><option value="confirmed">✅ Confirmed / Paid</option><option value="pending">⏳ Verbal / Pending</option></select>
+    </div>
+    <div class="edit-field" id="m-players-wrap" style="display:none;"><label>Players (one per line after captain)</label><textarea id="m-players"></textarea></div>
+    <div class="edit-actions">
+      <button class="edit-delete" id="m-delete" onclick="deleteItem()">Delete</button>
+      <button class="edit-cancel" onclick="closeModal()">Cancel</button>
+      <button class="edit-save" onclick="saveModal()">Save</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+// =========================================================
+// CONFIG
+// =========================================================
+let PASS = 'Wofford2026!';
+const TIER_AMT = {gold:5000,silver:2500,bronze:1500,young:1000,hole:500};
+let isAdmin = false;
+let maxTeams = 25;
+let teams2026 = [];
+let sponsors2026 = {gold:[],silver:[],bronze:[],young:[],hole:[]};
+let editCtx = null;
+let logoDataUrl = null;
+let scholarPhotoUrl = null;
+let photos = [];
+let actionItems = [
+  {action:'Confirm Anthony DiNardo lunch numbers/date/time',notes:'Connect w/ Patrick',owner:'Connor',status:'open'},
+  {action:'Confirm max number of teams allowed',notes:'Check with course',owner:'Connor',status:'open'},
+  {action:'Raffle prize status check',notes:'Yeti coolers, PDC round, wedge',owner:'Merritt',status:'open'},
+  {action:'Chickfila breakfast order',notes:'Pick up day of',owner:'Connor',status:'open'},
+  {action:'Hats ordered',notes:'Connect with Patrick on style/qty',owner:'Merritt',status:'open'},
+  {action:'Divot tools',notes:'Patrick coordinating',owner:'Connor',status:'open'},
+];
+let raffleItems = [
+  {icon:'🎩',name:'Wofford Hats',status:'Ordered'},
+  {icon:'⛳',name:'Round at Piedmont Driving Club',status:''},
+  {icon:'🏌️',name:'Round at Capital City Club',status:''},
+  {icon:'❄️',name:'Yeti Cooler #1',status:''},
+  {icon:'❄️',name:'Yeti Cooler #2',status:''},
+  {icon:'🏒',name:'54° Wedge with Terrier Logo',status:''},
+  {icon:'🎒',name:'Wofford Golf Bag',status:''},
+  {icon:'🏆',name:'Round with a Coach',status:''},
+  {icon:'⛳',name:"Bear's Best Round of Golf",status:''},
+  {icon:'🪵',name:'Wooden Bats — Flight Prizes',status:''},
+  {icon:'🎯',name:'Long Drive Contest Prize',status:''},
+  {icon:'📍',name:'Closest to the Pin Prize',status:''},
+  {icon:'🏓',name:'Putting Contest Prize',status:''},
+  {icon:'🎁',name:'Entry Gift for All Players',status:''},
+];
+
+// =========================================================
+// BOOT
+// =========================================================
+(function init(){
+  buildTeams();
+  renderSponsors();
+  renderRafflePublic();
+  renderActionItems();
+  renderRaffleEdit();
+  setupFadeIns();
+  document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{
+    e.preventDefault();
+    const el=document.querySelector(a.getAttribute('href'));
+    if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
+  }));
+  document.getElementById('edit-modal').addEventListener('click',e=>{if(e.target.id==='edit-modal')closeModal();});
+  document.getElementById('login-overlay').addEventListener('click',e=>{if(e.target.id==='login-overlay')closeLogin();});
+  document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){closeModal();closeLogin();if(isAdmin)exitAdmin();}
+  if(e.ctrlKey&&e.shiftKey&&e.key==='A'){e.preventDefault();isAdmin?exitAdmin():requestAdmin();}
+});
+})();
+
+// =========================================================
+// MODE
+// =========================================================
+function requestAdmin(){
+  document.getElementById('login-overlay').classList.add('show');
+  setTimeout(()=>document.getElementById('pw-input').focus(),80);
+}
+function closeLogin(){
+  document.getElementById('login-overlay').classList.remove('show');
+  document.getElementById('login-err').style.display='none';
+  document.getElementById('pw-input').value='';
+}
+function doLogin(){
+  if(document.getElementById('pw-input').value===PASS){closeLogin();setMode('admin');}
+  else{document.getElementById('login-err').style.display='block';}
+}
+function setMode(mode){
+  isAdmin=(mode==='admin');
+  document.body.classList.toggle('admin-mode',isAdmin);
+  document.querySelectorAll('[data-edit]').forEach(el=>{el.contentEditable=isAdmin?'true':'false';});
+  const ab=document.getElementById('admin-banner');if(ab)ab.style.display=isAdmin?'block':'none';
+  const pb=document.getElementById('pending-block');if(pb)pb.style.display=isAdmin?'block':'none';
+  if(isAdmin){
+    openDrawer();
+    toast('Admin Mode active — click any text to edit');
+  } else {
+    // collapse drawer if expanded
+    const d=document.getElementById('admin-drawer');
+    d.classList.remove('expanded');
+    const btn=document.getElementById('drw-expand-btn');
+    if(btn){btn.textContent='⛶';btn.title='Expand to full screen';}
+    closeDrawer();
+    toast('Back to public view');
+  }
+}
+
+// =========================================================
+// DRAWER
+// =========================================================
+let _logoClicks=0,_logoTimer=null;
+function handleLogoClick(){
+  _logoClicks++;
+  clearTimeout(_logoTimer);
+  if(_logoClicks>=3){_logoClicks=0;requestAdmin();}
+  else{_logoTimer=setTimeout(()=>{_logoClicks=0;},600);}
+}
+function openDrawer(){document.getElementById('admin-drawer').classList.add('open');}
+function closeDrawer(){document.getElementById('admin-drawer').classList.remove('open');}
+function toggleExpandDrawer(){
+  const d=document.getElementById('admin-drawer');
+  const btn=document.getElementById('drw-expand-btn');
+  d.classList.toggle('expanded');
+  btn.textContent=d.classList.contains('expanded')?'⊠':'⛶';
+  btn.title=d.classList.contains('expanded')?'Collapse panel':'Expand to full screen';
+}
+function exitAdmin(){setMode('public');}
+function switchTab(id){
+  const ids=['dash','settings','actions','raffle','extras','guide'];
+  document.querySelectorAll('.drw-tab').forEach((t,i)=>t.classList.toggle('active',ids[i]===id));
+  document.querySelectorAll('.drw-pane').forEach(p=>p.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+}
+
+// =========================================================
+// COLLAPSIBLES
+// =========================================================
+function toggleColl(id){
+  const b=document.getElementById(id);
+  const h=b.previousElementSibling;
+  b.classList.toggle('open');
+  h.classList.toggle('open');
+}
+
+// =========================================================
+// TEAMS
+// =========================================================
+function buildTeams(){
+  const grid=document.getElementById('teams-2026');
+  if(!grid)return;
+  grid.innerHTML='';
+  const confirmed=teams2026.length;
+  for(let i=1;i<=maxTeams;i++){
+    const t=teams2026.find(x=>x.num===i);
+    const card=document.createElement('div');
+    if(t){
+      card.className='team-card';
+      card.innerHTML=`<div class="team-num">Team ${i}</div><div class="team-captain">${esc(t.captain)}</div><ul class="team-plist">${(t.players||[]).map(p=>`<li>${esc(p)}</li>`).join('')}</ul><div class="team-adm"><button class="team-btn" onclick="openTeamEdit(${i})">✏ Edit</button><button class="team-btn red" onclick="clearTeam(${i})">✕ Clear</button></div>`;
+    } else {
+      card.className='team-card team-empty';
+      card.innerHTML=`<div class="team-num">Team ${i} — Open Slot</div><div class="team-captain">Not yet filled</div><ul class="team-plist"><li>—</li></ul><div class="team-adm"><button class="team-btn" onclick="openTeamEdit(${i})">+ Fill Slot</button></div>`;
+    }
+    grid.appendChild(card);
+  }
+  // update all displays
+  ['team-count-lbl','dash-tm'].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent=confirmed;});
+  ['team-max-lbl','dash-mx','max-teams-txt','stat2n'].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent=maxTeams;});
+  document.getElementById('dash-pl').textContent=confirmed*4;
+  document.getElementById('fin-teams-count').textContent=maxTeams+' max';
+  document.getElementById('fin-players-count').textContent='~'+(maxTeams*4);
+  document.getElementById('max-teams-inp').value=maxTeams;
+  document.getElementById('s-stat2n').value=maxTeams;
+}
+function updateMaxTeams(v){maxTeams=Math.max(10,Math.min(60,parseInt(v)||25));buildTeams();toast('Max teams → '+maxTeams);}
+function addTeamSlot(){maxTeams++;buildTeams();toast('Slot added — now '+maxTeams);}
+function clearTeam(num){teams2026=teams2026.filter(t=>t.num!==num);buildTeams();toast('Team '+num+' cleared');}
+function openTeamEdit(num){
+  const t=teams2026.find(x=>x.num===num)||{num,captain:'',players:[]};
+  editCtx={type:'team',num};
+  document.getElementById('modal-ttl').textContent='Team '+num;
+  document.getElementById('m-name').value=t.captain||'';
+  document.getElementById('m-amt-wrap').style.display='none';
+  document.getElementById('m-status-wrap').style.display='none';
+  document.getElementById('m-players-wrap').style.display='block';
+  document.getElementById('m-players').value=(t.players||[]).join('\n');
+  document.getElementById('m-delete').style.display='none';
+  showModal();
+}
+
+// =========================================================
+// SPONSORS
+// =========================================================
+function renderSponsors(){
+  ['gold','silver','bronze','young','hole'].forEach(tier=>{
+    const el=document.getElementById('chips-'+tier);
+    if(!el)return;
+    const btn=el.querySelector('.add-chip-btn');
+    el.querySelectorAll('.chip').forEach(c=>c.remove());
+    sponsors2026[tier].forEach((s,i)=>{
+      const chip=document.createElement('span');
+      chip.className='chip chip-'+tier+(s.status==='pending'?' chip-pending':'');
+      chip.innerHTML=(s.status==='pending'?'⏳ ':'')+esc(s.name)+(s.amount?' — '+esc(s.amount):'');
+      chip.onclick=()=>{if(isAdmin)openSponsorEdit(tier,i);};
+      el.insertBefore(chip,btn);
+    });
+  });
+  updateSponsorMeta();
+}
+function updateSponsorMeta(){
+  let total=0,count=0;
+  Object.entries(sponsors2026).forEach(([tier,arr])=>{arr.forEach(s=>{if(s.status==='confirmed'){total+=TIER_AMT[tier];count++;}});});
+  const sh=document.getElementById('sp-count-hint');if(sh)sh.textContent='— '+count+' confirmed';
+  const sl=document.getElementById('sp-total-label');if(sl)sl.textContent='$'+total.toLocaleString()+' committed';
+  document.getElementById('dash-sp').textContent=count;
+  document.getElementById('dash-tot').textContent='$'+total.toLocaleString();
+  document.getElementById('fin-sponsors-count').textContent=count;
+  document.getElementById('fin-dollars-count').textContent='$'+total.toLocaleString();
+}
+function addSponsor(tier){
+  editCtx={type:'sponsor',tier,idx:null};
+  document.getElementById('modal-ttl').textContent='Add '+tier.charAt(0).toUpperCase()+tier.slice(1)+' Sponsor';
+  document.getElementById('m-name').value='';document.getElementById('m-amount').value='';
+  document.getElementById('m-status').value='confirmed';
+  document.getElementById('m-amt-wrap').style.display='';
+  document.getElementById('m-status-wrap').style.display='';
+  document.getElementById('m-players-wrap').style.display='none';
+  document.getElementById('m-delete').style.display='none';
+  showModal();
+}
+function openSponsorEdit(tier,idx){
+  const s=sponsors2026[tier][idx];
+  editCtx={type:'sponsor',tier,idx};
+  document.getElementById('modal-ttl').textContent='Edit Sponsor';
+  document.getElementById('m-name').value=s.name;
+  document.getElementById('m-amount').value=s.amount||'';
+  document.getElementById('m-status').value=s.status||'confirmed';
+  document.getElementById('m-amt-wrap').style.display='';
+  document.getElementById('m-status-wrap').style.display='';
+  document.getElementById('m-players-wrap').style.display='none';
+  document.getElementById('m-delete').style.display='';
+  showModal();
+}
+function promotePending(el,tier,name,amount){
+  sponsors2026[tier].push({name,amount,status:'confirmed'});
+  el.remove();renderSponsors();
+  toast(name+' → 2026 '+tier+' confirmed!');
+}
+
+// =========================================================
+// MODAL
+// =========================================================
+function showModal(){document.getElementById('edit-modal').classList.add('show');}
+function closeModal(){
+  document.getElementById('edit-modal').classList.remove('show');
+  document.getElementById('m-amt-wrap').style.display='';
+  document.getElementById('m-status-wrap').style.display='';
+  document.getElementById('m-players-wrap').style.display='none';
+}
+function saveModal(){
+  if(!editCtx)return;
+  if(editCtx.type==='sponsor'){
+    const s={name:document.getElementById('m-name').value.trim(),amount:document.getElementById('m-amount').value.trim(),status:document.getElementById('m-status').value};
+    if(!s.name){toast('Enter a name');return;}
+    if(editCtx.idx!==null)sponsors2026[editCtx.tier][editCtx.idx]=s;
+    else sponsors2026[editCtx.tier].push(s);
+    renderSponsors();toast('Sponsor saved!');
+  } else if(editCtx.type==='team'){
+    const captain=document.getElementById('m-name').value.trim();
+    if(!captain){toast('Enter captain name');return;}
+    const players=document.getElementById('m-players').value.split('\n').map(p=>p.trim()).filter(Boolean);
+    const idx=teams2026.findIndex(t=>t.num===editCtx.num);
+    const team={num:editCtx.num,captain,players};
+    if(idx>=0)teams2026[idx]=team;else teams2026.push(team);
+    buildTeams();toast('Team '+editCtx.num+' saved!');
+  }
+  closeModal();
+}
+function deleteItem(){
+  if(!editCtx)return;
+  if(editCtx.type==='sponsor'&&editCtx.idx!==null){
+    sponsors2026[editCtx.tier].splice(editCtx.idx,1);
+    renderSponsors();toast('Removed');
+  }
+  closeModal();
+}
+
+// =========================================================
+// RAFFLE
+// =========================================================
+function renderRafflePublic(){
+  const grid=document.getElementById('raffle-public-grid');
+  if(!grid)return;
+  grid.innerHTML='';
+  raffleItems.forEach(item=>{
+    const d=document.createElement('div');
+    d.className='raffle-item';
+    d.innerHTML=`<div class="raffle-icon">${item.icon}</div><div class="raffle-name">${esc(item.name)}</div>${item.status?`<div class="raffle-status-badge">${esc(item.status)}</div>`:''}`;
+    grid.appendChild(d);
+  });
+}
+function renderRaffleEdit(){
+  const list=document.getElementById('raffle-edit-list');
+  if(!list)return;
+  list.innerHTML='';
+  raffleItems.forEach((item,i)=>{
+    const row=document.createElement('div');
+    row.className='re-row';
+    row.innerHTML=`<input type="text" value="${esc(item.icon)}" style="width:46px;" onchange="raffleItems[${i}].icon=this.value"><input type="text" value="${esc(item.name)}" onchange="raffleItems[${i}].name=this.value"><button class="ai-del" onclick="removeRaffleItem(${i})">✕</button>`;
+    list.appendChild(row);
+  });
+}
+function addRaffleItem(){raffleItems.push({icon:'🏅',name:'New Prize',status:''});renderRaffleEdit();}
+function removeRaffleItem(i){raffleItems.splice(i,1);renderRaffleEdit();}
+function applyRaffle(){renderRafflePublic();toast('Raffle prizes updated!');}
+
+// =========================================================
+// ACTION ITEMS
+// =========================================================
+function renderActionItems(){
+  const list=document.getElementById('action-list');
+  if(!list)return;
+  list.innerHTML='';
+  actionItems.forEach((item,i)=>{
+    const statusColor=item.status==='done'?'#22C55E':item.status==='blocked'?'#EF4444':'#F59E0B';
+    const statusIcon=item.status==='done'?'✅':item.status==='blocked'?'🚫':'⏳';
+    const row=document.createElement('div');
+    row.className='ai-row';
+    row.innerHTML=`
+      <div class="ai-row-top">
+        <input type="text" value="${esc(item.action)}" placeholder="Action / Task..." onchange="actionItems[${i}].action=this.value" style="font-weight:600;">
+        <select onchange="actionItems[${i}].status=this.value;renderActionItems();" style="font-size:0.72rem;">
+          <option value="open"${item.status==='open'?' selected':''}>⏳ Open</option>
+          <option value="done"${item.status==='done'?' selected':''}>✅ Done</option>
+          <option value="blocked"${item.status==='blocked'?' selected':''}>🚫 Blocked</option>
+        </select>
+        <button class="ai-del" onclick="actionItems.splice(${i},1);renderActionItems()">✕</button>
+      </div>
+      <div class="ai-row-bottom">
+        <input type="text" value="${esc(item.notes)}" placeholder="Notes / details..." onchange="actionItems[${i}].notes=this.value" style="font-size:0.76rem;color:rgba(255,255,255,0.6);">
+        <input type="text" value="${esc(item.owner)}" placeholder="Owner" onchange="actionItems[${i}].owner=this.value" style="font-size:0.76rem;">
+      </div>`;
+    list.appendChild(row);
+  });
+}
+function addAction(){
+  actionItems.push({action:'',notes:'',owner:'',status:'open'});
+  renderActionItems();
+  const rows=document.querySelectorAll('.ai-row');
+  if(rows.length>0)rows[rows.length-1].querySelector('input').focus();
+}
+
+// =========================================================
+// PHOTOS + EXTRAS
+// =========================================================
+function handlePhotoUpload(input){
+  const files=Array.from(input.files);
+  files.forEach(file=>{
+    const reader=new FileReader();
+    reader.onload=e=>{
+      photos.push(e.target.result);
+      renderPhotos();
+    };
+    reader.readAsDataURL(file);
+  });
+}
+function renderPhotos(){
+  const gallery=document.getElementById('photo-gallery');
+  if(!gallery)return;
+  gallery.innerHTML='';
+  photos.forEach((src,i)=>{
+    const slot=document.createElement('div');
+    slot.className='photo-slot';
+    slot.innerHTML=`<img src="${src}" alt="Tournament photo ${i+1}"><div class="photo-slot-label" style="position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,0.5);color:#fff;padding:0.3rem 0.5rem;font-size:0.7rem;display:none;" class="photo-lbl">Photo ${i+1}</div>`;
+    gallery.appendChild(slot);
+  });
+  // add placeholder slot
+  const add=document.createElement('div');
+  add.className='photo-slot';
+  add.onclick=()=>document.getElementById('photo-upload-inline').click();
+  add.innerHTML=`<div class="photo-slot-icon">📷</div><div class="photo-slot-label">Add more photos</div>`;
+  gallery.appendChild(add);
+}
+function handleScholarPhoto(input){
+  const file=input.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    scholarPhotoUrl=e.target.result;
+    document.getElementById('scholar-photo-placeholder').style.display='none';
+    const img=document.getElementById('scholar-photo-img');
+    img.src=scholarPhotoUrl;img.style.display='block';
+  };
+  reader.readAsDataURL(file);
+}
+function applyExtras(){
+  const name=document.getElementById('s-scholar-name').value.trim();
+  const year=document.getElementById('s-scholar-year').value.trim();
+  const bio=document.getElementById('s-scholar-bio').value.trim();
+  if(name){const e=document.getElementById('scholar-name');if(e)e.textContent=name;}
+  if(year){const e=document.getElementById('scholar-year');if(e)e.textContent=year;}
+  if(bio){const e=document.getElementById('scholar-bio');if(e)e.textContent=bio;}
+  toast('Extras section updated!');
+}
+
+// =========================================================
+// SETTINGS
+// =========================================================
+function handleLogoUpload(input){
+  const file=input.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    logoDataUrl=e.target.result;
+    const p=document.getElementById('logo-preview');
+    if(p){p.src=logoDataUrl;p.style.display='block';}
+    toast('Logo ready — click Apply');
+  };
+  reader.readAsDataURL(file);
+}
+function applySettings(){
+  const name=(document.getElementById('s-name').value.trim())||'Wofford Golf Invitational';
+  const year=(document.getElementById('s-year').value.trim())||'2026';
+  const date=(document.getElementById('s-date').value.trim())||'September 2026';
+  const course=(document.getElementById('s-course').value.trim())||"Bear's Best";
+  const city=(document.getElementById('s-city').value.trim())||'Suwanee, GA';
+  const address=(document.getElementById('s-address').value.trim())||'5342 Aldeburgh Dr';
+  const subtitle=(document.getElementById('s-subtitle').value.trim())||'Honoring Russell King & Walt Sessoms';
+  const contact=(document.getElementById('s-contact').value.trim())||'Patrick Wheeler · 919-801-7225';
+  const email=(document.getElementById('s-email').value.trim())||'jmhuber@carolinalumber.com';
+  const address2=(document.getElementById('s-address2').value.trim());
+  const newpass=document.getElementById('s-newpass').value.trim();
+  const bg=document.getElementById('s-hero-bg').value;
+  // stats
+  ['1','2','3','4'].forEach(n=>{
+    const nn=document.getElementById('s-stat'+n+'n').value.trim();
+    const nl=document.getElementById('s-stat'+n+'l').value.trim();
+    if(nn){const e=document.getElementById('stat'+n+'n');if(e)e.textContent=nn;}
+    if(nl){const e=document.getElementById('stat'+n+'l');if(e)e.textContent=nl;}
+  });
+  if(newpass)PASS=newpass;
+  // hero
+  const parts=name.split(' ');const last=parts.pop();const first=parts.join(' ');
+  const ht=document.getElementById('hero-title');
+  if(ht)ht.innerHTML=esc(first)+'<br><span class="gold" id="hero-title-last">'+esc(last)+'</span>';
+  const ey=document.getElementById('hero-eyebrow');if(ey)ey.textContent=date+' · '+course+' · '+city;
+  const sb=document.getElementById('hero-subtitle');if(sb)sb.textContent=subtitle;
+  const nt=document.getElementById('nav-logo-text');if(nt)nt.textContent=name+" '"+year.slice(-2);
+  // details
+  const dc=document.getElementById('detail-course');if(dc)dc.textContent=course+' — '+address;
+  const dco=document.getElementById('detail-contact');if(dco)dco.textContent=contact;
+  // register
+  const rc=document.getElementById('reg-contact');if(rc)rc.textContent=contact;
+  const re=document.getElementById('reg-email');if(re)re.textContent=email;
+  const ra=document.getElementById('reg-address');if(ra)ra.textContent=address2;
+  // title + footer
+  document.title=year+' '+name+' | Georgia Alumni Endowed Scholarship Fund';
+  const fw=document.querySelector('.footer-wofford');if(fw)fw.textContent='🐾 '+name+' '+year;
+  // logo
+  if(logoDataUrl){
+    const hi=document.getElementById('hero-logo-img');
+    if(hi){hi.src=logoDataUrl;hi.classList.add('show');}
+    const ni=document.getElementById('nav-logo-icon');
+    if(ni)ni.outerHTML='<img id="nav-logo-icon" src="'+logoDataUrl+'" style="height:28px;width:auto;object-fit:contain;border-radius:3px;" alt="Logo">';
+  }
+  // bg
+  const bgMap={dark:'var(--wofford-black)',green:'#1A2E1A',navy:'#0D1A2E'};
+  const hero=document.querySelector('.hero');if(hero)hero.style.background=bgMap[bg]||bgMap.dark;
+  toast('✅ All settings applied!');
+}
+
+// =========================================================
+// DOWNLOAD
+// =========================================================
+function downloadPage(){
+  const html='<!DOCTYPE html>\n'+document.documentElement.outerHTML;
+  const blob=new Blob([html],{type:'text/html'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;a.download='wofford-golf-tournament.html';a.click();
+  URL.revokeObjectURL(url);
+  toast('⬇ Downloaded! Open that file next time.');
+}
+
+// =========================================================
+// UTILS
+// =========================================================
+function esc(str){return(str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function toggleMobileMenu(){const m=document.getElementById('mobile-menu');m.classList.toggle('open');}
+function closeMobileMenu(){document.getElementById('mobile-menu').classList.remove('open');}
+
+function toast(msg,ms=2800){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),ms);
+}
+
+function setupFadeIns(){
+  const io=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:0.06});
+  document.querySelectorAll('.tier-card,.raffle-item,.det-card,.fin-card,.impact-card,.hon-card,.coll-wrap,.bb-news-item,.raffle-item').forEach(el=>{el.classList.add('fade-in');io.observe(el);});
+}
+</script>
+</body>
+</html>
