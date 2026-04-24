@@ -92,18 +92,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;background:rgba(26,22,20,0.9
 .nav-links{display:flex;gap:1rem;list-style:none;margin:0 auto;}
 .nav-links a{color:rgba(255,255,255,0.7);text-decoration:none;font-size:0.72rem;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;transition:color 0.2s;padding-bottom:2px;border-bottom:2px solid transparent;}
 .nav-links a:hover{color:var(--gold);border-bottom-color:var(--gold);}
-/* ── SETTINGS GEAR (always visible top-right) ── */
-#settings-gear{
-  position:fixed;top:12px;right:14px;z-index:400;
-  width:34px;height:34px;border-radius:50%;
-  background:rgba(26,22,20,0.88);
-  border:1px solid rgba(201,168,76,0.35);
-  display:flex;align-items:center;justify-content:center;
-  cursor:pointer;transition:all 0.2s;
-  backdrop-filter:blur(8px);
-}
-#settings-gear:hover{background:rgba(201,168,76,0.15);border-color:var(--gold);transform:rotate(30deg);}
-#settings-gear svg{width:16px;height:16px;fill:var(--gold);}
+/* ── SETTINGS GEAR (inside nav, no z-index issues) ── */
+#settings-gear{outline:none;}
+#settings-gear:hover{background:rgba(201,168,76,0.18)!important;border-color:var(--gold)!important;transform:rotate(30deg);}
 /* admin panel link (inside nav, admin mode only) */
 #admin-nav-link{display:none;align-items:center;gap:0.3rem;color:var(--gold);font-size:0.68rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;cursor:pointer;border:1px solid rgba(201,168,76,0.3);border-radius:100px;padding:0.24rem 0.75rem;transition:all 0.2s;background:rgba(201,168,76,0.07);flex-shrink:0;white-space:nowrap;}
 #admin-nav-link:hover{background:rgba(201,168,76,0.15);}
@@ -118,13 +109,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;background:rgba(26,22,20,0.9
 
 /* ── INLINE EDIT ── */
 /* Gear pulsing indicator when in admin mode */
-.admin-mode #settings-gear{
-  background:rgba(59,130,246,0.25);
-  border-color:var(--admin-accent);
-  box-shadow:0 0 0 3px rgba(59,130,246,0.2);
-}
+.admin-mode #settings-gear{background:rgba(59,130,246,0.25)!important;border-color:var(--admin-accent)!important;box-shadow:0 0 0 2px rgba(59,130,246,0.3);}
 .admin-mode #settings-gear svg{fill:#60A5FA;}
-.admin-mode #settings-gear:hover{transform:rotate(30deg);background:rgba(59,130,246,0.35);}
 .admin-mode [data-edit]{outline:none;border-bottom:1.5px dashed rgba(201,168,76,0.45);border-radius:2px;cursor:text;transition:background 0.15s;}
 .admin-mode [data-edit]:hover{border-bottom-color:var(--gold);background:rgba(201,168,76,0.07);}
 .admin-mode [data-edit]:focus{border-bottom-color:var(--gold);background:rgba(201,168,76,0.1);outline:none;}
@@ -435,13 +421,6 @@ section{padding:5rem 2rem;scroll-margin-top:58px;}
   🔐 ADMIN MODE — Editing enabled · <span onclick="exitAdmin()" style="cursor:pointer;text-decoration:underline;">Exit Admin</span> · <span onclick="downloadPage()" style="cursor:pointer;text-decoration:underline;">Download Saved File</span>
 </div>
 
-<!-- SETTINGS GEAR ICON (always visible, opens admin login) -->
-<div id="settings-gear" onclick="gearClick()" title="Admin Settings">
-  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-    <path d="M12 15.5A3.5 3.5 0 018.5 12 3.5 3.5 0 0112 8.5a3.5 3.5 0 013.5 3.5 3.5 3.5 0 01-3.5 3.5m7.43-2.92c.04-.34.07-.68.07-1.08s-.03-.74-.07-1.08l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64L4.57 10.92c-.04.34-.07.67-.07 1.08s.03.74.07 1.08l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.58 1.69-.98l2.49 1c.23.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65z"/>
-  </svg>
-</div>
-
 <!-- LOGIN -->
 <div id="login-overlay">
   <div class="lbox">
@@ -484,40 +463,25 @@ section{padding:5rem 2rem;scroll-margin-top:58px;}
     <button class="drw-btn-ghost" onclick="exitAdmin()">← Exit Admin View</button>
     <button class="drw-btn-ghost" onclick="downloadPage()" style="margin-top:0.4rem;">⬇ Download Saved File (backup)</button>
 
-    <!-- GITHUB AUTO-PUBLISH -->
+    <!-- UPDATE LIVE SITE -->
     <div style="margin-top:1rem;background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.25);border-radius:10px;padding:1rem;">
-      <div style="font-family:'Oswald',sans-serif;font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;color:#22C55E;margin-bottom:0.6rem;">🚀 Publish Live to GitHub</div>
-      <div id="gh-setup-view">
-        <div style="font-size:0.72rem;color:rgba(255,255,255,0.45);line-height:1.55;margin-bottom:0.8rem;">
-          Enter your GitHub details once — then click <strong style="color:#fff;">Publish Live</strong> any time to push changes directly to your website. No GitHub visits needed.
-        </div>
-        <div class="sf"><label style="color:rgba(255,255,255,0.45);">GitHub Username</label>
-          <input type="text" id="gh-user" placeholder="e.g. condavis2-cloud" style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);border-radius:5px;color:#fff;font-size:0.83rem;padding:0.45rem 0.7rem;width:100%;font-family:'DM Sans',sans-serif;outline:none;">
-        </div>
-        <div class="sf"><label style="color:rgba(255,255,255,0.45);">Repository Name</label>
-          <input type="text" id="gh-repo" placeholder="e.g. Atlwofford-golf" style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);border-radius:5px;color:#fff;font-size:0.83rem;padding:0.45rem 0.7rem;width:100%;font-family:'DM Sans',sans-serif;outline:none;">
-        </div>
-        <div class="sf">
-          <label style="color:rgba(255,255,255,0.45);">GitHub Personal Access Token
-            <a href="https://github.com/settings/tokens/new?description=WoffordGolf&scopes=repo" target="_blank" rel="noopener" style="color:#22C55E;margin-left:0.4rem;font-size:0.62rem;">(click to create one →)</a>
-          </label>
-          <input type="password" id="gh-token" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);border-radius:5px;color:#fff;font-size:0.83rem;padding:0.45rem 0.7rem;width:100%;font-family:'DM Sans',sans-serif;outline:none;">
-        </div>
-        <div style="font-size:0.67rem;color:rgba(255,255,255,0.28);margin-bottom:0.7rem;line-height:1.45;">
-          Your token is stored only in your browser session — never sent anywhere except directly to GitHub. Token needs "repo" permission scope.
-        </div>
-        <button onclick="saveGitHubConfig()" style="width:100%;background:#22C55E;color:#0A1628;border:none;border-radius:5px;padding:0.6rem;font-family:'Oswald',sans-serif;font-weight:700;font-size:0.88rem;letter-spacing:0.06em;cursor:pointer;margin-bottom:0.4rem;">Save GitHub Settings</button>
+      <div style="font-family:'Oswald',sans-serif;font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;color:#22C55E;margin-bottom:0.7rem;">🚀 Update the Live Website</div>
+      <div style="font-size:0.74rem;color:rgba(255,255,255,0.6);line-height:1.7;">
+        <strong style="color:#fff;display:block;margin-bottom:0.3rem;">Step 1</strong>
+        Click "Download Saved File" above to save your changes.<br><br>
+        <strong style="color:#fff;display:block;margin-bottom:0.3rem;">Step 2</strong>
+        Go to <a href="https://github.com/condavis2-cloud/Atlwofford-golf" target="_blank" style="color:#22C55E;">github.com/condavis2-cloud/Atlwofford-golf</a><br><br>
+        <strong style="color:#fff;display:block;margin-bottom:0.3rem;">Step 3</strong>
+        Click <strong style="color:#fff;">Add file → Upload files</strong><br><br>
+        <strong style="color:#fff;display:block;margin-bottom:0.3rem;">Step 4</strong>
+        Drag your downloaded file in. GitHub will ask what to do with the existing index.html — choose <strong style="color:#fff;">Replace</strong>.<br><br>
+        <strong style="color:#fff;display:block;margin-bottom:0.3rem;">Step 5</strong>
+        Click <strong style="color:#fff;">Commit changes</strong>. Site updates in ~30 seconds.
       </div>
-      <div id="gh-publish-view" style="display:none;">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.6rem;">
-          <div style="font-size:0.75rem;color:rgba(255,255,255,0.55);">Publishing to: <strong style="color:#22C55E;" id="gh-url-display"></strong></div>
-          <span onclick="resetGitHubConfig()" style="font-size:0.65rem;color:rgba(255,255,255,0.3);cursor:pointer;text-decoration:underline;">Change</span>
-        </div>
-        <button onclick="publishToGitHub()" id="gh-publish-btn" style="width:100%;background:#22C55E;color:#0A1628;border:none;border-radius:5px;padding:0.75rem;font-family:'Oswald',sans-serif;font-weight:700;font-size:0.95rem;letter-spacing:0.06em;cursor:pointer;">
-          🚀 Publish Live Now
-        </button>
-        <div id="gh-status" style="margin-top:0.55rem;font-size:0.72rem;color:rgba(255,255,255,0.45);text-align:center;min-height:1rem;"></div>
-      </div>
+      <a href="https://github.com/condavis2-cloud/Atlwofford-golf/upload/main" target="_blank" rel="noopener" style="display:block;margin-top:0.9rem;text-align:center;background:#22C55E;color:#0A1628;font-family:'Oswald',sans-serif;font-weight:700;font-size:0.9rem;letter-spacing:0.06em;padding:0.65rem;border-radius:5px;text-decoration:none;">
+        Open GitHub Upload Page →
+      </a>
+      <div style="font-size:0.67rem;color:rgba(255,255,255,0.28);margin-top:0.5rem;text-align:center;">Opens directly to the upload page — just drop the file and commit</div>
     </div>
 
     <div class="drw-note" style="margin-top:0.6rem;">
@@ -669,6 +633,12 @@ section{padding:5rem 2rem;scroll-margin-top:58px;}
     <li><a href="#extras">Extras</a></li>
     <li><a href="#register">Register</a></li>
   </ul>
+  <!-- ⚙ GEAR — lives inside nav so z-index never conflicts -->
+  <button id="settings-gear" onclick="gearClick()" title="Admin Settings" style="background:rgba(255,255,255,0.08);border:1px solid rgba(201,168,76,0.35);border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all 0.2s;flex-shrink:0;padding:0;">
+    <svg viewBox="0 0 24 24" width="15" height="15" xmlns="http://www.w3.org/2000/svg" style="fill:var(--gold);flex-shrink:0;">
+      <path d="M12 15.5A3.5 3.5 0 018.5 12 3.5 3.5 0 0112 8.5a3.5 3.5 0 013.5 3.5 3.5 3.5 0 01-3.5 3.5m7.43-2.92c.04-.34.07-.68.07-1.08s-.03-.74-.07-1.08l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64L4.57 10.92c-.04.34-.07.67-.07 1.08s.03.74.07 1.08l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.58 1.69-.98l2.49 1c.23.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65z"/>
+    </svg>
+  </button>
   <button id="btn-public" style="display:none;" onclick="setMode('public')"></button>
   <button id="btn-admin" style="display:none;" onclick="requestAdmin()"></button>
 </nav>
@@ -1543,24 +1513,6 @@ function downloadPage(){
   toast('⬇ Downloaded! Open that file next time.');
 }
 
-// =========================================================
-// GITHUB AUTO-PUBLISH
-// =========================================================
-let _ghUser='',_ghRepo='',_ghToken='';
-
-function saveGitHubConfig(){
-  const u=document.getElementById('gh-user').value.trim();
-  const r=document.getElementById('gh-repo').value.trim();
-  const t=document.getElementById('gh-token').value.trim();
-  if(!u||!r||!t){toast('Please fill in all three GitHub fields');return;}
-  _ghUser=u;_ghRepo=r;_ghToken=t;
-  // Try to save to sessionStorage for convenience
-  try{sessionStorage.setItem('gh_user',u);sessionStorage.setItem('gh_repo',r);}catch(e){}
-  document.getElementById('gh-setup-view').style.display='none';
-  document.getElementById('gh-publish-view').style.display='block';
-  document.getElementById('gh-url-display').textContent=u+'/'+r;
-  toast('GitHub connected! Hit Publish Live to update the site.');
-}
 
 function resetGitHubConfig(){
   _ghToken='';
