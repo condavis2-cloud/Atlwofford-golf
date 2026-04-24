@@ -338,17 +338,7 @@ section{padding:5rem 2rem;scroll-margin-top:58px;}
 .contact-row{display:flex;align-items:flex-start;gap:0.65rem;font-size:0.84rem;color:rgba(255,255,255,0.62);}
 .contact-row strong{color:var(--gold);font-size:0.67rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;min-width:54px;margin-top:2px;}
 
-/* ── BASEBALL ── */
-.baseball-section{background:var(--gray-100);padding:4.5rem 2rem;}
-.bb-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:2.5rem;}
-.bb-stat-row{display:flex;align-items:center;gap:1rem;padding:0.7rem 0;border-bottom:1px solid var(--gray-200);}
-.bb-stat-row:last-child{border-bottom:none;}
-.bb-stat-num{font-family:'Oswald',sans-serif;font-size:1.6rem;font-weight:700;color:var(--gold-dark);min-width:70px;}
-.bb-stat-lbl{font-size:0.85rem;color:var(--gray-600);}
-.bb-news-item{padding:0.7rem 0;border-bottom:1px solid var(--gray-200);}
-.bb-news-item:last-child{border-bottom:none;}
-.bb-news-ttl{font-weight:600;color:var(--wofford-black);font-size:0.9rem;margin-bottom:0.2rem;}
-.bb-news-meta{font-size:0.75rem;color:var(--gray-400);}
+
 
 /* ── SPONSORS FOOTER STRIP ── */
 .sponsors-strip{background:var(--wofford-black);padding:3rem 2rem;text-align:center;border-top:1px solid rgba(201,168,76,0.18);}
@@ -403,7 +393,7 @@ section{padding:5rem 2rem;scroll-margin-top:58px;}
 /* ── MOBILE ── */
 @media(max-width:768px){
   #hamburger{display:flex;}
-  .cause-grid,.details-grid,.fin-grid,.bb-grid,.scholar-card{grid-template-columns:1fr;gap:1.4rem;}
+  .cause-grid,.details-grid,.fin-grid,.scholar-card{grid-template-columns:1fr;gap:1.4rem;}
   .flights-grid{grid-template-columns:1fr 1fr;}
   .nav-links{display:none;}
   .honorees{flex-direction:column;}
@@ -446,7 +436,7 @@ section{padding:5rem 2rem;scroll-margin-top:58px;}
 </div>
 
 <!-- SETTINGS GEAR ICON (always visible, opens admin login) -->
-<div id="settings-gear" onclick="isAdmin?openDrawer():requestAdmin()" title="Admin Settings">
+<div id="settings-gear" onclick="gearClick()" title="Admin Settings">
   <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
     <path d="M12 15.5A3.5 3.5 0 018.5 12 3.5 3.5 0 0112 8.5a3.5 3.5 0 013.5 3.5 3.5 3.5 0 01-3.5 3.5m7.43-2.92c.04-.34.07-.68.07-1.08s-.03-.74-.07-1.08l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64L4.57 10.92c-.04.34-.07.67-.07 1.08s.03.74.07 1.08l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.58 1.69-.98l2.49 1c.23.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65z"/>
   </svg>
@@ -1014,32 +1004,7 @@ section{padding:5rem 2rem;scroll-margin-top:58px;}
   </div>
 </section>
 
-<!-- BASEBALL -->
-<section class="baseball-section" id="baseball">
-  <div class="container">
-    <div class="sec-lbl">Wofford Baseball</div>
-    <h2 class="sec-ttl">TERRIER BASEBALL — <em>2025 SEASON</em></h2>
-    <p class="sec-body">Supporting the program we love. Coach JJ Edwards and the Terriers keep building year after year.</p>
-    <div class="bb-grid" style="margin-top:2rem;">
-      <div class="det-card">
-        <div class="det-ttl">📊 2025 Season Stats</div>
-        <div class="bb-stat-row"><div class="bb-stat-num" data-edit contenteditable="false">33-27</div><div class="bb-stat-lbl">Overall Record — 7th consecutive 30-win season</div></div>
-        <div class="bb-stat-row"><div class="bb-stat-num" data-edit contenteditable="false">8-13</div><div class="bb-stat-lbl">Southern Conference Record</div></div>
-        <div class="bb-stat-row"><div class="bb-stat-num" data-edit contenteditable="false">#117</div><div class="bb-stat-lbl">RPI Ranking</div></div>
-        <div class="bb-stat-row"><div class="bb-stat-num" data-edit contenteditable="false">158</div><div class="bb-stat-lbl">Stolen bases — 7th in the nation</div></div>
-        <div class="bb-stat-row"><div class="bb-stat-num" data-edit contenteditable="false">2</div><div class="bb-stat-lbl">Ranked wins — first time ever beating 2 ranked opponents in same season</div></div>
-      </div>
-      <div class="det-card">
-        <div class="det-ttl">📰 Program Highlights</div>
-        <div class="bb-news-item"><div class="bb-news-ttl" data-edit contenteditable="false">Historic Ranked Wins</div><div class="bb-news-meta">First time in program history topping two ranked foes in one season — #23 Kentucky (12-5) and #17 Troy (14-3)</div></div>
-        <div class="bb-news-item"><div class="bb-news-ttl" data-edit contenteditable="false">Carter Rasmussen — 2nd Team All-SoCon</div><div class="bb-news-meta">Rasmussen earned Second-Team All-SoCon honors; Condon &amp; Hardin named to All-Freshman Team</div></div>
-        <div class="bb-news-item"><div class="bb-news-ttl" data-edit contenteditable="false">Program Record Hit by Pitch</div><div class="bb-news-meta">113 HBP set a new program record, ranking 22nd nationally</div></div>
-        <div class="bb-news-item"><div class="bb-news-ttl" data-edit contenteditable="false">Russell C. King Field</div><div class="bb-news-meta">Home games at Russell C. King Field, Spartanburg, SC · Coach JJ Edwards</div></div>
-        <div style="margin-top:1rem;"><a href="https://woffordterriers.com/sports/baseball" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:0.4rem;font-size:0.82rem;color:var(--gold-dark);font-weight:600;text-decoration:none;border-bottom:1px solid var(--gold);">View full schedule &amp; roster on WoffordTerriers.com →</a></div>
-      </div>
-    </div>
-  </div>
-</section>
+
 
 <!-- REGISTER -->
 <section class="reg-section" id="register">
@@ -1167,6 +1132,10 @@ let raffleItems = [
 // =========================================================
 // MODE
 // =========================================================
+function gearClick(){
+  if(isAdmin){ openDrawer(); }
+  else { requestAdmin(); }
+}
 function requestAdmin(){
   document.getElementById('login-overlay').classList.add('show');
   setTimeout(()=>document.getElementById('pw-input').focus(),80);
