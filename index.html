@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>2026 Wofford Golf Invitational</title>
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=DM+Sans:wght@400;500;600&family=Merriweather:ital,wght@1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&amp;family=DM+Sans:wght@400;500;600&amp;family=Merriweather:ital,wght@1,400&amp;display=swap" rel="stylesheet">
 <style>
 /* ── VARIABLES ── */
 :root{
@@ -562,15 +561,15 @@ footer{background:#0A0806;padding:1.6rem;text-align:center;border-top:2px solid 
 .fade-in.visible{opacity:1;transform:none;}
 </style>
 </head>
-<body>
+<body class="admin-mode">
 
 <!-- ════ LOGIN OVERLAY ════ -->
-<div id="login-overlay">
+<div id="login-overlay" class="">
   <div class="login-box">
     <h2>⛳ Admin Access</h2>
     <p>Wofford Golf Invitational — Organizers Only</p>
     <input type="password" id="pw-input" placeholder="Enter password" onkeydown="if(event.key==='Enter')doLogin()">
-    <div class="login-err" id="login-err">Wrong password. Try again.</div>
+    <div class="login-err" id="login-err" style="display: none;">Wrong password. Try again.</div>
     <button class="sign-in" onclick="doLogin()">SIGN IN</button>
     <button class="login-cancel" onclick="closeLogin()">Cancel</button>
   </div>
@@ -584,7 +583,7 @@ footer{background:#0A0806;padding:1.6rem;text-align:center;border-top:2px solid 
 </div>
 
 <!-- ════ ADMIN DRAWER ════ -->
-<div id="admin-drawer">
+<div id="admin-drawer" class="open">
   <div class="drw-head">
     <span class="drw-head-title">🐾 Admin Panel</span>
     <div class="drw-head-btns">
@@ -615,10 +614,10 @@ footer{background:#0A0806;padding:1.6rem;text-align:center;border-top:2px solid 
       <!-- CLOUD SAVE STATUS BAR -->
       <div id="cloud-status-bar" style="display:flex;align-items:center;justify-content:space-between;padding:0.6rem 0.9rem;border-radius:8px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);margin-bottom:0.8rem;">
         <div style="display:flex;align-items:center;gap:0.5rem;">
-          <div id="cloud-dot" style="width:8px;height:8px;border-radius:50%;background:#6B7280;flex-shrink:0;"></div>
-          <span id="cloud-status-text" style="font-size:0.73rem;color:rgba(255,255,255,0.45);">Not connected to cloud</span>
+          <div id="cloud-dot" style="width: 8px; height: 8px; border-radius: 50%; background: rgb(34, 197, 94); flex-shrink: 0;"></div>
+          <span id="cloud-status-text" style="font-size:0.73rem;color:rgba(255,255,255,0.45);">Connected — changes save to cloud</span>
         </div>
-        <span id="cloud-last-saved" style="font-size:0.65rem;color:rgba(255,255,255,0.25);"></span>
+        <span id="cloud-last-saved" style="font-size:0.65rem;color:rgba(255,255,255,0.25);">Last saved: 4/28/2026, 2:44:25 PM</span>
       </div>
 
       <!-- MAIN SAVE BUTTON -->
@@ -629,7 +628,7 @@ footer{background:#0A0806;padding:1.6rem;text-align:center;border-top:2px solid 
       <button class="d-btn-ghost" onclick="downloadPage()" style="margin-top:0.4rem;">⬇ Download Backup File</button>
 
       <!-- CLOUD SETUP (shown if not connected) -->
-      <div id="cloud-setup" style="margin-top:1rem;background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.25);border-radius:10px;padding:1rem;">
+      <div id="cloud-setup" style="margin-top: 1rem; background: rgba(59, 130, 246, 0.08); border: 1px solid rgba(59, 130, 246, 0.25); border-radius: 10px; padding: 1rem; display: none;">
         <div style="font-family:'Oswald',sans-serif;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:#60A5FA;margin-bottom:0.6rem;">☁️ Connect Cloud Saving — One Time Setup</div>
         <div style="font-size:0.73rem;color:rgba(255,255,255,0.55);line-height:1.65;margin-bottom:0.8rem;">
           Once connected, <strong style="color:#fff;">anyone with the admin password</strong> can open the site, make changes, and click Save — and everyone sees the update instantly. No downloads. No GitHub. Nothing else.<br><br>
@@ -666,22 +665,13 @@ footer{background:#0A0806;padding:1.6rem;text-align:center;border-top:2px solid 
       </div>
 
       <!-- CONNECTED VIEW (hidden until connected) -->
-      <div id="cloud-connected" style="display:none;margin-top:1rem;background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.2);border-radius:10px;padding:0.85rem;">
+      <div id="cloud-connected" style="display: block; margin-top: 1rem; background: rgba(34, 197, 94, 0.08); border: 1px solid rgba(34, 197, 94, 0.2); border-radius: 10px; padding: 0.85rem;">
         <div style="font-size:0.8rem;font-weight:700;color:#22C55E;margin-bottom:0.5rem;">☁️ Cloud Saving is ON ✅</div>
         <div style="font-size:0.73rem;color:rgba(255,255,255,0.55);line-height:1.6;margin-bottom:0.8rem;">
           Any of your editors can open the site, make changes, and click <strong style="color:#fff;">Save</strong>. Everyone sees the update instantly.
         </div>
         <div style="background:rgba(255,255,255,0.05);border-radius:7px;padding:0.75rem;margin-bottom:0.6rem;">
-          <div style="font-size:0.68rem;font-weight:700;color:rgba(255,255,255,0.4);margin-bottom:0.4rem;">⚠️ ONE MORE STEP AFTER FIRST SETUP</div>
-          <div style="font-size:0.72rem;color:rgba(255,255,255,0.6);line-height:1.65;">
-            After connecting for the first time, you need to <strong style="color:#fff;">download and re-upload the file to GitHub once</strong>. This permanently bakes the connection into the site so ALL visitors (not just you) auto-load the latest data.<br><br>
-            1. Click <strong style="color:#fff;">"⬇ Download Backup File"</strong> below<br>
-            2. Upload it to GitHub as <strong style="color:#fff;">index.html</strong><br>
-            3. Done forever — never need to do this again
-          </div>
-        </div>
-        <div style="background:rgba(255,255,255,0.05);border-radius:7px;padding:0.75rem;margin-bottom:0.6rem;">
-          <div style="font-size:0.68rem;font-weight:700;color:rgba(255,255,255,0.4);margin-bottom:0.4rem;">📤 SHARE WITH YOUR TEAM</div>
+          <div style="font-size:0.68rem;font-weight:700;color:rgba(255,255,255,0.4);margin-bottom:0.4rem;">📤 SHARE THIS WITH YOUR TEAM</div>
           <div style="font-size:0.72rem;color:rgba(255,255,255,0.55);line-height:1.6;">
             Send them this message:<br><br>
             <div style="background:rgba(255,255,255,0.07);border-radius:5px;padding:0.6rem;font-style:italic;color:rgba(255,255,255,0.7);font-size:0.71rem;line-height:1.6;user-select:all;">
@@ -692,7 +682,7 @@ footer{background:#0A0806;padding:1.6rem;text-align:center;border-top:2px solid 
             </div>
           </div>
         </div>
-        <div style="font-size:0.68rem;color:rgba(255,255,255,0.28);margin-bottom:0.5rem;">Bin ID: <span id="jb-bin-id-display" style="font-family:monospace;color:rgba(255,255,255,0.4);"></span></div>
+        <div style="font-size:0.68rem;color:rgba(255,255,255,0.28);margin-bottom:0.5rem;">Bin ID: <span id="jb-bin-id-display" style="font-family:monospace;color:rgba(255,255,255,0.4);">69f0ff3b856a68218982fd50</span></div>
         <button onclick="resetCloud()" style="font-size:0.68rem;color:rgba(255,255,255,0.25);background:none;border:none;cursor:pointer;text-decoration:underline;font-family:'DM Sans',sans-serif;">Disconnect / Reset cloud</button>
       </div>
     </div>
@@ -753,14 +743,14 @@ footer{background:#0A0806;padding:1.6rem;text-align:center;border-top:2px solid 
     <!-- ─── ACTIONS ─── -->
     <div class="drw-pane" id="tab-actions">
       <div style="font-size:0.74rem;color:rgba(255,255,255,0.38);margin-bottom:0.8rem;">Track open tasks. ⏳ Open · ✅ Done · 🚫 Blocked</div>
-      <div id="action-list"></div>
+      <div id="action-list"><div class="ai-row"><div class="ai-top"><input class="ai-inp" type="text" value="Confirm Anthony DiNardo lunch numbers/date" placeholder="Task..." onchange="actions[0].task=this.value" style="font-weight:600;"><select class="ai-sel" onchange="actions[0].status=this.value;renderActions();"><option value="open" selected="">⏳ Open</option><option value="done">✅ Done</option><option value="blocked">🚫 Blocked</option></select><button class="ai-del" onclick="actions.splice(0,1);renderActions()">✕</button></div><div class="ai-bot"><input class="ai-inp" type="text" value="Connect w/ Patrick" placeholder="Notes..." onchange="actions[0].notes=this.value"><input class="ai-inp" type="text" value="Connor" placeholder="Owner" onchange="actions[0].owner=this.value"></div></div><div class="ai-row"><div class="ai-top"><input class="ai-inp" type="text" value="Confirm max teams allowed with course" placeholder="Task..." onchange="actions[1].task=this.value" style="font-weight:600;"><select class="ai-sel" onchange="actions[1].status=this.value;renderActions();"><option value="open" selected="">⏳ Open</option><option value="done">✅ Done</option><option value="blocked">🚫 Blocked</option></select><button class="ai-del" onclick="actions.splice(1,1);renderActions()">✕</button></div><div class="ai-bot"><input class="ai-inp" type="text" value="Check with Bear's Best" placeholder="Notes..." onchange="actions[1].notes=this.value"><input class="ai-inp" type="text" value="Connor" placeholder="Owner" onchange="actions[1].owner=this.value"></div></div><div class="ai-row"><div class="ai-top"><input class="ai-inp" type="text" value="Raffle prize status — Yeti coolers, PDC round, wedge" placeholder="Task..." onchange="actions[2].task=this.value" style="font-weight:600;"><select class="ai-sel" onchange="actions[2].status=this.value;renderActions();"><option value="open" selected="">⏳ Open</option><option value="done">✅ Done</option><option value="blocked">🚫 Blocked</option></select><button class="ai-del" onclick="actions.splice(2,1);renderActions()">✕</button></div><div class="ai-bot"><input class="ai-inp" type="text" value="" placeholder="Notes..." onchange="actions[2].notes=this.value"><input class="ai-inp" type="text" value="Merritt" placeholder="Owner" onchange="actions[2].owner=this.value"></div></div><div class="ai-row"><div class="ai-top"><input class="ai-inp" type="text" value="Chick-fil-A breakfast order" placeholder="Task..." onchange="actions[3].task=this.value" style="font-weight:600;"><select class="ai-sel" onchange="actions[3].status=this.value;renderActions();"><option value="open" selected="">⏳ Open</option><option value="done">✅ Done</option><option value="blocked">🚫 Blocked</option></select><button class="ai-del" onclick="actions.splice(3,1);renderActions()">✕</button></div><div class="ai-bot"><input class="ai-inp" type="text" value="Pick up day of" placeholder="Notes..." onchange="actions[3].notes=this.value"><input class="ai-inp" type="text" value="Connor" placeholder="Owner" onchange="actions[3].owner=this.value"></div></div><div class="ai-row"><div class="ai-top"><input class="ai-inp" type="text" value="Hats ordered — connect with Patrick on style/qty" placeholder="Task..." onchange="actions[4].task=this.value" style="font-weight:600;"><select class="ai-sel" onchange="actions[4].status=this.value;renderActions();"><option value="open" selected="">⏳ Open</option><option value="done">✅ Done</option><option value="blocked">🚫 Blocked</option></select><button class="ai-del" onclick="actions.splice(4,1);renderActions()">✕</button></div><div class="ai-bot"><input class="ai-inp" type="text" value="" placeholder="Notes..." onchange="actions[4].notes=this.value"><input class="ai-inp" type="text" value="Merritt" placeholder="Owner" onchange="actions[4].owner=this.value"></div></div><div class="ai-row"><div class="ai-top"><input class="ai-inp" type="text" value="Divot tools" placeholder="Task..." onchange="actions[5].task=this.value" style="font-weight:600;"><select class="ai-sel" onchange="actions[5].status=this.value;renderActions();"><option value="open" selected="">⏳ Open</option><option value="done">✅ Done</option><option value="blocked">🚫 Blocked</option></select><button class="ai-del" onclick="actions.splice(5,1);renderActions()">✕</button></div><div class="ai-bot"><input class="ai-inp" type="text" value="Patrick coordinating" placeholder="Notes..." onchange="actions[5].notes=this.value"><input class="ai-inp" type="text" value="Connor" placeholder="Owner" onchange="actions[5].owner=this.value"></div></div></div>
       <button class="ai-add" onclick="addAction()">+ Add Action Item</button>
     </div>
 
     <!-- ─── RAFFLE ─── -->
     <div class="drw-pane" id="tab-raffle">
       <div style="font-size:0.74rem;color:rgba(255,255,255,0.38);margin-bottom:0.8rem;">Edit raffle prizes. Changes update the page when you click Apply.</div>
-      <div id="raffle-edit-list"></div>
+      <div id="raffle-edit-list"><div class="re-row"><input class="re-ico" type="text" value="🎩" onchange="raffleItems[0].icon=this.value"><input class="re-inp" type="text" value="Wofford Hats" onchange="raffleItems[0].name=this.value"><button class="ai-del" onclick="raffleItems.splice(0,1);renderRaffleEdit()">✕</button></div><div class="re-row"><input class="re-ico" type="text" value="⛳" onchange="raffleItems[1].icon=this.value"><input class="re-inp" type="text" value="Round at Piedmont Driving Club" onchange="raffleItems[1].name=this.value"><button class="ai-del" onclick="raffleItems.splice(1,1);renderRaffleEdit()">✕</button></div><div class="re-row"><input class="re-ico" type="text" value="🏌️" onchange="raffleItems[2].icon=this.value"><input class="re-inp" type="text" value="Round at Capital City Club" onchange="raffleItems[2].name=this.value"><button class="ai-del" onclick="raffleItems.splice(2,1);renderRaffleEdit()">✕</button></div><div class="re-row"><input class="re-ico" type="text" value="❄️" onchange="raffleItems[3].icon=this.value"><input class="re-inp" type="text" value="Yeti Cooler #1" onchange="raffleItems[3].name=this.value"><button class="ai-del" onclick="raffleItems.splice(3,1);renderRaffleEdit()">✕</button></div><div class="re-row"><input class="re-ico" type="text" value="❄️" onchange="raffleItems[4].icon=this.value"><input class="re-inp" type="text" value="Yeti Cooler #2" onchange="raffleItems[4].name=this.value"><button class="ai-del" onclick="raffleItems.splice(4,1);renderRaffleEdit()">✕</button></div><div class="re-row"><input class="re-ico" type="text" value="🏒" onchange="raffleItems[5].icon=this.value"><input class="re-inp" type="text" value="54° Wedge with Terrier Logo" onchange="raffleItems[5].name=this.value"><button class="ai-del" onclick="raffleItems.splice(5,1);renderRaffleEdit()">✕</button></div><div class="re-row"><input class="re-ico" type="text" value="🎒" onchange="raffleItems[6].icon=this.value"><input class="re-inp" type="text" value="Wofford Golf Bag" onchange="raffleItems[6].name=this.value"><button class="ai-del" onclick="raffleItems.splice(6,1);renderRaffleEdit()">✕</button></div><div class="re-row"><input class="re-ico" type="text" value="🏆" onchange="raffleItems[7].icon=this.value"><input class="re-inp" type="text" value="Round with a Coach" onchange="raffleItems[7].name=this.value"><button class="ai-del" onclick="raffleItems.splice(7,1);renderRaffleEdit()">✕</button></div><div class="re-row"><input class="re-ico" type="text" value="⛳" onchange="raffleItems[8].icon=this.value"><input class="re-inp" type="text" value="Bear's Best Round of Golf" onchange="raffleItems[8].name=this.value"><button class="ai-del" onclick="raffleItems.splice(8,1);renderRaffleEdit()">✕</button></div><div class="re-row"><input class="re-ico" type="text" value="🪵" onchange="raffleItems[9].icon=this.value"><input class="re-inp" type="text" value="Wooden Bats — Flight Prizes" onchange="raffleItems[9].name=this.value"><button class="ai-del" onclick="raffleItems.splice(9,1);renderRaffleEdit()">✕</button></div><div class="re-row"><input class="re-ico" type="text" value="🎯" onchange="raffleItems[10].icon=this.value"><input class="re-inp" type="text" value="Long Drive Contest Prize" onchange="raffleItems[10].name=this.value"><button class="ai-del" onclick="raffleItems.splice(10,1);renderRaffleEdit()">✕</button></div><div class="re-row"><input class="re-ico" type="text" value="📍" onchange="raffleItems[11].icon=this.value"><input class="re-inp" type="text" value="Closest to the Pin Prize" onchange="raffleItems[11].name=this.value"><button class="ai-del" onclick="raffleItems.splice(11,1);renderRaffleEdit()">✕</button></div><div class="re-row"><input class="re-ico" type="text" value="🏓" onchange="raffleItems[12].icon=this.value"><input class="re-inp" type="text" value="Putting Contest Prize" onchange="raffleItems[12].name=this.value"><button class="ai-del" onclick="raffleItems.splice(12,1);renderRaffleEdit()">✕</button></div><div class="re-row"><input class="re-ico" type="text" value="🎁" onchange="raffleItems[13].icon=this.value"><input class="re-inp" type="text" value="Entry Gift for All Players" onchange="raffleItems[13].name=this.value"><button class="ai-del" onclick="raffleItems.splice(13,1);renderRaffleEdit()">✕</button></div></div>
       <button class="ai-add" onclick="addRaffleItem()" style="margin-top:0.5rem;">+ Add Prize</button>
       <button class="d-btn" onclick="applyRaffle()" style="margin-top:0.8rem;">✓ Update Prizes on Page</button>
     </div>
@@ -770,7 +760,7 @@ footer{background:#0A0806;padding:1.6rem;text-align:center;border-top:2px solid 
       <div class="d-section">
         <div class="d-section-title">Tournament Photos</div>
         <div style="font-size:0.74rem;color:rgba(255,255,255,0.38);margin-bottom:0.6rem;">Upload photos from past tournaments.</div>
-        <input type="file" id="photo-upload" accept="image/*" multiple onchange="handlePhotos(this)" style="font-size:0.76rem;padding:0.28rem 0;color:rgba(255,255,255,0.55);">
+        <input type="file" id="photo-upload" accept="image/*" multiple="" onchange="handlePhotos(this)" style="font-size:0.76rem;padding:0.28rem 0;color:rgba(255,255,255,0.55);">
       </div>
       <div class="d-section">
         <div class="d-section-title">Scholarship Recipient</div>
@@ -871,7 +861,7 @@ footer{background:#0A0806;padding:1.6rem;text-align:center;border-top:2px solid 
   </div>
 </div>
 
-<div id="toast"></div>
+<div id="toast" class="">Admin Mode — click any gold-underlined text to edit</div>
 
 <!-- ════ NAV ════ -->
 <nav>
@@ -892,7 +882,7 @@ footer{background:#0A0806;padding:1.6rem;text-align:center;border-top:2px solid 
   </ul>
   <!-- THE GEAR — simple button, always clickable -->
   <button id="gear-btn" onclick="gearClick()">
-    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 15.5A3.5 3.5 0 018.5 12 3.5 3.5 0 0112 8.5a3.5 3.5 0 013.5 3.5 3.5 3.5 0 01-3.5 3.5m7.43-2.92c.04-.34.07-.68.07-1.08s-.03-.74-.07-1.08l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64L4.57 10.92c-.04.34-.07.67-.07 1.08s.03.74.07 1.08l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.58 1.69-.98l2.49 1c.23.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65z"/></svg>
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 15.5A3.5 3.5 0 018.5 12 3.5 3.5 0 0112 8.5a3.5 3.5 0 013.5 3.5 3.5 3.5 0 01-3.5 3.5m7.43-2.92c.04-.34.07-.68.07-1.08s-.03-.74-.07-1.08l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64L4.57 10.92c-.04.34-.07.67-.07 1.08s.03.74.07 1.08l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.58 1.69-.98l2.49 1c.23.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65z"></path></svg>
   </button>
 </nav>
 
@@ -912,9 +902,9 @@ footer{background:#0A0806;padding:1.6rem;text-align:center;border-top:2px solid 
 <section class="hero" id="top">
   <div class="hero-inner">
     <img id="hero-logo" src="" alt="Logo">
-    <div class="hero-eyebrow" id="hero-eyebrow" data-edit contenteditable="false">September 2026 · Bear's Best · Suwanee, GA</div>
+    <div class="hero-eyebrow" id="hero-eyebrow" data-edit="" contenteditable="true">September 2026 · Bear's Best · Suwanee, GA</div>
     <h1 class="hero-title" id="hero-title">Wofford<br>Golf<span class="gold" id="hero-last">Invitational</span></h1>
-    <p class="hero-sub" id="hero-sub" data-edit contenteditable="false">Honoring Russell King &amp; Walt Sessoms</p>
+    <p class="hero-sub" id="hero-sub" data-edit="" contenteditable="true">Honoring Russell King &amp; Walt Sessoms</p>
     <div class="hero-bar"></div>
     <div class="hero-stats">
       <div class="hstat"><div class="hstat-n" id="s1n">30+</div><div class="hstat-l" id="s1l">Years of Play</div></div>
@@ -935,26 +925,26 @@ footer{background:#0A0806;padding:1.6rem;text-align:center;border-top:2px solid 
     <div class="cause-grid">
       <div>
         <div class="sec-lbl">Our Story</div>
-        <h2 class="sec-ttl" data-edit contenteditable="false">30 YEARS OF <em>TERRIER SPIRIT</em></h2>
-        <p class="sec-body" data-edit contenteditable="false">Every swing, every birdie, every raffle ticket goes directly to the Georgia Alumni Endowed Scholarship Fund — giving Wofford students the opportunity of a lifetime. This tournament proudly honors two pillars of our community.</p>
+        <h2 class="sec-ttl" data-edit="" contenteditable="true">30 YEARS OF <em>TERRIER SPIRIT</em></h2>
+        <p class="sec-body" data-edit="" contenteditable="true">Every swing, every birdie, every raffle ticket goes directly to the Georgia Alumni Endowed Scholarship Fund — giving Wofford students the opportunity of a lifetime. This tournament proudly honors two pillars of our community.</p>
         <div class="honorees">
-          <div class="hon-card">
-            <div class="hon-init" data-edit contenteditable="false">RK</div>
-            <div class="hon-name" data-edit contenteditable="false">RUSSELL KING</div>
-            <div class="hon-role" data-edit contenteditable="false">Honored Wofford Alumnus</div>
+          <div class="hon-card fade-in">
+            <div class="hon-init" data-edit="" contenteditable="true">RK</div>
+            <div class="hon-name" data-edit="" contenteditable="true">RUSSELL KING</div>
+            <div class="hon-role" data-edit="" contenteditable="true">Honored Wofford Alumnus</div>
           </div>
-          <div class="hon-card">
-            <div class="hon-init" data-edit contenteditable="false">WS</div>
-            <div class="hon-name" data-edit contenteditable="false">WALT SESSOMS</div>
-            <div class="hon-role" data-edit contenteditable="false">Honored Wofford Alumnus</div>
+          <div class="hon-card fade-in">
+            <div class="hon-init" data-edit="" contenteditable="true">WS</div>
+            <div class="hon-name" data-edit="" contenteditable="true">WALT SESSOMS</div>
+            <div class="hon-role" data-edit="" contenteditable="true">Honored Wofford Alumnus</div>
           </div>
         </div>
       </div>
       <div class="impact-cards">
-        <div class="imp-card"><div class="imp-n" data-edit contenteditable="false">$1.88M</div><div class="imp-d"><strong data-edit contenteditable="false">Total Raised to Date</strong><span data-edit contenteditable="false">1995–2025, incl. $250K Daniel Fund match</span></div></div>
-        <div class="imp-card"><div class="imp-n" data-edit contenteditable="false">$73.1K</div><div class="imp-d"><strong data-edit contenteditable="false">Net Raised in 2025</strong><span data-edit contenteditable="false">$87,620 gross revenue last tournament</span></div></div>
-        <div class="imp-card"><div class="imp-n" data-edit contenteditable="false">$86.7K</div><div class="imp-d"><strong data-edit contenteditable="false">2026 Gross Goal</strong><span data-edit contenteditable="false">Projected net ~$71K to the scholarship fund</span></div></div>
-        <div class="imp-card"><div class="imp-n" data-edit contenteditable="false">30+</div><div class="imp-d"><strong data-edit contenteditable="false">Years of Tradition</strong><span data-edit contenteditable="false">A beloved annual Georgia Wofford alumni gathering</span></div></div>
+        <div class="imp-card fade-in"><div class="imp-n" data-edit="" contenteditable="true">$1.88M</div><div class="imp-d"><strong data-edit="" contenteditable="true">Total Raised to Date</strong><span data-edit="" contenteditable="true">1995–2025, incl. $250K Daniel Fund match</span></div></div>
+        <div class="imp-card fade-in"><div class="imp-n" data-edit="" contenteditable="true">$73.1K</div><div class="imp-d"><strong data-edit="" contenteditable="true">Net Raised in 2025</strong><span data-edit="" contenteditable="true">$87,620 gross revenue last tournament</span></div></div>
+        <div class="imp-card fade-in"><div class="imp-n" data-edit="" contenteditable="true">$86.7K</div><div class="imp-d"><strong data-edit="" contenteditable="true">2026 Gross Goal</strong><span data-edit="" contenteditable="true">Projected net ~$71K to the scholarship fund</span></div></div>
+        <div class="imp-card fade-in"><div class="imp-n" data-edit="" contenteditable="true">30+</div><div class="imp-d"><strong data-edit="" contenteditable="true">Years of Tradition</strong><span data-edit="" contenteditable="true">A beloved annual Georgia Wofford alumni gathering</span></div></div>
       </div>
     </div>
   </div>
@@ -966,25 +956,25 @@ footer{background:#0A0806;padding:1.6rem;text-align:center;border-top:2px solid 
     <div class="sec-lbl">Tournament Info</div>
     <h2 class="sec-ttl">EVERYTHING YOU NEED <em>TO KNOW</em></h2>
     <div class="details-grid">
-      <div class="det-card">
+      <div class="det-card fade-in">
         <div class="det-ttl">📅 Day of Schedule</div>
         <ul class="sched-list">
-          <li class="sched-item"><span class="sched-time" data-edit contenteditable="false">8:30 AM</span><div class="sched-ev"><strong data-edit contenteditable="false">Arrival &amp; Warm-Up</strong><span data-edit contenteditable="false">Practice range · Registration · Light breakfast</span></div></li>
-          <li class="sched-item"><span class="sched-time" data-edit contenteditable="false">9:30 AM</span><div class="sched-ev"><strong data-edit contenteditable="false">Opening Program</strong><span data-edit contenteditable="false">Welcome · Sponsor recognition · Overview</span></div></li>
-          <li class="sched-item"><span class="sched-time" data-edit contenteditable="false">10:00 AM</span><div class="sched-ev"><strong data-edit contenteditable="false">Shotgun Start</strong><span data-edit contenteditable="false">4-player scramble · No mulligans · 5 flights</span></div></li>
-          <li class="sched-item"><span class="sched-time" data-edit contenteditable="false">Midday</span><div class="sched-ev"><strong data-edit contenteditable="false">Box Lunches on Course</strong><span data-edit contenteditable="false">Sponsored by Henri's Bakery &amp; Anthony DiNardo</span></div></li>
-          <li class="sched-item"><span class="sched-time" data-edit contenteditable="false">2:30 PM</span><div class="sched-ev"><strong data-edit contenteditable="false">Social Hour &amp; Awards</strong><span data-edit contenteditable="false">Post-round reception · Flight winners announced</span></div></li>
+          <li class="sched-item"><span class="sched-time" data-edit="" contenteditable="true">8:30 AM</span><div class="sched-ev"><strong data-edit="" contenteditable="true">Arrival &amp; Warm-Up</strong><span data-edit="" contenteditable="true">Practice range · Registration · Light breakfast</span></div></li>
+          <li class="sched-item"><span class="sched-time" data-edit="" contenteditable="true">9:30 AM</span><div class="sched-ev"><strong data-edit="" contenteditable="true">Opening Program</strong><span data-edit="" contenteditable="true">Welcome · Sponsor recognition · Overview</span></div></li>
+          <li class="sched-item"><span class="sched-time" data-edit="" contenteditable="true">10:00 AM</span><div class="sched-ev"><strong data-edit="" contenteditable="true">Shotgun Start</strong><span data-edit="" contenteditable="true">4-player scramble · No mulligans · 5 flights</span></div></li>
+          <li class="sched-item"><span class="sched-time" data-edit="" contenteditable="true">Midday</span><div class="sched-ev"><strong data-edit="" contenteditable="true">Box Lunches on Course</strong><span data-edit="" contenteditable="true">Sponsored by Henri's Bakery &amp; Anthony DiNardo</span></div></li>
+          <li class="sched-item"><span class="sched-time" data-edit="" contenteditable="true">2:30 PM</span><div class="sched-ev"><strong data-edit="" contenteditable="true">Social Hour &amp; Awards</strong><span data-edit="" contenteditable="true">Post-round reception · Flight winners announced</span></div></li>
         </ul>
       </div>
-      <div class="det-card">
+      <div class="det-card fade-in">
         <div class="det-ttl">⛳ Event Details</div>
         <ul class="info-list">
-          <li class="info-item"><span class="info-k">Course</span><span class="info-v" data-edit contenteditable="false" id="detail-course">Bear's Best — 5342 Aldeburgh Dr, Suwanee GA 30024</span></li>
-          <li class="info-item"><span class="info-k">Format</span><span class="info-v" data-edit contenteditable="false">4-Player Scramble · No Mulligans</span></li>
-          <li class="info-item"><span class="info-k">Flights</span><span class="info-v" data-edit contenteditable="false">5 Flights · Prizes for each</span></li>
-          <li class="info-item"><span class="info-k">Contests</span><span class="info-v" data-edit contenteditable="false">Long Drive · Closest to Pin · Putting Contest</span></li>
+          <li class="info-item"><span class="info-k">Course</span><span class="info-v" data-edit="" contenteditable="true" id="detail-course">Bear's Best — 5342 Aldeburgh Dr, Suwanee GA 30024</span></li>
+          <li class="info-item"><span class="info-k">Format</span><span class="info-v" data-edit="" contenteditable="true">4-Player Scramble · No Mulligans</span></li>
+          <li class="info-item"><span class="info-k">Flights</span><span class="info-v" data-edit="" contenteditable="true">5 Flights · Prizes for each</span></li>
+          <li class="info-item"><span class="info-k">Contests</span><span class="info-v" data-edit="" contenteditable="true">Long Drive · Closest to Pin · Putting Contest</span></li>
           <li class="info-item"><span class="info-k">Capacity</span><span class="info-v">First <span id="max-txt">25</span> Teams · Pre-pay Only</span></li>
-          <li class="info-item"><span class="info-k">Contact</span><span class="info-v" data-edit contenteditable="false" id="detail-contact">Patrick Wheeler · 919-801-7225</span></li>
+          <li class="info-item"><span class="info-k">Contact</span><span class="info-v" data-edit="" contenteditable="true" id="detail-contact">Patrick Wheeler · 919-801-7225</span></li>
         </ul>
       </div>
     </div>
@@ -996,18 +986,18 @@ footer{background:#0A0806;padding:1.6rem;text-align:center;border-top:2px solid 
   <div class="container">
     <div class="sec-lbl">Sponsorship</div>
     <h2 class="sec-ttl">JOIN OUR TERRIER <em>FAMILY</em></h2>
-    <p class="sec-body" data-edit contenteditable="false">Every sponsorship level directly supports the Georgia Alumni Endowed Scholarship Fund and includes full tournament participation.</p>
+    <p class="sec-body" data-edit="" contenteditable="true">Every sponsorship level directly supports the Georgia Alumni Endowed Scholarship Fund and includes full tournament participation.</p>
     <div class="tiers-grid">
-      <div class="tier-card t-gold"><div class="tier-hd"><div class="tier-badge">Gold</div><div class="tier-name">GOLD TERRIER</div><div class="tier-price">$5,000+</div></div><div class="tier-bd"><ul class="tier-perks"><li class="tier-perk">VIP Recognition</li><li class="tier-perk">1 Foursome in tournament</li><li class="tier-perk">Food &amp; Beverage sponsorship</li><li class="tier-perk">Terrier Club Collegiate Circle</li><li class="tier-perk">Hole &amp; program recognition</li><li class="tier-perk">Awards recognition</li></ul></div></div>
-      <div class="tier-card t-silver"><div class="tier-hd"><div class="tier-badge">Silver</div><div class="tier-name">SILVER TERRIER</div><div class="tier-price">$2,500</div></div><div class="tier-bd"><ul class="tier-perks"><li class="tier-perk">Silver Recognition</li><li class="tier-perk">1 Foursome in tournament</li><li class="tier-perk">Terrier Club President's Circle</li><li class="tier-perk">Hole &amp; program recognition</li><li class="tier-perk">Awards recognition</li></ul></div></div>
-      <div class="tier-card t-bronze"><div class="tier-hd"><div class="tier-badge">Bronze</div><div class="tier-name">BRONZE TERRIER</div><div class="tier-price">$1,500</div></div><div class="tier-bd"><ul class="tier-perks"><li class="tier-perk">Bronze Recognition</li><li class="tier-perk">1 Foursome in tournament</li><li class="tier-perk">Terrier Club Steward</li><li class="tier-perk">Awards recognition</li></ul></div></div>
-      <div class="tier-card t-young"><div class="tier-hd"><div class="tier-badge">Young Alumni</div><div class="tier-name">YOUNG ALUMNI</div><div class="tier-price">$1,000 · Ages 30 &amp; under</div></div><div class="tier-bd"><ul class="tier-perks"><li class="tier-perk">Limited to 4 teams</li><li class="tier-perk">Sponsor recognition</li><li class="tier-perk">Terrier Club Patron</li><li class="tier-perk">Awards recognition</li></ul></div></div>
-      <div class="tier-card t-hole"><div class="tier-hd"><div class="tier-badge">Hole</div><div class="tier-name">HOLE SPONSOR</div><div class="tier-price">$500</div></div><div class="tier-bd"><ul class="tier-perks"><li class="tier-perk">Company name on hole signage</li><li class="tier-perk">Hole recognition</li><li class="tier-perk">Program recognition</li></ul></div></div>
+      <div class="tier-card t-gold fade-in"><div class="tier-hd"><div class="tier-badge">Gold</div><div class="tier-name">GOLD TERRIER</div><div class="tier-price">$5,000+</div></div><div class="tier-bd"><ul class="tier-perks"><li class="tier-perk">VIP Recognition</li><li class="tier-perk">1 Foursome in tournament</li><li class="tier-perk">Food &amp; Beverage sponsorship</li><li class="tier-perk">Terrier Club Collegiate Circle</li><li class="tier-perk">Hole &amp; program recognition</li><li class="tier-perk">Awards recognition</li></ul></div></div>
+      <div class="tier-card t-silver fade-in"><div class="tier-hd"><div class="tier-badge">Silver</div><div class="tier-name">SILVER TERRIER</div><div class="tier-price">$2,500</div></div><div class="tier-bd"><ul class="tier-perks"><li class="tier-perk">Silver Recognition</li><li class="tier-perk">1 Foursome in tournament</li><li class="tier-perk">Terrier Club President's Circle</li><li class="tier-perk">Hole &amp; program recognition</li><li class="tier-perk">Awards recognition</li></ul></div></div>
+      <div class="tier-card t-bronze fade-in"><div class="tier-hd"><div class="tier-badge">Bronze</div><div class="tier-name">BRONZE TERRIER</div><div class="tier-price">$1,500</div></div><div class="tier-bd"><ul class="tier-perks"><li class="tier-perk">Bronze Recognition</li><li class="tier-perk">1 Foursome in tournament</li><li class="tier-perk">Terrier Club Steward</li><li class="tier-perk">Awards recognition</li></ul></div></div>
+      <div class="tier-card t-young fade-in"><div class="tier-hd"><div class="tier-badge">Young Alumni</div><div class="tier-name">YOUNG ALUMNI</div><div class="tier-price">$1,000 · Ages 30 &amp; under</div></div><div class="tier-bd"><ul class="tier-perks"><li class="tier-perk">Limited to 4 teams</li><li class="tier-perk">Sponsor recognition</li><li class="tier-perk">Terrier Club Patron</li><li class="tier-perk">Awards recognition</li></ul></div></div>
+      <div class="tier-card t-hole fade-in"><div class="tier-hd"><div class="tier-badge">Hole</div><div class="tier-name">HOLE SPONSOR</div><div class="tier-price">$500</div></div><div class="tier-bd"><ul class="tier-perks"><li class="tier-perk">Company name on hole signage</li><li class="tier-perk">Hole recognition</li><li class="tier-perk">Program recognition</li></ul></div></div>
     </div>
 
     <div style="margin-top:3rem;">
       <!-- 2026 live -->
-      <div class="coll-wrap">
+      <div class="coll-wrap fade-in">
         <div class="coll-hdr open" onclick="toggleColl('sp2026')">
           <div class="coll-ttl"><span class="yr yr-new">2026</span>2026 Sponsor Commitments</div>
           <div class="coll-meta"><span id="sp-total-lbl">$0 committed</span><div class="coll-chev">▼</div></div>
@@ -1018,7 +1008,7 @@ footer{background:#0A0806;padding:1.6rem;text-align:center;border-top:2px solid 
           <div class="sp-group"><div class="sp-ttl"><span class="sdot" style="background:#CD7F32;"></span>Bronze — $1,500</div><div class="chips" id="chips-bronze"><button class="add-chip" onclick="addSponsor('bronze')">+ Add Bronze</button></div></div>
           <div class="sp-group"><div class="sp-ttl"><span class="sdot" style="background:#5AB87A;"></span>Young Alumni — $1,000</div><div class="chips" id="chips-young"><button class="add-chip" onclick="addSponsor('young')">+ Add Young Alumni</button></div></div>
           <div class="sp-group"><div class="sp-ttl"><span class="sdot" style="background:#B0A898;"></span>Hole Sponsors</div><div class="chips" id="chips-hole"><button class="add-chip" onclick="addSponsor('hole')">+ Add Hole Sponsor</button></div></div>
-          <div id="pending-block" style="display:none;margin-top:1rem;">
+          <div id="pending-block" style="display: block; margin-top: 1rem;">
             <div class="sp-ttl" style="color:#F59E0B;border-bottom-color:rgba(245,158,11,0.25);">⏳ Not Yet Committed — click to confirm for 2026</div>
             <div class="chips" id="chips-pending">
               <span class="chip chip-pending" onclick="promote(this,'gold','Ed Wile','$10,000')">Ed Wile (Gold '25) →</span>
@@ -1034,7 +1024,7 @@ footer{background:#0A0806;padding:1.6rem;text-align:center;border-top:2px solid 
         </div>
       </div>
       <!-- 2025 reference -->
-      <div class="coll-wrap">
+      <div class="coll-wrap fade-in">
         <div class="coll-hdr" onclick="toggleColl('sp2025')">
           <div class="coll-ttl"><span class="yr">2025</span>2025 Sponsors — Reference</div>
           <div class="coll-meta"><span>$83,500 raised</span><div class="coll-chev">▼</div></div>
@@ -1056,8 +1046,8 @@ footer{background:#0A0806;padding:1.6rem;text-align:center;border-top:2px solid 
   <div class="container">
     <div class="sec-lbl">Raffle &amp; Prizes</div>
     <h2 class="sec-ttl">WIN BIG, <em>GIVE BACK</em></h2>
-    <p class="sec-body" data-edit contenteditable="false">All raffle proceeds benefit the Georgia Alumni Endowed Scholarship Fund. Prizes drawn throughout the day — tickets sold on site.</p>
-    <div class="raffle-grid" id="raffle-grid"></div>
+    <p class="sec-body" data-edit="" contenteditable="true">All raffle proceeds benefit the Georgia Alumni Endowed Scholarship Fund. Prizes drawn throughout the day — tickets sold on site.</p>
+    <div class="raffle-grid" id="raffle-grid"><div class="raffle-item"><div class="raffle-icon">🎩</div><div class="raffle-name">Wofford Hats</div><div class="raffle-status">Ordered</div></div><div class="raffle-item"><div class="raffle-icon">⛳</div><div class="raffle-name">Round at Piedmont Driving Club</div></div><div class="raffle-item"><div class="raffle-icon">🏌️</div><div class="raffle-name">Round at Capital City Club</div></div><div class="raffle-item"><div class="raffle-icon">❄️</div><div class="raffle-name">Yeti Cooler #1</div></div><div class="raffle-item"><div class="raffle-icon">❄️</div><div class="raffle-name">Yeti Cooler #2</div></div><div class="raffle-item"><div class="raffle-icon">🏒</div><div class="raffle-name">54° Wedge with Terrier Logo</div></div><div class="raffle-item"><div class="raffle-icon">🎒</div><div class="raffle-name">Wofford Golf Bag</div></div><div class="raffle-item"><div class="raffle-icon">🏆</div><div class="raffle-name">Round with a Coach</div></div><div class="raffle-item"><div class="raffle-icon">⛳</div><div class="raffle-name">Bear's Best Round of Golf</div></div><div class="raffle-item"><div class="raffle-icon">🪵</div><div class="raffle-name">Wooden Bats — Flight Prizes</div></div><div class="raffle-item"><div class="raffle-icon">🎯</div><div class="raffle-name">Long Drive Contest Prize</div></div><div class="raffle-item"><div class="raffle-icon">📍</div><div class="raffle-name">Closest to the Pin Prize</div></div><div class="raffle-item"><div class="raffle-icon">🏓</div><div class="raffle-name">Putting Contest Prize</div></div><div class="raffle-item"><div class="raffle-icon">🎁</div><div class="raffle-name">Entry Gift for All Players</div></div></div>
   </div>
 </section>
 
@@ -1076,10 +1066,10 @@ footer{background:#0A0806;padding:1.6rem;text-align:center;border-top:2px solid 
       <span style="width:20px;height:2px;background:var(--gold);display:inline-block;"></span>
       2026 — <span id="team-count">0</span> of <span id="team-max">25</span> Confirmed
     </div>
-    <div class="teams-grid" id="teams-grid"></div>
+    <div class="teams-grid" id="teams-grid"><div class="team-card team-empty"><div class="team-num">Team 1 — Open</div><div class="team-cap">Not yet filled</div><ul class="team-plist"><li>—</li></ul><div class="team-adm"><button class="team-btn" onclick="openTeamEdit(1)">+ Fill Slot</button></div></div><div class="team-card team-empty"><div class="team-num">Team 2 — Open</div><div class="team-cap">Not yet filled</div><ul class="team-plist"><li>—</li></ul><div class="team-adm"><button class="team-btn" onclick="openTeamEdit(2)">+ Fill Slot</button></div></div><div class="team-card team-empty"><div class="team-num">Team 3 — Open</div><div class="team-cap">Not yet filled</div><ul class="team-plist"><li>—</li></ul><div class="team-adm"><button class="team-btn" onclick="openTeamEdit(3)">+ Fill Slot</button></div></div><div class="team-card team-empty"><div class="team-num">Team 4 — Open</div><div class="team-cap">Not yet filled</div><ul class="team-plist"><li>—</li></ul><div class="team-adm"><button class="team-btn" onclick="openTeamEdit(4)">+ Fill Slot</button></div></div><div class="team-card team-empty"><div class="team-num">Team 5 — Open</div><div class="team-cap">Not yet filled</div><ul class="team-plist"><li>—</li></ul><div class="team-adm"><button class="team-btn" onclick="openTeamEdit(5)">+ Fill Slot</button></div></div><div class="team-card team-empty"><div class="team-num">Team 6 — Open</div><div class="team-cap">Not yet filled</div><ul class="team-plist"><li>—</li></ul><div class="team-adm"><button class="team-btn" onclick="openTeamEdit(6)">+ Fill Slot</button></div></div><div class="team-card team-empty"><div class="team-num">Team 7 — Open</div><div class="team-cap">Not yet filled</div><ul class="team-plist"><li>—</li></ul><div class="team-adm"><button class="team-btn" onclick="openTeamEdit(7)">+ Fill Slot</button></div></div><div class="team-card team-empty"><div class="team-num">Team 8 — Open</div><div class="team-cap">Not yet filled</div><ul class="team-plist"><li>—</li></ul><div class="team-adm"><button class="team-btn" onclick="openTeamEdit(8)">+ Fill Slot</button></div></div><div class="team-card team-empty"><div class="team-num">Team 9 — Open</div><div class="team-cap">Not yet filled</div><ul class="team-plist"><li>—</li></ul><div class="team-adm"><button class="team-btn" onclick="openTeamEdit(9)">+ Fill Slot</button></div></div><div class="team-card team-empty"><div class="team-num">Team 10 — Open</div><div class="team-cap">Not yet filled</div><ul class="team-plist"><li>—</li></ul><div class="team-adm"><button class="team-btn" onclick="openTeamEdit(10)">+ Fill Slot</button></div></div><div class="team-card team-empty"><div class="team-num">Team 11 — Open</div><div class="team-cap">Not yet filled</div><ul class="team-plist"><li>—</li></ul><div class="team-adm"><button class="team-btn" onclick="openTeamEdit(11)">+ Fill Slot</button></div></div><div class="team-card team-empty"><div class="team-num">Team 12 — Open</div><div class="team-cap">Not yet filled</div><ul class="team-plist"><li>—</li></ul><div class="team-adm"><button class="team-btn" onclick="openTeamEdit(12)">+ Fill Slot</button></div></div><div class="team-card team-empty"><div class="team-num">Team 13 — Open</div><div class="team-cap">Not yet filled</div><ul class="team-plist"><li>—</li></ul><div class="team-adm"><button class="team-btn" onclick="openTeamEdit(13)">+ Fill Slot</button></div></div><div class="team-card team-empty"><div class="team-num">Team 14 — Open</div><div class="team-cap">Not yet filled</div><ul class="team-plist"><li>—</li></ul><div class="team-adm"><button class="team-btn" onclick="openTeamEdit(14)">+ Fill Slot</button></div></div><div class="team-card team-empty"><div class="team-num">Team 15 — Open</div><div class="team-cap">Not yet filled</div><ul class="team-plist"><li>—</li></ul><div class="team-adm"><button class="team-btn" onclick="openTeamEdit(15)">+ Fill Slot</button></div></div><div class="team-card team-empty"><div class="team-num">Team 16 — Open</div><div class="team-cap">Not yet filled</div><ul class="team-plist"><li>—</li></ul><div class="team-adm"><button class="team-btn" onclick="openTeamEdit(16)">+ Fill Slot</button></div></div><div class="team-card team-empty"><div class="team-num">Team 17 — Open</div><div class="team-cap">Not yet filled</div><ul class="team-plist"><li>—</li></ul><div class="team-adm"><button class="team-btn" onclick="openTeamEdit(17)">+ Fill Slot</button></div></div><div class="team-card team-empty"><div class="team-num">Team 18 — Open</div><div class="team-cap">Not yet filled</div><ul class="team-plist"><li>—</li></ul><div class="team-adm"><button class="team-btn" onclick="openTeamEdit(18)">+ Fill Slot</button></div></div><div class="team-card team-empty"><div class="team-num">Team 19 — Open</div><div class="team-cap">Not yet filled</div><ul class="team-plist"><li>—</li></ul><div class="team-adm"><button class="team-btn" onclick="openTeamEdit(19)">+ Fill Slot</button></div></div><div class="team-card team-empty"><div class="team-num">Team 20 — Open</div><div class="team-cap">Not yet filled</div><ul class="team-plist"><li>—</li></ul><div class="team-adm"><button class="team-btn" onclick="openTeamEdit(20)">+ Fill Slot</button></div></div><div class="team-card team-empty"><div class="team-num">Team 21 — Open</div><div class="team-cap">Not yet filled</div><ul class="team-plist"><li>—</li></ul><div class="team-adm"><button class="team-btn" onclick="openTeamEdit(21)">+ Fill Slot</button></div></div><div class="team-card team-empty"><div class="team-num">Team 22 — Open</div><div class="team-cap">Not yet filled</div><ul class="team-plist"><li>—</li></ul><div class="team-adm"><button class="team-btn" onclick="openTeamEdit(22)">+ Fill Slot</button></div></div><div class="team-card team-empty"><div class="team-num">Team 23 — Open</div><div class="team-cap">Not yet filled</div><ul class="team-plist"><li>—</li></ul><div class="team-adm"><button class="team-btn" onclick="openTeamEdit(23)">+ Fill Slot</button></div></div><div class="team-card team-empty"><div class="team-num">Team 24 — Open</div><div class="team-cap">Not yet filled</div><ul class="team-plist"><li>—</li></ul><div class="team-adm"><button class="team-btn" onclick="openTeamEdit(24)">+ Fill Slot</button></div></div><div class="team-card team-empty"><div class="team-num">Team 25 — Open</div><div class="team-cap">Not yet filled</div><ul class="team-plist"><li>—</li></ul><div class="team-adm"><button class="team-btn" onclick="openTeamEdit(25)">+ Fill Slot</button></div></div></div>
     <!-- 2025 reference -->
     <div style="margin-top:2.5rem;">
-      <div class="coll-wrap dark-coll">
+      <div class="coll-wrap dark-coll fade-in">
         <div class="coll-hdr" onclick="toggleColl('tm2025')">
           <div class="coll-ttl"><span class="yr">2025</span>2025 Teams — Reference</div>
           <div class="coll-meta"><span>25 teams</span><div class="coll-chev">▼</div></div>
@@ -1115,58 +1105,58 @@ footer{background:#0A0806;padding:1.6rem;text-align:center;border-top:2px solid 
   <div class="container">
     <div class="sec-lbl">Financial Impact</div>
     <h2 class="sec-ttl">A LEGACY OF <em>GIVING</em></h2>
-    <p class="sec-body" data-edit contenteditable="false">Three decades of Wofford alumni coming together to invest in the next generation of Terriers.</p>
+    <p class="sec-body" data-edit="" contenteditable="true">Three decades of Wofford alumni coming together to invest in the next generation of Terriers.</p>
     <div style="margin-top:2.5rem;">
-      <div class="coll-wrap">
+      <div class="coll-wrap fade-in">
         <div class="coll-hdr open" onclick="toggleColl('fin2026')">
           <div class="coll-ttl"><span class="yr yr-new">2026</span>2026 Tournament Summary</div>
           <div class="coll-meta"><span>Live</span><div class="coll-chev">▼</div></div>
         </div>
         <div class="coll-body open" id="fin2026">
           <div class="fin-grid" style="margin-top:0;">
-            <div class="fin-card">
+            <div class="fin-card fade-in">
               <div class="fin-ttl">2026 At-a-Glance</div>
               <div class="fin-row"><span class="fin-k">Teams</span><span class="fin-v" id="fin-teams">25 max</span></div>
               <div class="fin-row"><span class="fin-k">Players</span><span class="fin-v" id="fin-players">~100</span></div>
               <div class="fin-row"><span class="fin-k">Sponsors Committed</span><span class="fin-v" id="fin-sp-count">0</span></div>
               <div class="fin-row"><span class="fin-k">Dollars Committed</span><span class="fin-v" id="fin-sp-dollars">$0</span></div>
-              <div class="fin-total"><span>Gross Goal</span><span data-edit contenteditable="false">$86,650</span></div>
+              <div class="fin-total"><span>Gross Goal</span><span data-edit="" contenteditable="true">$86,650</span></div>
             </div>
-            <div class="fin-card">
+            <div class="fin-card fade-in">
               <div class="fin-ttl">2025 Results</div>
-              <div class="fin-row"><span class="fin-k">Teams</span><span class="fin-v" data-edit contenteditable="false">25</span></div>
-              <div class="fin-row"><span class="fin-k">Players</span><span class="fin-v" data-edit contenteditable="false">100</span></div>
-              <div class="fin-row"><span class="fin-k">Gross Revenue</span><span class="fin-v" data-edit contenteditable="false">$87,620</span></div>
-              <div class="fin-row"><span class="fin-k">Tournament Costs</span><span class="fin-v" style="color:#EF4444;" data-edit contenteditable="false">($14,548)</span></div>
-              <div class="fin-total"><span>Net to Scholarship</span><span style="color:var(--green);" data-edit contenteditable="false">$73,072</span></div>
+              <div class="fin-row"><span class="fin-k">Teams</span><span class="fin-v" data-edit="" contenteditable="true">25</span></div>
+              <div class="fin-row"><span class="fin-k">Players</span><span class="fin-v" data-edit="" contenteditable="true">100</span></div>
+              <div class="fin-row"><span class="fin-k">Gross Revenue</span><span class="fin-v" data-edit="" contenteditable="true">$87,620</span></div>
+              <div class="fin-row"><span class="fin-k">Tournament Costs</span><span class="fin-v" style="color:#EF4444;" data-edit="" contenteditable="true">($14,548)</span></div>
+              <div class="fin-total"><span>Net to Scholarship</span><span style="color:var(--green);" data-edit="" contenteditable="true">$73,072</span></div>
             </div>
             <div class="total-banner">
               <div class="total-lbl">Cumulative Total Raised (1995–2025)</div>
-              <div class="total-num" data-edit contenteditable="false">$1,876,020</div>
-              <div class="total-sub" data-edit contenteditable="false">Including $250,000 Daniel Fund match · Goal: $1.95M+ all-time</div>
+              <div class="total-num" data-edit="" contenteditable="true">$1,876,020</div>
+              <div class="total-sub" data-edit="" contenteditable="true">Including $250,000 Daniel Fund match · Goal: $1.95M+ all-time</div>
             </div>
           </div>
         </div>
       </div>
-      <div class="coll-wrap">
+      <div class="coll-wrap fade-in">
         <div class="coll-hdr" onclick="toggleColl('fin-hist')">
           <div class="coll-ttl"><span class="yr">History</span>Annual Net Contributions</div>
           <div class="coll-meta"><span>30 years</span><div class="coll-chev">▼</div></div>
         </div>
         <div class="coll-body" id="fin-hist">
-          <div class="fin-card" style="overflow-x:auto;">
+          <div class="fin-card fade-in" style="overflow-x:auto;">
             <table class="hist-table">
               <thead><tr><th>Year</th><th>Net to Wofford</th><th>Notes</th></tr></thead>
               <tbody>
-                <tr><td>1995–96</td><td data-edit contenteditable="false">$8,500</td><td>Founding years</td></tr>
-                <tr><td>2000</td><td data-edit contenteditable="false">$35,890</td><td></td></tr>
-                <tr class="gaesf"><td>2011</td><td data-edit contenteditable="false">$60,000</td><td>GAESF + $250K Daniel Fund match</td></tr>
-                <tr class="gaesf"><td>2020</td><td data-edit contenteditable="false">$90,240</td><td>Record year</td></tr>
-                <tr class="gaesf"><td>2022</td><td data-edit contenteditable="false">$83,365</td><td></td></tr>
-                <tr class="gaesf"><td>2023</td><td data-edit contenteditable="false">$79,874</td><td></td></tr>
-                <tr class="gaesf"><td>2024</td><td data-edit contenteditable="false">$73,072</td><td></td></tr>
-                <tr class="gaesf"><td>2025</td><td data-edit contenteditable="false">$73,072</td><td>$87,620 gross</td></tr>
-                <tr><td><strong>All-Time</strong></td><td><strong data-edit contenteditable="false">$1,876,020+</strong></td><td>Incl. $250K match</td></tr>
+                <tr><td>1995–96</td><td data-edit="" contenteditable="true">$8,500</td><td>Founding years</td></tr>
+                <tr><td>2000</td><td data-edit="" contenteditable="true">$35,890</td><td></td></tr>
+                <tr class="gaesf"><td>2011</td><td data-edit="" contenteditable="true">$60,000</td><td>GAESF + $250K Daniel Fund match</td></tr>
+                <tr class="gaesf"><td>2020</td><td data-edit="" contenteditable="true">$90,240</td><td>Record year</td></tr>
+                <tr class="gaesf"><td>2022</td><td data-edit="" contenteditable="true">$83,365</td><td></td></tr>
+                <tr class="gaesf"><td>2023</td><td data-edit="" contenteditable="true">$79,874</td><td></td></tr>
+                <tr class="gaesf"><td>2024</td><td data-edit="" contenteditable="true">$73,072</td><td></td></tr>
+                <tr class="gaesf"><td>2025</td><td data-edit="" contenteditable="true">$73,072</td><td>$87,620 gross</td></tr>
+                <tr><td><strong>All-Time</strong></td><td><strong data-edit="" contenteditable="true">$1,876,020+</strong></td><td>Incl. $250K match</td></tr>
               </tbody>
             </table>
           </div>
@@ -1197,9 +1187,9 @@ footer{background:#0A0806;padding:1.6rem;text-align:center;border-top:2px solid 
           <img id="scholar-img" src="" alt="Scholar">
         </div>
         <div>
-          <div class="scholar-name" id="scholar-name" data-edit contenteditable="false">Your Scholar's Name</div>
-          <div class="scholar-year" id="scholar-year" data-edit contenteditable="false">Class of 20XX · Scholarship Recipient</div>
-          <div class="scholar-bio" id="scholar-bio" data-edit contenteditable="false">Add the scholarship recipient's bio here — their story, major, hometown, and what this scholarship meant to their Wofford journey. Click here in Admin mode to edit, or use Admin → Extras tab.</div>
+          <div class="scholar-name" id="scholar-name" data-edit="" contenteditable="true">Your Scholar's Name</div>
+          <div class="scholar-year" id="scholar-year" data-edit="" contenteditable="true">Class of 20XX · Scholarship Recipient</div>
+          <div class="scholar-bio" id="scholar-bio" data-edit="" contenteditable="true">Add the scholarship recipient's bio here — their story, major, hometown, and what this scholarship meant to their Wofford journey. Click here in Admin mode to edit, or use Admin → Extras tab.</div>
         </div>
       </div>
     </div>
@@ -1211,16 +1201,16 @@ footer{background:#0A0806;padding:1.6rem;text-align:center;border-top:2px solid 
   <div class="container">
     <div class="sec-lbl">Get Involved</div>
     <h2 class="sec-ttl">READY TO <em>PLAY?</em></h2>
-    <p class="reg-body" data-edit contenteditable="false">Registration is now open for the 2026 Wofford Golf Invitational. Limited to 25 teams — first come, first served. Pre-payment required.</p>
+    <p class="reg-body" data-edit="" contenteditable="true">Registration is now open for the 2026 Wofford Golf Invitational. Limited to 25 teams — first come, first served. Pre-payment required.</p>
     <div style="text-align:center;margin-bottom:2rem;">
       <a href="https://advance.wofford.edu/register/?id=9a2f9729-9cf3-4a8d-ae3b-445ccb8981c1" target="_blank" rel="noopener" class="btn-gold" style="font-size:1rem;padding:1rem 2.5rem;">Register at Wofford.edu →</a>
     </div>
     <div style="display:flex;justify-content:center;">
       <div class="contact-block">
         <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(201,168,76,0.52);margin-bottom:0.6rem;">Questions?</div>
-        <div class="contact-row"><strong>Contact</strong><span data-edit contenteditable="false" id="reg-contact">Patrick Wheeler · 919-801-7225</span></div>
-        <div class="contact-row"><strong>Address</strong><span data-edit contenteditable="false" id="reg-address">429 N Church St, Spartanburg, SC 29303</span></div>
-        <div class="contact-row"><strong>Email</strong><span data-edit contenteditable="false" id="reg-email">jmhuber@carolinalumber.com</span></div>
+        <div class="contact-row"><strong>Contact</strong><span data-edit="" contenteditable="true" id="reg-contact">Patrick Wheeler · 919-801-7225</span></div>
+        <div class="contact-row"><strong>Address</strong><span data-edit="" contenteditable="true" id="reg-address">429 N Church St, Spartanburg, SC 29303</span></div>
+        <div class="contact-row"><strong>Email</strong><span data-edit="" contenteditable="true" id="reg-email">jmhuber@carolinalumber.com</span></div>
       </div>
     </div>
   </div>
@@ -1231,20 +1221,20 @@ footer{background:#0A0806;padding:1.6rem;text-align:center;border-top:2px solid 
   <div class="sp-strip-ttl">Proud Sponsors of the Wofford Golf Invitational</div>
   <div class="sp-logos">
     <div class="sp-logo-item" style="text-align:center;">
-      <div class="sp-logo-name" data-edit contenteditable="false">Henri's Bakery</div>
-      <div class="sp-logo-sub" data-edit contenteditable="false">Official Lunch Sponsor</div>
+      <div class="sp-logo-name" data-edit="" contenteditable="true">Henri's Bakery</div>
+      <div class="sp-logo-sub" data-edit="" contenteditable="true">Official Lunch Sponsor</div>
     </div>
     <div class="sp-logo-item" style="text-align:center;">
-      <div class="sp-logo-name" data-edit contenteditable="false">Carolina Lumber</div>
-      <div class="sp-logo-sub" data-edit contenteditable="false">Gold Terrier Sponsor</div>
+      <div class="sp-logo-name" data-edit="" contenteditable="true">Carolina Lumber</div>
+      <div class="sp-logo-sub" data-edit="" contenteditable="true">Gold Terrier Sponsor</div>
     </div>
   </div>
 </div>
 
 <!-- ════ FOOTER ════ -->
 <footer>
-  <div class="footer-wofford" data-edit contenteditable="false">🐾 Wofford Golf Invitational 2026</div>
-  <div class="footer-sub" data-edit contenteditable="false">Benefiting the Georgia Alumni Endowed Scholarship Fund · Honoring Russell King &amp; Walt Sessoms · Bear's Best, Suwanee GA</div>
+  <div class="footer-wofford" data-edit="" contenteditable="true">🐾 Wofford Golf Invitational 2026</div>
+  <div class="footer-sub" data-edit="" contenteditable="true">Benefiting the Georgia Alumni Endowed Scholarship Fund · Honoring Russell King &amp; Walt Sessoms · Bear's Best, Suwanee GA</div>
 </footer>
 
 <!-- ════════════════════════════════
@@ -1689,30 +1679,19 @@ function applyExtras(){
 }
 
 // ─── CLOUD SAVE (JSONBin) ───
-// After first setup, BIN_ID gets saved here so ALL visitors auto-load data
-var HARDCODED_BIN = ''; // ← gets filled in automatically after first Connect
 var JB_KEY = '';
 var JB_BIN = '';
 var JB_BASE = 'https://api.jsonbin.io/v3';
 
 function loadCloudConfig(){
   try{
-    // Always try hardcoded bin first (works for ALL visitors, no login needed)
-    if(HARDCODED_BIN){
-      JB_BIN = HARDCODED_BIN;
-      JB_KEY = localStorage.getItem('wg_jb_key')||'';
-      showCloudConnected();
-      cloudLoad();
-      return;
-    }
-    // Fall back to localStorage (for the person who set it up)
     JB_KEY = localStorage.getItem('wg_jb_key')||'';
     JB_BIN = localStorage.getItem('wg_jb_bin')||'';
     if(JB_KEY && JB_BIN){
       showCloudConnected();
-      cloudLoad();
+      cloudLoad(); // auto-load latest data on page open
     }
-  }catch(e){ console.log('Cloud config error:',e); }
+  }catch(e){}
 }
 
 function showCloudConnected(){
@@ -1740,58 +1719,33 @@ async function connectCloud(){
   statusEl.textContent='Connecting...';
   statusEl.style.color='rgba(255,255,255,0.55)';
   try{
+    // Create a new bin with initial data
     var data=collectData();
     var res=await fetch(JB_BASE+'/b',{
       method:'POST',
-      headers:{
-        'Content-Type':'application/json',
-        'X-Master-Key':key,
-        'X-Bin-Name':'WoffordGolf2026',
-        'X-Bin-Private':'false'  // PUBLIC so any visitor can read without a key
-      },
+      headers:{'Content-Type':'application/json','X-Master-Key':key,'X-Bin-Name':'WoffordGolf2026','X-Bin-Private':'false'},
       body:JSON.stringify(data)
     });
     if(!res.ok){
-      var err=await res.json().catch(function(){return {};});
-      throw new Error(err.message||'API key invalid ('+res.status+')');
+      var err=await res.json().catch(()=>({}));
+      throw new Error(err.message||'API key invalid or connection failed ('+res.status+')');
     }
     var result=await res.json();
     JB_KEY=key;
     JB_BIN=result.metadata.id;
-    try{
-      localStorage.setItem('wg_jb_key',JB_KEY);
-      localStorage.setItem('wg_jb_bin',JB_BIN);
-    }catch(e){}
-    // ── KEY STEP: bake the bin ID into the page source so ALL visitors auto-load ──
-    bakeBinIntoPage(JB_BIN, JB_KEY);
+    try{localStorage.setItem('wg_jb_key',JB_KEY);localStorage.setItem('wg_jb_bin',JB_BIN);}catch(e){}
     showCloudConnected();
-    statusEl.innerHTML='✅ Connected! Now <strong style="color:#22C55E;">download the file and re-upload to GitHub</strong> — this makes the connection permanent for all visitors.';
-    statusEl.style.color='rgba(255,255,255,0.7)';
-    toast('☁️ Connected! Download & re-upload to GitHub to finish setup.');
+    statusEl.textContent='✅ Connected! Bin ID: '+JB_BIN;
+    statusEl.style.color='#22C55E';
+    toast('☁️ Cloud saving active! Share the live site URL with your team.');
   }catch(err){
     statusEl.textContent='❌ '+err.message;
     statusEl.style.color='#EF4444';
   }
 }
 
-function bakeBinIntoPage(binId, apiKey){
-  // This is the magic step: we write the bin ID directly into the page's own source
-  // so when it's re-uploaded to GitHub, ALL future visitors get the bin ID automatically
-  try{
-    var scripts = document.querySelectorAll('script');
-    scripts.forEach(function(s){
-      if(s.textContent.indexOf("HARDCODED_BIN = ''")!==-1){
-        s.textContent = s.textContent
-          .replace("var HARDCODED_BIN = '';", "var HARDCODED_BIN = '"+binId+"';");
-      }
-    });
-    console.log('Bin baked into page source:', binId);
-  }catch(e){
-    console.log('Could not bake bin into page:', e);
-  }
-}
-
 function collectData(){
+  // Collect all editable content from the page
   var editables={};
   document.querySelectorAll('[data-edit][id]').forEach(function(el){
     editables[el.id]=el.innerHTML;
@@ -1809,19 +1763,19 @@ function collectData(){
 
 function applyData(data){
   if(!data)return;
+  // Restore editable text
   if(data.editables){
     Object.keys(data.editables).forEach(function(id){
       var el=document.getElementById(id);
-      if(el && !el.matches('script,style')){
-        el.innerHTML=data.editables[id];
-      }
+      if(el)el.innerHTML=data.editables[id];
     });
   }
+  // Restore data
   if(data.sponsors)sponsors=data.sponsors;
   if(data.teams)teams=data.teams;
   if(data.actions)actions=data.actions;
   if(data.raffleItems)raffleItems=data.raffleItems;
-  if(data.maxTeams)maxTeams=parseInt(data.maxTeams)||25;
+  if(data.maxTeams)maxTeams=data.maxTeams;
   renderSponsors();
   buildTeams();
   renderRafflePublic();
@@ -1831,7 +1785,7 @@ function applyData(data){
 
 async function cloudSave(){
   if(!JB_KEY||!JB_BIN){
-    toast('⚠️ Cloud not connected — open Admin → Dashboard to set it up');
+    toast('⚠️ Connect cloud saving first (see setup below)');
     return;
   }
   var btn=document.getElementById('save-btn');
@@ -1851,9 +1805,9 @@ async function cloudSave(){
     var timeStr=now.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
     var lastSaved=document.getElementById('cloud-last-saved');
     if(lastSaved)lastSaved.textContent='Last saved: '+timeStr;
-    setCloudDot('ready','Saved ✅ — everyone sees changes now');
+    setCloudDot('ready','Saved — all editors see changes now');
     btn.textContent='✅ Saved!';
-    setTimeout(function(){btn.textContent=orig;btn.style.opacity='1';},3000);
+    setTimeout(function(){btn.textContent=orig;btn.style.opacity='1';},2500);
     toast('✅ Saved! Everyone sees your changes now.');
   }catch(err){
     setCloudDot('error','Save failed — try again');
@@ -1863,38 +1817,28 @@ async function cloudSave(){
 }
 
 async function cloudLoad(){
-  if(!JB_BIN)return;
-  setCloudDot('loading','Loading your saved data...');
+  if(!JB_KEY||!JB_BIN)return;
+  setCloudDot('loading','Loading latest data...');
   try{
-    // Public bins can be read WITHOUT the master key using X-Bin-Meta:false
-    var headers = {'X-Bin-Meta':'false'};
-    if(JB_KEY) headers['X-Master-Key'] = JB_KEY;
-    var res=await fetch(JB_BASE+'/b/'+JB_BIN+'/latest',{headers:headers});
-    if(!res.ok){
-      // Try without /latest if that fails
-      res=await fetch(JB_BASE+'/b/'+JB_BIN,{headers:headers});
-    }
-    if(!res.ok)throw new Error('Load failed: '+res.status);
+    var res=await fetch(JB_BASE+'/b/'+JB_BIN+'/latest',{
+      headers:{'X-Master-Key':JB_KEY}
+    });
+    if(!res.ok)throw new Error('Load failed');
     var result=await res.json();
-    // JSONBin wraps data in {record:{...}} when using master key, or returns directly for public
-    var record = result.record || result;
-    if(!record || !record.savedAt) throw new Error('No saved data found');
-    applyData(record);
+    applyData(result.record);
     setCloudDot('ready','Connected — changes save to cloud');
     var lastSaved=document.getElementById('cloud-last-saved');
-    if(lastSaved&&record.savedAt){
-      var d=new Date(record.savedAt);
+    if(lastSaved&&result.record&&result.record.savedAt){
+      var d=new Date(result.record.savedAt);
       lastSaved.textContent='Last saved: '+d.toLocaleString();
     }
-    console.log('Cloud data loaded successfully from bin:', JB_BIN);
   }catch(err){
-    setCloudDot('error','Could not load saved data');
-    console.log('Cloud load error:',err.message);
+    setCloudDot('error','Could not load — using local data');
   }
 }
 
 function resetCloud(){
-  if(!confirm('Disconnect cloud saving?'))return;
+  if(!confirm('Disconnect cloud saving? (Does not delete your JSONBin data)'))return;
   JB_KEY='';JB_BIN='';
   try{localStorage.removeItem('wg_jb_key');localStorage.removeItem('wg_jb_bin');}catch(e){}
   var setup=document.getElementById('cloud-setup');
@@ -1905,7 +1849,7 @@ function resetCloud(){
   toast('Cloud disconnected');
 }
 
-// Load cloud data when page opens
+// Auto-load cloud data when page opens
 document.addEventListener('DOMContentLoaded',function(){
   loadCloudConfig();
 });
@@ -1938,5 +1882,6 @@ function setupFadeIns(){
   });
 }
 </script>
-</body>
-</html>
+
+
+</body></html>
