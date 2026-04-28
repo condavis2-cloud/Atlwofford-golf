@@ -672,7 +672,16 @@ footer{background:#0A0806;padding:1.6rem;text-align:center;border-top:2px solid 
           Any of your editors can open the site, make changes, and click <strong style="color:#fff;">Save</strong>. Everyone sees the update instantly.
         </div>
         <div style="background:rgba(255,255,255,0.05);border-radius:7px;padding:0.75rem;margin-bottom:0.6rem;">
-          <div style="font-size:0.68rem;font-weight:700;color:rgba(255,255,255,0.4);margin-bottom:0.4rem;">📤 SHARE THIS WITH YOUR TEAM</div>
+          <div style="font-size:0.68rem;font-weight:700;color:rgba(255,255,255,0.4);margin-bottom:0.4rem;">⚠️ ONE MORE STEP AFTER FIRST SETUP</div>
+          <div style="font-size:0.72rem;color:rgba(255,255,255,0.6);line-height:1.65;">
+            After connecting for the first time, you need to <strong style="color:#fff;">download and re-upload the file to GitHub once</strong>. This permanently bakes the connection into the site so ALL visitors (not just you) auto-load the latest data.<br><br>
+            1. Click <strong style="color:#fff;">"⬇ Download Backup File"</strong> below<br>
+            2. Upload it to GitHub as <strong style="color:#fff;">index.html</strong><br>
+            3. Done forever — never need to do this again
+          </div>
+        </div>
+        <div style="background:rgba(255,255,255,0.05);border-radius:7px;padding:0.75rem;margin-bottom:0.6rem;">
+          <div style="font-size:0.68rem;font-weight:700;color:rgba(255,255,255,0.4);margin-bottom:0.4rem;">📤 SHARE WITH YOUR TEAM</div>
           <div style="font-size:0.72rem;color:rgba(255,255,255,0.55);line-height:1.6;">
             Send them this message:<br><br>
             <div style="background:rgba(255,255,255,0.07);border-radius:5px;padding:0.6rem;font-style:italic;color:rgba(255,255,255,0.7);font-size:0.71rem;line-height:1.6;user-select:all;">
@@ -1680,19 +1689,30 @@ function applyExtras(){
 }
 
 // ─── CLOUD SAVE (JSONBin) ───
+// After first setup, BIN_ID gets saved here so ALL visitors auto-load data
+var HARDCODED_BIN = ''; // ← gets filled in automatically after first Connect
 var JB_KEY = '';
 var JB_BIN = '';
 var JB_BASE = 'https://api.jsonbin.io/v3';
 
 function loadCloudConfig(){
   try{
+    // Always try hardcoded bin first (works for ALL visitors, no login needed)
+    if(HARDCODED_BIN){
+      JB_BIN = HARDCODED_BIN;
+      JB_KEY = localStorage.getItem('wg_jb_key')||'';
+      showCloudConnected();
+      cloudLoad();
+      return;
+    }
+    // Fall back to localStorage (for the person who set it up)
     JB_KEY = localStorage.getItem('wg_jb_key')||'';
     JB_BIN = localStorage.getItem('wg_jb_bin')||'';
     if(JB_KEY && JB_BIN){
       showCloudConnected();
-      cloudLoad(); // auto-load latest data on page open
+      cloudLoad();
     }
-  }catch(e){}
+  }catch(e){ console.log('Cloud config error:',e); }
 }
 
 function showCloudConnected(){
@@ -1720,33 +1740,58 @@ async function connectCloud(){
   statusEl.textContent='Connecting...';
   statusEl.style.color='rgba(255,255,255,0.55)';
   try{
-    // Create a new bin with initial data
     var data=collectData();
     var res=await fetch(JB_BASE+'/b',{
       method:'POST',
-      headers:{'Content-Type':'application/json','X-Master-Key':key,'X-Bin-Name':'WoffordGolf2026','X-Bin-Private':'false'},
+      headers:{
+        'Content-Type':'application/json',
+        'X-Master-Key':key,
+        'X-Bin-Name':'WoffordGolf2026',
+        'X-Bin-Private':'false'  // PUBLIC so any visitor can read without a key
+      },
       body:JSON.stringify(data)
     });
     if(!res.ok){
-      var err=await res.json().catch(()=>({}));
-      throw new Error(err.message||'API key invalid or connection failed ('+res.status+')');
+      var err=await res.json().catch(function(){return {};});
+      throw new Error(err.message||'API key invalid ('+res.status+')');
     }
     var result=await res.json();
     JB_KEY=key;
     JB_BIN=result.metadata.id;
-    try{localStorage.setItem('wg_jb_key',JB_KEY);localStorage.setItem('wg_jb_bin',JB_BIN);}catch(e){}
+    try{
+      localStorage.setItem('wg_jb_key',JB_KEY);
+      localStorage.setItem('wg_jb_bin',JB_BIN);
+    }catch(e){}
+    // ── KEY STEP: bake the bin ID into the page source so ALL visitors auto-load ──
+    bakeBinIntoPage(JB_BIN, JB_KEY);
     showCloudConnected();
-    statusEl.textContent='✅ Connected! Bin ID: '+JB_BIN;
-    statusEl.style.color='#22C55E';
-    toast('☁️ Cloud saving active! Share the live site URL with your team.');
+    statusEl.innerHTML='✅ Connected! Now <strong style="color:#22C55E;">download the file and re-upload to GitHub</strong> — this makes the connection permanent for all visitors.';
+    statusEl.style.color='rgba(255,255,255,0.7)';
+    toast('☁️ Connected! Download & re-upload to GitHub to finish setup.');
   }catch(err){
     statusEl.textContent='❌ '+err.message;
     statusEl.style.color='#EF4444';
   }
 }
 
+function bakeBinIntoPage(binId, apiKey){
+  // This is the magic step: we write the bin ID directly into the page's own source
+  // so when it's re-uploaded to GitHub, ALL future visitors get the bin ID automatically
+  try{
+    var scripts = document.querySelectorAll('script');
+    scripts.forEach(function(s){
+      if(s.textContent.indexOf("HARDCODED_BIN = ''")!==-1){
+        s.textContent = s.textContent
+          .replace("var HARDCODED_BIN = '';", "var HARDCODED_BIN = '"+binId+"';");
+      }
+    });
+    console.log('Bin baked into page source:', binId);
+  }catch(e){
+    console.log('Could not bake bin into page:', e);
+  }
+}
+
 function collectData(){
-  // Collect all editable content from the page
   var editables={};
   document.querySelectorAll('[data-edit][id]').forEach(function(el){
     editables[el.id]=el.innerHTML;
@@ -1764,19 +1809,19 @@ function collectData(){
 
 function applyData(data){
   if(!data)return;
-  // Restore editable text
   if(data.editables){
     Object.keys(data.editables).forEach(function(id){
       var el=document.getElementById(id);
-      if(el)el.innerHTML=data.editables[id];
+      if(el && !el.matches('script,style')){
+        el.innerHTML=data.editables[id];
+      }
     });
   }
-  // Restore data
   if(data.sponsors)sponsors=data.sponsors;
   if(data.teams)teams=data.teams;
   if(data.actions)actions=data.actions;
   if(data.raffleItems)raffleItems=data.raffleItems;
-  if(data.maxTeams)maxTeams=data.maxTeams;
+  if(data.maxTeams)maxTeams=parseInt(data.maxTeams)||25;
   renderSponsors();
   buildTeams();
   renderRafflePublic();
@@ -1786,7 +1831,7 @@ function applyData(data){
 
 async function cloudSave(){
   if(!JB_KEY||!JB_BIN){
-    toast('⚠️ Connect cloud saving first (see setup below)');
+    toast('⚠️ Cloud not connected — open Admin → Dashboard to set it up');
     return;
   }
   var btn=document.getElementById('save-btn');
@@ -1806,9 +1851,9 @@ async function cloudSave(){
     var timeStr=now.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
     var lastSaved=document.getElementById('cloud-last-saved');
     if(lastSaved)lastSaved.textContent='Last saved: '+timeStr;
-    setCloudDot('ready','Saved — all editors see changes now');
+    setCloudDot('ready','Saved ✅ — everyone sees changes now');
     btn.textContent='✅ Saved!';
-    setTimeout(function(){btn.textContent=orig;btn.style.opacity='1';},2500);
+    setTimeout(function(){btn.textContent=orig;btn.style.opacity='1';},3000);
     toast('✅ Saved! Everyone sees your changes now.');
   }catch(err){
     setCloudDot('error','Save failed — try again');
@@ -1818,28 +1863,38 @@ async function cloudSave(){
 }
 
 async function cloudLoad(){
-  if(!JB_KEY||!JB_BIN)return;
-  setCloudDot('loading','Loading latest data...');
+  if(!JB_BIN)return;
+  setCloudDot('loading','Loading your saved data...');
   try{
-    var res=await fetch(JB_BASE+'/b/'+JB_BIN+'/latest',{
-      headers:{'X-Master-Key':JB_KEY}
-    });
-    if(!res.ok)throw new Error('Load failed');
+    // Public bins can be read WITHOUT the master key using X-Bin-Meta:false
+    var headers = {'X-Bin-Meta':'false'};
+    if(JB_KEY) headers['X-Master-Key'] = JB_KEY;
+    var res=await fetch(JB_BASE+'/b/'+JB_BIN+'/latest',{headers:headers});
+    if(!res.ok){
+      // Try without /latest if that fails
+      res=await fetch(JB_BASE+'/b/'+JB_BIN,{headers:headers});
+    }
+    if(!res.ok)throw new Error('Load failed: '+res.status);
     var result=await res.json();
-    applyData(result.record);
+    // JSONBin wraps data in {record:{...}} when using master key, or returns directly for public
+    var record = result.record || result;
+    if(!record || !record.savedAt) throw new Error('No saved data found');
+    applyData(record);
     setCloudDot('ready','Connected — changes save to cloud');
     var lastSaved=document.getElementById('cloud-last-saved');
-    if(lastSaved&&result.record&&result.record.savedAt){
-      var d=new Date(result.record.savedAt);
+    if(lastSaved&&record.savedAt){
+      var d=new Date(record.savedAt);
       lastSaved.textContent='Last saved: '+d.toLocaleString();
     }
+    console.log('Cloud data loaded successfully from bin:', JB_BIN);
   }catch(err){
-    setCloudDot('error','Could not load — using local data');
+    setCloudDot('error','Could not load saved data');
+    console.log('Cloud load error:',err.message);
   }
 }
 
 function resetCloud(){
-  if(!confirm('Disconnect cloud saving? (Does not delete your JSONBin data)'))return;
+  if(!confirm('Disconnect cloud saving?'))return;
   JB_KEY='';JB_BIN='';
   try{localStorage.removeItem('wg_jb_key');localStorage.removeItem('wg_jb_bin');}catch(e){}
   var setup=document.getElementById('cloud-setup');
@@ -1850,7 +1905,7 @@ function resetCloud(){
   toast('Cloud disconnected');
 }
 
-// Auto-load cloud data when page opens
+// Load cloud data when page opens
 document.addEventListener('DOMContentLoaded',function(){
   loadCloudConfig();
 });
