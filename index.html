@@ -1835,6 +1835,16 @@ function applyData(data){
   if(data.actions)actions=data.actions;
   if(data.raffleItems)raffleItems=data.raffleItems;
   if(data.maxTeams)maxTeams=parseInt(data.maxTeams)||25;
+  if(data.scholars){scholars=data.scholars;renderScholars();}
+  if(data.causePhotos){
+    causePhotos=data.causePhotos;
+    [1,2].forEach(function(n){
+      if(causePhotos[n]){
+        var slot=document.getElementById('cause-slot-'+n);
+        if(slot)slot.innerHTML='<img src="'+causePhotos[n]+'" alt="photo" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:7px;">';
+      }
+    });
+  }
   renderSponsors();
   buildTeams();
   renderRafflePublic();
@@ -1882,7 +1892,7 @@ async function cloudLoad(){
     // Public bins can be read WITHOUT the master key using X-Bin-Meta:false
     var headers = {'X-Bin-Meta':'false'};
     if(JB_KEY) headers['X-Master-Key'] = JB_KEY;
-    var res=await fetch(JB_BASE+'/b/'+JB_BIN+'/latest',{headers:headers});
+    var res=await fetch(JB_BASE+'/b/'+JB_BIN+'/latest?t='+Date.now(),{headers:headers});
     if(!res.ok){
       // Try without /latest if that fails
       res=await fetch(JB_BASE+'/b/'+JB_BIN,{headers:headers});
