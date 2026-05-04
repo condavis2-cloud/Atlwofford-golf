@@ -330,7 +330,7 @@ nav{
    SECTIONS
 ══════════════════════════════════ */
 section{padding:5rem 2rem;scroll-margin-top:58px;}
-.container{max-width:1160px;margin:0 auto;}
+.container{max-width:1280px;margin:0 auto;}
 .sec-lbl{display:inline-flex;align-items:center;gap:0.55rem;font-family:'Oswald',sans-serif;font-size:0.72rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold-dark);margin-bottom:0.8rem;}
 .sec-lbl::before{content:'';width:20px;height:2px;background:var(--gold);}
 .sec-ttl{font-family:'Oswald',sans-serif;font-size:clamp(1.8rem,4vw,2.7rem);font-weight:700;color:var(--black);letter-spacing:0.02em;text-transform:uppercase;line-height:1.1;margin-bottom:0.8rem;}
@@ -541,6 +541,8 @@ footer{background:#0A0806;padding:1.6rem;text-align:center;border-top:2px solid 
    MOBILE
 ══════════════════════════════════ */
 @media(max-width:768px){
+#cause-main-grid{grid-template-columns:1fr!important;}
+
   #hamburger{display:flex;}
   .nav-links{display:none;}
   .cause-grid,.details-grid,.fin-grid,.scholar-card{grid-template-columns:1fr;gap:1.4rem;}
@@ -570,15 +572,17 @@ footer{background:#0A0806;padding:1.6rem;text-align:center;border-top:2px solid 
 #admin-drawer.expanded .drw-pane{padding:1.5rem 1.8rem;}
 
 /* Cause photo panel */
-.cause-photo-panel{display:flex;flex-direction:column;gap:0.8rem;}
+.cause-photo-panel{display:flex;flex-direction:column;gap:1rem;}
 .cause-photos-row{display:flex;gap:0.8rem;align-items:flex-start;}
 .cause-photos-row .cause-photo-slot{flex:1;}
-.cause-photo-slot{background:rgba(255,255,255,0.06);border:2px dashed rgba(201,168,76,0.3);border-radius:9px;aspect-ratio:4/3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.4rem;cursor:pointer;transition:border-color 0.2s;position:relative;overflow:hidden;}
+.cause-photo-slot{background:rgba(255,255,255,0.06);border:2px dashed rgba(201,168,76,0.3);border-radius:9px;aspect-ratio:3/2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.4rem;cursor:pointer;transition:border-color 0.2s;position:relative;overflow:hidden;}
 .cause-photo-slot:hover{border-color:var(--gold);}
 .cause-photo-slot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:7px;}
 .cause-photo-caption{background:rgba(255,255,255,0.06);border:1px solid rgba(201,168,76,0.2);border-radius:7px;padding:0.5rem 0.7rem;font-size:0.78rem;color:rgba(255,255,255,0.55);font-style:italic;min-height:2.5rem;outline:none;width:100%;font-family:'DM Sans',sans-serif;resize:none;}
 .cause-photo-caption:focus{border-color:var(--gold);background:rgba(255,255,255,0.09);}
-@media(max-width:768px){#cause-main-grid{grid-template-columns:1fr!important;}}
+@media(max-width:768px){
+#cause-main-grid{grid-template-columns:1fr!important;}
+#cause-main-grid{grid-template-columns:1fr!important;}}
 </style>
 </head>
 <body>
@@ -987,7 +991,7 @@ footer{background:#0A0806;padding:1.6rem;text-align:center;border-top:2px solid 
 <!-- ════ CAUSE ════ -->
 <section class="dark" id="cause">
   <div class="container">
-    <div style="display:grid;grid-template-columns:1fr 280px;gap:2rem;align-items:start;" id="cause-main-grid">
+    <div style="display:grid;grid-template-columns:1fr 360px;gap:3rem;align-items:start;" id="cause-main-grid">
       <div>
         <div class="sec-lbl">Our Story</div>
         <h2 class="sec-ttl" data-edit="" contenteditable="false">TOURNAMENT <em>LEGACY</em></h2>
@@ -1720,12 +1724,13 @@ var JB_BIN = '69f0ff3b856a68218982fd50';
 var JB_BASE = 'https://api.jsonbin.io/v3';
 
 function loadCloudConfig(){
-  JB_BIN = '69f0ff3b856a68218982fd50';
-  JB_KEY = '$2a$10$NucwkwEf/gYvsEQFkK8Y8OKIk9yZk6q/SouwWoUKuBQo5jpxNhMCq';
-  try{localStorage.setItem('wg_jb_key',JB_KEY);localStorage.setItem('wg_jb_bin',JB_BIN);}catch(e){}
+  JB_BIN= + BIN_ID + ;
+  JB_KEY= + MASTER_KEY + ;
+  try{localStorage.setItem('wg_jb_bin',JB_BIN);localStorage.setItem('wg_jb_key',JB_KEY);}catch(e){}
   showCloudConnected();
   cloudLoad();
 }
+
 
 function showCloudConnected(){
   var setup=document.getElementById('cloud-setup');
@@ -1887,35 +1892,35 @@ async function cloudSave(){
 }
 
 async function cloudLoad(){
-  if(!JB_BIN)return;
-  setCloudDot('loading','Loading your saved data...');
+  if(!JB_BIN||!JB_KEY)return;
+  setCloudDot('loading','Loading...');
   try{
-    // Public bins can be read WITHOUT the master key using X-Bin-Meta:false
-    var headers = {'X-Bin-Meta':'false'};
-    if(JB_KEY) headers['X-Master-Key'] = JB_KEY;
-    var res=await fetch(JB_BASE+'/b/'+JB_BIN+'/latest?t='+Date.now(),{headers:headers});
-    if(!res.ok){
-      // Try without /latest if that fails
-      res=await fetch(JB_BASE+'/b/'+JB_BIN,{headers:headers});
-    }
-    if(!res.ok)throw new Error('Load failed: '+res.status);
+    var url=JB_BASE+'/b/'+JB_BIN+'/latest';
+    var res=await fetch(url,{
+      method:'GET',
+      cache:'no-store',
+      headers:{
+        'X-Master-Key':JB_KEY,
+        'X-Bin-Meta':'false',
+        'Cache-Control':'no-cache, no-store, must-revalidate',
+        'Pragma':'no-cache'
+      }
+    });
+    if(!res.ok) throw new Error('HTTP '+res.status);
     var result=await res.json();
-    // JSONBin wraps data in {record:{...}} when using master key, or returns directly for public
-    var record = result.record || result;
-    if(!record || !record.savedAt) throw new Error('No saved data found');
+    var record=result.record||result;
+    if(!record||!record.savedAt) throw new Error('No data');
     applyData(record);
-    setCloudDot('ready','Connected — changes save to cloud');
-    var lastSaved=document.getElementById('cloud-last-saved');
-    if(lastSaved&&record.savedAt){
-      var d=new Date(record.savedAt);
-      lastSaved.textContent='Last saved: '+d.toLocaleString();
-    }
-    console.log('Cloud data loaded successfully from bin:', JB_BIN);
+    setCloudDot('ready','Connected ✅');
+    var el=document.getElementById('cloud-last-saved');
+    if(el&&record.savedAt) el.textContent='Last saved: '+new Date(record.savedAt).toLocaleString();
+    console.log('Loaded from JSONBin successfully');
   }catch(err){
-    setCloudDot('error','Could not load saved data');
-    console.log('Cloud load error:',err.message);
+    setCloudDot('error','Load failed: '+err.message);
+    console.error('cloudLoad error:',err);
   }
 }
+
 
 function resetCloud(){
   if(!confirm('Disconnect cloud saving?'))return;
